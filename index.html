@@ -1,0 +1,239 @@
+<title>Programación para Financieros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #F3F8FF;
+  --bg-surface: #FFFFFF;
+  --fg: #1E3A5F;
+  --fg-muted: #4A6A8A;
+  --accent: #4A90D9;
+  --accent-dark: #2E6DB8;
+  --accent-light: #E8F0FF;
+  --lavender: #7B68EE;
+  --lavender-light: #F0EDFF;
+  --border: #C8D8EC;
+  --shadow: 0 2px 12px rgba(160,180,220,0.08);
+  --radius: 14px;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --max-w: 780px;
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  line-height: 1.6;
+}
+
+.wrapper {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 0 40px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), var(--lavender));
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  text-wrap: balance;
+  background: linear-gradient(135deg, var(--accent-dark), var(--lavender));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: var(--fg-muted);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Info bar */
+.info-bar {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 24px 0 40px;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+}
+
+.info-bar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Session cards */
+.sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 60px;
+}
+
+.session-card {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  box-shadow: var(--shadow);
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(74,144,217,0.15);
+  border-color: var(--accent);
+}
+
+.session-num {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.session-card .session-info h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.session-card .session-info p {
+  font-size: 0.88rem;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.session-card .arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 1.2rem;
+  opacity: 0.5;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.session-card:hover .arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* Badge for parts */
+.parts-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--lavender-light);
+  color: var(--lavender);
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Locked / coming soon */
+.session-card.locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.session-card.locked .session-num {
+  background: var(--border) !important;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 32px 0;
+  border-top: 1.5px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+</style>
+
+<div class="wrapper">
+
+  <header class="hero">
+    <div class="hero-badge">Universidad de Caldas </div>
+    <h1>Programación para Financieros</h1>
+    <p>Material de clase — Python aplicado a las finanzas para estudiantes de Administración Financiera.</p>
+  </header>
+
+  <div class="info-bar">
+    <span>👨‍🏫 Prof. Marlon Nieves</span>
+    <span>🐍 Python</span>
+    <span>📊 Finanzas</span>
+  </div>
+
+  <section class="sessions">
+
+    <a href="sesion11-parte1.html" class="session-card">
+      <div class="session-num" style="background: linear-gradient(135deg, var(--accent-dark), var(--lavender))">11</div>
+      <div class="session-info">
+        <h3>Matplotlib — Parte 1 <span class="parts-badge">Parte 1 de 2</span></h3>
+        <p>Línea, barras, torta y dispersión — los 4 gráficos esenciales con datos financieros colombianos.</p>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="sesion11-parte2.html" class="session-card">
+      <div class="session-num" style="background: linear-gradient(135deg, var(--lavender), #E07BAC)">11</div>
+      <div class="session-info">
+        <h3>Matplotlib — Parte 2 <span class="parts-badge">Parte 2 de 2</span></h3>
+        <p>Histogramas, NumPy, guardar gráficos, errores comunes y reto integrador.</p>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+  </section>
+
+  <footer>
+    Programación para Financieros · Universidad de Caldas<br>
+    Material educativo de uso libre · <a href="https://github.com/marlon9905/programacion-financieros" target="_blank" rel="noopener">GitHub</a>
+  </footer>
+
+</div>
