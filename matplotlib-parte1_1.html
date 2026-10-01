@@ -1,4 +1,4 @@
-<title>Matplotlib - VISUALIZACION DE DATOS EN PYTHON </title>
+<title>Matplotlib - Sesión 11 (Parte 1)</title>
 <style>
 /* Layout: single-column editorial tutorial with code blocks and side gutters */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -135,7 +135,11 @@ body {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent-dark);
+  color: #7B68EE;
+  background: var(--lavender-light);
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 10px;
   margin-bottom: 6px;
 }
 .section h2 {
@@ -151,10 +155,55 @@ body {
   font-weight: 700;
   margin: 32px 0 10px;
   padding-top: 8px;
+  color: #2E6DB8;
 }
+
+/* ── Concept explainer box ── */
+.explainer {
+  background: linear-gradient(135deg, #F0EDFF 0%, #E8F0FF 100%);
+  border: 2px solid #BFD4FF;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+}
+.explainer strong {
+  color: #7B4FBF;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+.explainer .mapping {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin: 12px 0 4px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+}
+.explainer .mapping .arrow { color: #E07BAC; font-weight: 700; }
+.explainer .mapping .val { color: #2E6DB8; }
+
+/* ── Truco box ── */
+.truco {
+  background: linear-gradient(135deg, #FFF0F8 0%, #F0EDFF 100%);
+  border: 2px dashed #E07BAC;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+}
+.truco strong {
+  color: #C04070;
+  display: block;
+  margin-bottom: 4px;
+}
+.truco code { background: #fff; }
 .section p, .section ul, .section ol {
   margin: 0 0 14px;
 }
+.section strong { color: #2E6DB8; }
+.section li strong { color: #7B4FBF; }
 .section ul, .section ol { padding-left: 24px; }
 .section li { margin-bottom: 4px; }
 
@@ -385,12 +434,41 @@ code:not(pre code) {
   font-size: 0.82em;
 }
 
+/* ── Navigation between pages ── */
+.page-nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 48px 0 0;
+  padding: 32px 0;
+  border-top: 2px solid var(--border);
+}
+.page-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-dark), var(--lavender));
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(74,144,217,0.25);
+}
+.page-nav a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(74,144,217,0.35);
+}
+
 /* ── Footer ── */
 .footer {
   text-align: center;
   padding: 40px 0 0;
   border-top: 2px solid var(--border);
-  margin-top: 60px;
+  margin-top: 20px;
   color: var(--fg-muted);
   font-size: 0.85rem;
 }
@@ -400,6 +478,7 @@ code:not(pre code) {
 @media (max-width: 600px) {
   .toc-list { grid-template-columns: 1fr; }
   .chart-grid { grid-template-columns: repeat(2, 1fr); }
+  .page-nav { flex-direction: column; align-items: center; }
 }
 </style>
 
@@ -407,27 +486,21 @@ code:not(pre code) {
 
   <!-- Hero -->
   <header class="hero">
-    <div class="hero-badge">Programación para Financieros - VISUALIZACION DE DATOS EN PYTHON </div>
+    <div class="hero-badge">Programación para Financieros - VISUALIZACION DE DATOS EN PYTHON</div>
     <h1>Gráficos con <span>Matplotlib</span></h1>
-    <p>Aprende a crear visualizaciones profesionales con Python. Gráficos de línea, barras, torta, dispersión e histograma — con datos financieros.</p>
+    <p>Línea, barras, torta y dispersión — los 4 gráficos esenciales con datos financieros colombianos.</p>
   </header>
 
   <!-- Table of Contents -->
   <details class="toc" open>
-    <summary>Contenido de la sesión</summary>
+    <summary>Contenido de esta clase</summary>
     <ul class="toc-list">
-      <li><a href="#preparacion">Preparación</a></li>
-      <li><a href="#estructura">La estructura base</a></li>
-      <li><a href="#linea">Gráfico de línea</a></li>
-      <li><a href="#barras">Gráfico de barras</a></li>
-      <li><a href="#torta">Gráfico de torta</a></li>
-      <li><a href="#dispersion">Gráfico de dispersión</a></li>
-      <li><a href="#histograma">Histograma</a></li>
-      <li><a href="#numpy">NumPy + Matplotlib</a></li>
-      <li><a href="#guardar">Guardar gráficos</a></li>
-      <li><a href="#resumen">Resumen rápido</a></li>
-      <li><a href="#reto">Reto integrador</a></li>
-      <li><a href="#tareas">Tareas para casa</a></li>
+      <li><a href="#preparacion">01 · Preparación</a></li>
+      <li><a href="#estructura">02 · Estructura base</a></li>
+      <li><a href="#linea">03 · Gráfico de línea</a></li>
+      <li><a href="#barras">04 · Gráfico de barras</a></li>
+      <li><a href="#torta">05 · Gráfico de torta</a></li>
+      <li><a href="#dispersion">06 · Gráfico de dispersión</a></li>
     </ul>
   </details>
 
@@ -558,6 +631,30 @@ plt.ylabel(<span class="st">"Eje Y"</span>)
 plt.show()</code></pre>
     </div>
     <p>Debería abrirse una ventana con un gráfico de línea. ¡Felicidades, hiciste tu primer gráfico con Python!</p>
+
+    <div class="explainer">
+      <strong>🔍 ¿Qué significan esas dos listas?</strong>
+      <p>Cuando escribimos <code>plt.plot([1, 2, 3, 4, 5], [10, 20, 15, 30, 25])</code> estamos diciendo:</p>
+      <div class="mapping">
+        <span class="val">Primera lista [1, 2, 3, 4, 5]</span> <span class="arrow">→ Eje X (horizontal) — las posiciones de izquierda a derecha</span>
+        <span class="val">Segunda lista [10, 20, 15, 30, 25]</span> <span class="arrow">→ Eje Y (vertical) — los valores de abajo hacia arriba</span>
+      </div>
+      <p style="margin-top:12px">Imagina una tabla:</p>
+      <table class="summary-table" style="max-width:320px">
+        <tr><th>Posición (X)</th><th>Valor (Y)</th></tr>
+        <tr><td>1</td><td>10</td></tr>
+        <tr><td>2</td><td>20</td></tr>
+        <tr><td>3</td><td>15</td></tr>
+        <tr><td>4</td><td>30</td></tr>
+        <tr><td>5</td><td>25</td></tr>
+      </table>
+      <p style="margin-top:10px">Python dibuja un <strong>punto</strong> en cada par (x, y) y los une con una línea. Así el punto (1, 10) está a la izquierda abajo, y el punto (4, 30) está más a la derecha y más arriba.</p>
+    </div>
+
+    <div class="truco">
+      <strong>🎯 Truco: piensa en preguntas</strong>
+      Siempre que hagas un gráfico, piensa: ¿<strong>qué va en el eje X?</strong> (lo que quiero comparar — días, meses, productos) y ¿<strong>qué va en el eje Y?</strong> (lo que quiero medir — precios, ventas, notas). Eso te dice qué lista va primero y cuál va segundo.
+    </div>
   </section>
 
   <!-- SECTION: Línea -->
@@ -585,12 +682,20 @@ plt.ylabel(<span class="st">"Precio (COP)"</span>)
 plt.show()</code></pre>
     </div>
 
-    <p><code>plt.plot(x, y)</code> recibe <strong>dos listas</strong>:</p>
-    <ul>
-      <li>Primera lista (x): lo que va en el eje horizontal (los días)</li>
-      <li>Segunda lista (y): lo que va en el eje vertical (los precios)</li>
-      <li>Las dos listas <strong>deben tener el mismo tamaño</strong></li>
-    </ul>
+    <div class="explainer">
+      <strong>🔍 ¿Qué hace cada parte?</strong>
+      <div class="mapping">
+        <span class="val">dias = ["Lun", "Mar", ...]</span> <span class="arrow">→ Son las etiquetas del eje X (horizontal)</span>
+        <span class="val">dolar = [4200, 4180, ...]</span> <span class="arrow">→ Son los valores del eje Y (vertical)</span>
+        <span class="val">plt.plot(dias, dolar)</span> <span class="arrow">→ "Dibuja una línea usando días como X y dólar como Y"</span>
+      </div>
+      <p style="margin-top:10px">Las dos listas <strong>deben tener el mismo tamaño</strong>. Si <code>dias</code> tiene 5 elementos, <code>dolar</code> también debe tener 5. Si no, Python te dará un error.</p>
+    </div>
+
+    <div class="truco">
+      <strong>🎯 Truco: ¿error de tamaño?</strong>
+      Si te sale el error <code>x and y must have same first dimension</code>, cuenta los elementos de cada lista. Seguro una tiene más o menos que la otra. Usa <code>print(len(dias), len(dolar))</code> para verificar.
+    </div>
 
     <h3>Personalizar la línea</h3>
     <p>Podemos cambiar el color, el grosor, agregar puntos y una cuadrícula de fondo:</p>
@@ -713,12 +818,22 @@ plt.grid(<span class="kw">True</span>, axis<span class="op">=</span><span class=
 plt.show()</code></pre>
     </div>
 
+    <div class="explainer">
+      <strong>🔍 ¿Cuál es la diferencia entre plt.plot() y plt.bar()?</strong>
+      <p><code>plt.plot()</code> conecta los puntos con una línea — sirve para ver <strong>tendencias</strong> (sube o baja). <code>plt.bar()</code> dibuja rectángulos separados — sirve para <strong>comparar</strong> (cuál es más grande). Si tus datos son categorías independientes (sucursales, materias, productos), usa barras.</p>
+    </div>
+
     <p>Opciones de color:</p>
     <ul>
       <li>Un solo color para todas: <code>color="orange"</code></li>
       <li>Un color por barra: <code>color=["blue", "green", "red", "orange"]</code></li>
       <li><code>plt.grid(True, axis="y")</code> — cuadrícula solo horizontal, se ve más limpio en barras</li>
     </ul>
+
+    <div class="truco">
+      <strong>🎯 Truco: colores con nombre o con código</strong>
+      Python acepta colores por nombre (<code>"red"</code>, <code>"blue"</code>, <code>"green"</code>, <code>"teal"</code>, <code>"orange"</code>) o por código hexadecimal (<code>"#2B6CB0"</code>). Los hexadecimales te dan más opciones de color. Busca "color picker" en Google para encontrar el código de cualquier color.
+    </div>
 
     <h3>Barras horizontales</h3>
     <p>Cuando los nombres son largos, las barras horizontales se leen mejor:</p>
@@ -831,7 +946,16 @@ plt.title(<span class="st">"Distribución del portafolio"</span>)
 plt.show()</code></pre>
     </div>
 
-    <p><code>labels=activos</code> le pone el nombre a cada porción de la torta.</p>
+    <div class="explainer">
+      <strong>🔍 ¿Cómo funciona plt.pie()?</strong>
+      <p>A diferencia de <code>plt.plot()</code> y <code>plt.bar()</code> que necesitan dos listas (X e Y), la torta solo necesita <strong>una lista de valores</strong>. Python calcula automáticamente el porcentaje de cada porción. Si los valores son <code>[40, 30, 20, 10]</code>, la torta se divide en 40%, 30%, 20% y 10%.</p>
+      <p><code>labels=activos</code> le pone el nombre a cada porción. Sin labels, la torta sale sin etiquetas y no se sabe qué es cada pedazo.</p>
+    </div>
+
+    <div class="truco">
+      <strong>🎯 Truco: ¿torta o barras?</strong>
+      Usa torta cuando quieras mostrar <strong>partes de un todo</strong> (el presupuesto, la composición de algo). Si tienes más de 6 categorías, mejor usa barras — una torta con muchas porciones pequeñas se vuelve difícil de leer.
+    </div>
 
     <h3>Con porcentajes visibles y personalización</h3>
     <div class="code-wrap">
@@ -886,12 +1010,22 @@ porcentajes <span class="op">=</span> [<span class="nb">35</span>, <span class="
     <h2>Gráfico de dispersión — <code>plt.scatter()</code></h2>
     <p>Se usa para ver la <strong>relación entre dos variables numéricas</strong>. Los datos se muestran como puntos sueltos.</p>
 
+    <div class="explainer">
+      <strong>🔍 ¿Para qué sirve la dispersión?</strong>
+      <p>Este gráfico responde la pregunta: <strong>¿cuando X sube, Y también sube?</strong> Por ejemplo: ¿si invierto más en publicidad, vendo más? ¿Si estudio más horas, saco mejor nota? Cada punto representa un caso individual.</p>
+    </div>
+
     <h3>¿Cómo interpretar los puntos?</h3>
     <ul>
       <li>Si los puntos <strong>suben</strong> de izquierda a derecha → relación <strong>positiva</strong> (más de X = más de Y)</li>
       <li>Si los puntos <strong>bajan</strong> → relación <strong>negativa</strong> (más de X = menos de Y)</li>
       <li>Si están <strong>regados sin patrón</strong> → no hay relación</li>
     </ul>
+
+    <div class="truco">
+      <strong>🎯 Truco: en finanzas esto es clave</strong>
+      En el mundo financiero, la dispersión se usa para analizar <strong>correlaciones</strong>: ¿el precio del petróleo afecta al dólar? ¿Las tasas de interés afectan las ventas? Si ves los puntos formando una "línea diagonal", hay correlación.
+    </div>
 
     <h3>Ejemplo: Riesgo vs Rendimiento</h3>
     <div class="code-wrap">
@@ -932,321 +1066,10 @@ notas <span class="op">=</span> [<span class="nb">2.0</span>, <span class="nb">2
     </div>
   </section>
 
-  <!-- SECTION: Histograma -->
-  <section class="section" id="histograma">
-    <div class="section-number">07</div>
-    <h2>Histograma — <code>plt.hist()</code></h2>
-    <p>Se usa para ver cómo se <strong>distribuyen</strong> los datos. Agrupa los valores en rangos y cuenta cuántos caen en cada uno. Ejemplo: ¿cuántos empleados ganan entre 2 y 3 millones?</p>
-
-    <h3>Ejemplo: distribución de salarios</h3>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>distribucion_salarios.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-
-salarios <span class="op">=</span> [<span class="nb">1200000</span>, <span class="nb">1500000</span>, <span class="nb">1800000</span>, <span class="nb">2000000</span>, <span class="nb">1300000</span>,
-           <span class="nb">1600000</span>, <span class="nb">1900000</span>, <span class="nb">2500000</span>, <span class="nb">1400000</span>, <span class="nb">1700000</span>,
-           <span class="nb">1350000</span>, <span class="nb">1650000</span>, <span class="nb">1850000</span>, <span class="nb">2200000</span>, <span class="nb">1550000</span>]
-
-plt.hist(salarios, bins<span class="op">=</span><span class="nb">5</span>, color<span class="op">=</span><span class="st">"teal"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)
-plt.title(<span class="st">"Distribución de salarios"</span>)
-plt.xlabel(<span class="st">"Salario (COP)"</span>)
-plt.ylabel(<span class="st">"Cantidad de personas"</span>)
-plt.show()</code></pre>
-    </div>
-
-    <div class="info">
-      <strong>📊 Diferencia clave</strong>
-      A diferencia de los otros gráficos, <code>plt.hist()</code> recibe <strong>una sola lista</strong>. Python calcula los rangos automáticamente.
-      <br><br>
-      <code>bins=5</code> divide los datos en <strong>5 rangos</strong> (barras). Más bins = más detalle, menos bins = más claro. Normalmente entre 5 y 15 está bien.
-    </div>
-
-    <h3>Comparar dos distribuciones</h3>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>comparar_rendimientos.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-
-ecopetrol <span class="op">=</span> [<span class="nb">2.1</span>, <span class="nb">3.5</span>, <span class="op">-</span><span class="nb">1.2</span>, <span class="nb">4.0</span>, <span class="nb">0.5</span>, <span class="nb">2.8</span>, <span class="op">-</span><span class="nb">0.3</span>, <span class="nb">1.5</span>, <span class="nb">3.2</span>, <span class="op">-</span><span class="nb">2.0</span>, <span class="nb">1.8</span>, <span class="nb">2.5</span>]
-bancolombia <span class="op">=</span> [<span class="nb">1.0</span>, <span class="op">-</span><span class="nb">0.5</span>, <span class="nb">0.8</span>, <span class="nb">1.5</span>, <span class="nb">2.0</span>, <span class="op">-</span><span class="nb">1.0</span>, <span class="nb">0.3</span>, <span class="nb">1.2</span>, <span class="nb">0.5</span>, <span class="op">-</span><span class="nb">0.2</span>, <span class="nb">1.8</span>, <span class="nb">0.7</span>]
-
-plt.hist(ecopetrol, bins<span class="op">=</span><span class="nb">6</span>, alpha<span class="op">=</span><span class="nb">0.6</span>, label<span class="op">=</span><span class="st">"Ecopetrol"</span>, color<span class="op">=</span><span class="st">"blue"</span>)
-plt.hist(bancolombia, bins<span class="op">=</span><span class="nb">6</span>, alpha<span class="op">=</span><span class="nb">0.6</span>, label<span class="op">=</span><span class="st">"Bancolombia"</span>, color<span class="op">=</span><span class="st">"green"</span>)
-plt.title(<span class="st">"Distribución de rendimientos mensuales (%)"</span>)
-plt.xlabel(<span class="st">"Rendimiento (%)"</span>)
-plt.ylabel(<span class="st">"Frecuencia"</span>)
-plt.legend()
-plt.show()</code></pre>
-    </div>
-
-    <div class="tip">
-      <strong>💡 alpha = transparencia</strong>
-      <code>alpha=0.6</code> hace cada histograma semi-transparente (0 = invisible, 1 = sólido). Sin alpha, el segundo histograma tapa al primero y no se ve la comparación.
-    </div>
-
-    <div class="exercise">
-      <span class="exercise-tag">Ejercicio 7</span>
-      <h4>Distribución de notas</h4>
-      <p>Cree una lista con <strong>20 notas</strong> (invéntelas entre 1.0 y 5.0). Grafique un histograma con <code>bins=5</code>. ¿En qué rango hay más notas?</p>
-    </div>
-  </section>
-
-  <!-- SECTION: NumPy + Matplotlib -->
-  <section class="section" id="numpy">
-    <div class="section-number">08</div>
-    <h2>NumPy + Matplotlib — la combinación poderosa</h2>
-    <p>Aquí es donde <strong>todo se conecta</strong>. NumPy calcula los datos y Matplotlib los grafica. Es la combinación que usan en la vida real.</p>
-
-    <h3>Rendimiento de acciones colombianas</h3>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>rendimiento_acciones.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-<span class="kw">import</span> numpy <span class="kw">as</span> np
-
-acciones <span class="op">=</span> [<span class="st">"Ecopetrol"</span>, <span class="st">"Bancolombia"</span>, <span class="st">"Nutresa"</span>, <span class="st">"ISA"</span>, <span class="st">"Avianca"</span>]
-compra <span class="op">=</span> np.array([<span class="nb">2500</span>, <span class="nb">30000</span>, <span class="nb">25000</span>, <span class="nb">18000</span>, <span class="nb">4500</span>])
-actual <span class="op">=</span> np.array([<span class="nb">2850</span>, <span class="nb">32000</span>, <span class="nb">24000</span>, <span class="nb">19500</span>, <span class="nb">3800</span>])
-
-ganancia <span class="op">=</span> actual <span class="op">-</span> compra
-rendimiento <span class="op">=</span> (ganancia <span class="op">/</span> compra) <span class="op">*</span> <span class="nb">100</span>
-
-<span class="cm"># Verde si ganó, rojo si perdió</span>
-colores <span class="op">=</span> [<span class="st">"green"</span> <span class="kw">if</span> g <span class="op">></span> <span class="nb">0</span> <span class="kw">else</span> <span class="st">"red"</span> <span class="kw">for</span> g <span class="kw">in</span> ganancia]
-
-plt.figure(figsize<span class="op">=</span>(<span class="nb">10</span>, <span class="nb">6</span>))
-plt.bar(acciones, rendimiento, color<span class="op">=</span>colores)
-plt.title(<span class="st">"Rendimiento por acción (%)"</span>)
-plt.xlabel(<span class="st">"Acción"</span>)
-plt.ylabel(<span class="st">"Rendimiento (%)"</span>)
-plt.grid(<span class="kw">True</span>, axis<span class="op">=</span><span class="st">"y"</span>)
-plt.tight_layout()
-plt.show()</code></pre>
-    </div>
-
-    <div class="info">
-      <strong>🎨 Colores automáticos con condición</strong>
-      La línea <code>colores = ["green" if g > 0 else "red" for g in ganancia]</code> es una "comprensión de lista". Recorre cada valor de <code>ganancia</code> y pone <code>"green"</code> si es positivo o <code>"red"</code> si es negativo. No se preocupen si no la entienden completa — pueden copiarla y modificar los colores.
-    </div>
-
-    <h3>Precio del dólar con línea de media</h3>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>dolar_con_media.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-<span class="kw">import</span> numpy <span class="kw">as</span> np
-
-dias <span class="op">=</span> <span class="fn">list</span>(<span class="fn">range</span>(<span class="nb">1</span>, <span class="nb">11</span>))
-dolar <span class="op">=</span> np.array([<span class="nb">4200</span>, <span class="nb">4180</span>, <span class="nb">4250</span>, <span class="nb">4300</span>, <span class="nb">4150</span>, <span class="nb">4220</span>, <span class="nb">4280</span>, <span class="nb">4190</span>, <span class="nb">4310</span>, <span class="nb">4175</span>])
-
-media <span class="op">=</span> np.mean(dolar)
-
-plt.figure(figsize<span class="op">=</span>(<span class="nb">10</span>, <span class="nb">5</span>))
-plt.plot(dias, dolar, marker<span class="op">=</span><span class="st">"o"</span>, color<span class="op">=</span><span class="st">"#2B6CB0"</span>, label<span class="op">=</span><span class="st">"Precio diario"</span>)
-plt.axhline(y<span class="op">=</span>media, color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="kw">f</span><span class="st">"Media: $</span>{media<span class="op">:</span><span class="st">,.0f}</span><span class="st">"</span>)
-plt.title(<span class="st">"Precio del dólar — 10 días"</span>)
-plt.xlabel(<span class="st">"Día"</span>)
-plt.ylabel(<span class="st">"Precio (COP)"</span>)
-plt.legend()
-plt.grid(<span class="kw">True</span>)
-plt.show()</code></pre>
-    </div>
-
-    <table class="summary-table">
-      <tr><th>Función</th><th>Qué hace</th></tr>
-      <tr><td><code>plt.axhline(y=valor)</code></td><td>Dibuja una línea <strong>horizontal</strong> en el valor indicado</td></tr>
-      <tr><td><code>linestyle="--"</code></td><td>Hace la línea punteada</td></tr>
-      <tr><td><code>np.mean(datos)</code></td><td>Calcula el promedio con NumPy</td></tr>
-    </table>
-
-    <p>Muy útil para mostrar la <strong>media, una meta, un límite</strong> sobre los datos reales.</p>
-
-    <h3>Torta desde datos calculados</h3>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>gastos_empresa.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-<span class="kw">import</span> numpy <span class="kw">as</span> np
-
-rubros <span class="op">=</span> [<span class="st">"Nómina"</span>, <span class="st">"Arriendo"</span>, <span class="st">"Insumos"</span>, <span class="st">"Marketing"</span>, <span class="st">"Otros"</span>]
-gastos <span class="op">=</span> np.array([<span class="nb">15000000</span>, <span class="nb">5000000</span>, <span class="nb">3500000</span>, <span class="nb">2000000</span>, <span class="nb">1500000</span>])
-
-total <span class="op">=</span> np.sum(gastos)
-
-<span class="cm"># Imprimir el resumen</span>
-<span class="fn">print</span>(<span class="kw">f</span><span class="st">"Total gastos: $</span>{total<span class="op">:</span><span class="st">,.0f}</span><span class="st">"</span>)
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(rubros)):
-    pct <span class="op">=</span> (gastos[i] <span class="op">/</span> total) <span class="op">*</span> <span class="nb">100</span>
-    <span class="fn">print</span>(<span class="kw">f</span><span class="st">"  </span>{rubros[i]}<span class="st">: $</span>{gastos[i]<span class="op">:</span><span class="st">,.0f}</span><span class="st"> (</span>{pct<span class="op">:</span><span class="st">.1f}</span><span class="st">%)"</span>)
-
-<span class="cm"># Graficar</span>
-plt.figure(figsize<span class="op">=</span>(<span class="nb">8</span>, <span class="nb">8</span>))
-plt.pie(gastos, labels<span class="op">=</span>rubros, autopct<span class="op">=</span><span class="st">"%1.1f%%"</span>,
-        colors<span class="op">=</span>[<span class="st">"#2B6CB0"</span>, <span class="st">"#38B2AC"</span>, <span class="st">"#4299E1"</span>, <span class="st">"#81E6D9"</span>, <span class="st">"#BEE3F8"</span>],
-        startangle<span class="op">=</span><span class="nb">90</span>)
-plt.title(<span class="kw">f</span><span class="st">"Composición de gastos — Total: $</span>{total<span class="op">:</span><span class="st">,.0f}</span><span class="st">"</span>)
-plt.show()</code></pre>
-    </div>
-  </section>
-
-  <!-- SECTION: Guardar -->
-  <section class="section" id="guardar">
-    <div class="section-number">09</div>
-    <h2>Guardar gráficos como imagen</h2>
-    <p>En vez de solo mostrar el gráfico, puedes <strong>guardarlo como archivo de imagen</strong>:</p>
-
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>guardar_grafico.py</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code><span class="cm"># Guardar como imagen:</span>
-plt.savefig(<span class="st">"mi_grafico.png"</span>)
-
-<span class="cm"># Guardar Y mostrar (las dos cosas):</span>
-plt.savefig(<span class="st">"reporte_ventas.png"</span>)
-plt.show()</code></pre>
-    </div>
-
-    <div class="warning">
-      <strong>⚠️ Orden importante</strong>
-      <code>plt.savefig()</code> debe ir <strong>ANTES</strong> de <code>plt.show()</code>. Si va después, guarda una imagen en blanco porque <code>plt.show()</code> limpia el gráfico de la memoria.
-    </div>
-
-    <p>El archivo <code>.png</code> se guarda en la <strong>misma carpeta</strong> donde está tu archivo <code>.py</code>.</p>
-  </section>
-
-  <!-- SECTION: Resumen -->
-  <section class="section" id="resumen">
-    <div class="section-number">10</div>
-    <h2>Resumen rápido — ¿Qué gráfico uso?</h2>
-
-    <table class="summary-table">
-      <tr><th>¿Qué quiero ver?</th><th>¿Qué uso?</th><th>Ejemplo</th></tr>
-      <tr><td>Cómo cambia algo en el <strong>tiempo</strong></td><td><code>plt.plot()</code></td><td>Precio del dólar por día</td></tr>
-      <tr><td><strong>Comparar</strong> categorías</td><td><code>plt.bar()</code></td><td>Ventas por sucursal</td></tr>
-      <tr><td><strong>Proporción</strong> del total</td><td><code>plt.pie()</code></td><td>Distribución del portafolio</td></tr>
-      <tr><td><strong>Relación</strong> entre dos variables</td><td><code>plt.scatter()</code></td><td>Riesgo vs rendimiento</td></tr>
-      <tr><td><strong>Distribución</strong> de datos</td><td><code>plt.hist()</code></td><td>Rangos de salarios</td></tr>
-    </table>
-
-    <h3>Funciones que SIEMPRE hay que agregar</h3>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>funciones imprescindibles</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code>plt.title(<span class="st">"..."</span>)     <span class="cm"># título del gráfico</span>
-plt.xlabel(<span class="st">"..."</span>)    <span class="cm"># nombre eje X</span>
-plt.ylabel(<span class="st">"..."</span>)    <span class="cm"># nombre eje Y</span>
-plt.legend()          <span class="cm"># leyenda (si hay varias series)</span>
-plt.grid(<span class="kw">True</span>)       <span class="cm"># cuadrícula de fondo</span>
-plt.show()            <span class="cm"># ¡mostrarlo!</span></code></pre>
-    </div>
-  </section>
-
-  <!-- SECTION: Reto -->
-  <section class="section" id="reto">
-    <div class="section-number">11</div>
-    <h2>Reto integrador — FinanzasApp S.A.</h2>
-    <p>Vas a crear un <strong>reporte visual completo</strong> de la empresa FinanzasApp S.A. Son 3 gráficos separados con los mismos datos base.</p>
-
-    <h3>Los datos de la empresa</h3>
-    <div class="code-wrap">
-      <div class="code-header">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>datos base — copia esto primero</span>
-        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-      </div>
-      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
-<span class="kw">import</span> numpy <span class="kw">as</span> np
-
-<span class="cm"># Datos de FinanzasApp S.A. (en millones COP)</span>
-meses <span class="op">=</span> [<span class="st">"Ene"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Abr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>]
-ingresos <span class="op">=</span> np.array([<span class="nb">85</span>, <span class="nb">92</span>, <span class="nb">78</span>, <span class="nb">105</span>, <span class="nb">95</span>, <span class="nb">110</span>])
-gastos <span class="op">=</span> np.array([<span class="nb">70</span>, <span class="nb">75</span>, <span class="nb">80</span>, <span class="nb">82</span>, <span class="nb">78</span>, <span class="nb">85</span>])
-
-<span class="cm"># Cálculos</span>
-utilidad <span class="op">=</span> ingresos <span class="op">-</span> gastos
-margen <span class="op">=</span> (utilidad <span class="op">/</span> ingresos) <span class="op">*</span> <span class="nb">100</span></code></pre>
-    </div>
-
-    <div class="exercise">
-      <span class="exercise-tag">Reto A</span>
-      <h4>Gráfico de línea: Ingresos vs Gastos</h4>
-      <p>Dos líneas (ingresos y gastos) con marcadores, leyenda, título y cuadrícula.</p>
-    </div>
-
-    <div class="exercise">
-      <span class="exercise-tag">Reto B</span>
-      <h4>Gráfico de barras: Utilidad mensual</h4>
-      <p>Barras con la utilidad de cada mes. Color <strong>verde</strong> si la utilidad es positiva, <strong>rojo</strong> si es negativa.</p>
-    </div>
-
-    <div class="exercise">
-      <span class="exercise-tag">Reto C</span>
-      <h4>Gráfico de torta: Distribución de gastos</h4>
-      <p>Distribución del gasto por área:</p>
-      <div class="code-wrap">
-        <div class="code-header">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span>datos del reto C</span>
-          <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-        </div>
-        <pre><code>areas <span class="op">=</span> [<span class="st">"Nómina"</span>, <span class="st">"Oficina"</span>, <span class="st">"Marketing"</span>, <span class="st">"Tecnología"</span>, <span class="st">"Otros"</span>]
-montos <span class="op">=</span> [<span class="nb">180</span>, <span class="nb">80</span>, <span class="nb">45</span>, <span class="nb">50</span>, <span class="nb">35</span>]</code></pre>
-      </div>
-      <p>Con porcentajes visibles y colores personalizados.</p>
-    </div>
-  </section>
-
-  <!-- SECTION: Tareas -->
-  <section class="section" id="tareas">
-    <div class="section-number">12</div>
-    <h2>Tareas para practicar en casa</h2>
-
-    <div class="exercise">
-      <span class="exercise-tag">Tarea 1</span>
-      <h4>Línea con media</h4>
-      <p>Cree un gráfico de <strong>línea</strong> con el precio de un producto durante 12 meses (invente los datos). Agregue una línea horizontal con la media usando <code>plt.axhline()</code> y <code>np.mean()</code>.</p>
-    </div>
-
-    <div class="exercise">
-      <span class="exercise-tag">Tarea 2</span>
-      <h4>Barras con colores condicionales</h4>
-      <p>Cree un gráfico de <strong>barras</strong> con las ventas de 6 vendedores. Use color verde para los que vendieron más de 50 millones y rojo para los que vendieron menos.</p>
-    </div>
-
-    <div class="exercise">
-      <span class="exercise-tag">Tarea 3</span>
-      <h4>Torta de tiempo semanal</h4>
-      <p>Cree un gráfico de <strong>torta</strong> con la distribución de su tiempo semanal (estudio, trabajo, descanso, transporte, etc.). Con porcentajes visibles.</p>
-    </div>
-
-    <div class="exercise">
-      <span class="exercise-tag">Tarea 4</span>
-      <h4>Dispersión publicidad vs ventas</h4>
-      <p>Cree un gráfico de <strong>dispersión</strong> con la relación entre inversión en publicidad y ventas de 10 productos (invente los datos). ¿Hay relación positiva?</p>
-    </div>
-  </section>
+  <!-- Navigation to Part 2 -->
+  <nav class="page-nav">
+    <a href="sesion11-parte2.html">Continuar con Parte 2 →</a>
+  </nav>
 
   <!-- Footer -->
   <footer class="footer">
@@ -1258,8 +1081,8 @@ montos <span class="op">=</span> [<span class="nb">180</span>, <span class="nb">
 
 <script>
 function copyCode(btn) {
-  const pre = btn.closest('.code-wrap').querySelector('pre code');
-  const text = pre.textContent;
+  var pre = btn.closest('.code-wrap').querySelector('pre code');
+  var text = pre.textContent;
   try {
     navigator.clipboard.writeText(text).then(function() {
       btn.textContent = '✓ Copiado';

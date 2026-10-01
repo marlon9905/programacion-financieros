@@ -1,0 +1,889 @@
+<title>Matplotlib - Sesión 11 (Parte 2)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #F3F8FF;
+  --bg-surface: #FFFFFF;
+  --bg-code: #EEF3FF;
+  --fg: #1E3A5F;
+  --fg-muted: #4A6A8A;
+  --fg-code: #2B4A70;
+  --accent: #4A90D9;
+  --accent-dark: #2E6DB8;
+  --accent-light: #E8F0FF;
+  --lavender: #7B68EE;
+  --lavender-light: #F0EDFF;
+  --pink: #FFF0F8;
+  --pink-solid: #E07BAC;
+  --purple-light: #EDEAFF;
+  --border: #C8D8EC;
+  --shadow: 0 2px 12px rgba(160,180,220,0.08);
+  --radius: 14px;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --max-w: 780px;
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  line-height: 1.7;
+  padding-inline: 20px;
+  padding-block: 0;
+}
+
+.page {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-block: 40px 80px;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 48px 0 40px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 48px;
+}
+.hero-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 5px 16px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  color: #1E3A5F;
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, var(--accent-dark), var(--pink-solid));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 1.05rem;
+  color: var(--fg-muted);
+  margin: 0;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+/* ── Nav lateral ── */
+.toc {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+  z-index: 10;
+}
+.toc summary {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+}
+.toc summary::-webkit-details-marker { display: none; }
+.toc summary::before { content: "☰ "; }
+.toc-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 4px 16px;
+  margin-top: 12px;
+  padding: 0;
+  list-style: none;
+}
+.toc-list a {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+.toc-list a:hover { color: var(--accent); }
+
+/* ── Section ── */
+.section {
+  margin-bottom: 56px;
+}
+.section-number {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7B68EE;
+  background: var(--lavender-light);
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+.section h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 8px;
+  color: #1E3A5F;
+  text-wrap: balance;
+}
+.section h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 32px 0 10px;
+  padding-top: 8px;
+  color: #2E6DB8;
+}
+
+/* ── Concept explainer box ── */
+.explainer {
+  background: linear-gradient(135deg, #F0EDFF 0%, #E8F0FF 100%);
+  border: 2px solid #BFD4FF;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+}
+.explainer strong {
+  color: #7B4FBF;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+.explainer .mapping {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin: 12px 0 4px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+}
+.explainer .mapping .arrow { color: #E07BAC; font-weight: 700; }
+.explainer .mapping .val { color: #2E6DB8; }
+
+/* ── Truco box ── */
+.truco {
+  background: linear-gradient(135deg, #FFF0F8 0%, #F0EDFF 100%);
+  border: 2px dashed #E07BAC;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+}
+.truco strong {
+  color: #C04070;
+  display: block;
+  margin-bottom: 4px;
+}
+.truco code { background: #fff; }
+.section p, .section ul, .section ol {
+  margin: 0 0 14px;
+}
+.section strong { color: #2E6DB8; }
+.section li strong { color: #7B4FBF; }
+.section ul, .section ol { padding-left: 24px; }
+.section li { margin-bottom: 4px; }
+
+/* ── Callout boxes ── */
+.tip, .warning, .info {
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+}
+.tip {
+  background: var(--lavender-light);
+  border-left: 4px solid var(--lavender);
+}
+.warning {
+  background: var(--pink);
+  border-left: 4px solid var(--pink-solid);
+}
+.info {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+}
+.tip strong, .warning strong, .info strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ── Code blocks ── */
+.code-wrap {
+  position: relative;
+  margin: 16px 0 20px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--accent-light);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+}
+.code-header .dots {
+  display: flex;
+  gap: 6px;
+}
+.code-header .dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.code-header .dots span:nth-child(1) { background: #FFC8D8; }
+.code-header .dots span:nth-child(2) { background: #D6E6FF; }
+.code-header .dots span:nth-child(3) { background: #E9E0FF; }
+.copy-btn {
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.copy-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+pre {
+  margin: 0;
+  padding: 20px;
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-top: none;
+  overflow-x: auto;
+  min-width: 0;
+}
+pre code {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--fg-code);
+  white-space: pre;
+}
+
+/* Syntax highlighting */
+.kw { color: #7B4FBF; }
+.fn { color: #2E6DB8; }
+.st { color: #2E8B57; }
+.cm { color: #8888AA; }
+.nb { color: #C04070; }
+.op { color: #1A8FA0; }
+
+code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+/* ── Result / output box ── */
+.output {
+  margin: -8px 0 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 14px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+  overflow-x: auto;
+  min-width: 0;
+}
+.output strong {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+}
+
+/* ── Exercise box ── */
+.exercise {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 24px 0;
+  box-shadow: var(--shadow);
+}
+.exercise-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  background: var(--accent-light);
+  border: 1px solid var(--accent);
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.exercise h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.exercise p, .exercise ol { font-size: 0.92rem; }
+
+/* ── Summary table ── */
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+.summary-table th {
+  text-align: left;
+  font-weight: 700;
+  padding: 10px 14px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--accent);
+}
+.summary-table th:first-child { border-radius: var(--radius) 0 0 0; }
+.summary-table th:last-child { border-radius: 0 var(--radius) 0 0; }
+.summary-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.summary-table tr:nth-child(even) td {
+  background: var(--accent-light);
+}
+.summary-table code {
+  font-size: 0.82em;
+}
+
+/* ── Navigation between pages ── */
+.page-nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 48px 0 0;
+  padding: 32px 0;
+  border-top: 2px solid var(--border);
+}
+.page-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-dark), var(--lavender));
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(74,144,217,0.25);
+}
+.page-nav a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(74,144,217,0.35);
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 40px 0 0;
+  border-top: 2px solid var(--border);
+  margin-top: 20px;
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+}
+.footer strong { color: var(--accent); }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .toc-list { grid-template-columns: 1fr; }
+  .page-nav { flex-direction: column; align-items: center; }
+}
+</style>
+
+<div class="page">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-badge">Sesión 11 · Parte 2 de 2</div>
+    <h1>Gráficos con <span>Matplotlib</span></h1>
+    <p>Histogramas, NumPy + Matplotlib, guardar gráficos, errores comunes y reto integrador.</p>
+  </header>
+
+  <!-- Navigation back to Part 1 -->
+  <nav class="page-nav" style="margin:0 0 40px; padding:0 0 0; border:none;">
+    <a href="sesion11-parte1.html">← Volver a Parte 1</a>
+  </nav>
+
+  <!-- Table of Contents -->
+  <details class="toc" open>
+    <summary>Contenido de esta clase</summary>
+    <ul class="toc-list">
+      <li><a href="#histograma">07 · Histograma</a></li>
+      <li><a href="#numpy">08 · NumPy + Matplotlib</a></li>
+      <li><a href="#guardar">09 · Guardar gráficos</a></li>
+      <li><a href="#errores">Errores comunes</a></li>
+      <li><a href="#resumen">10 · Resumen rápido</a></li>
+      <li><a href="#reto">11 · Reto integrador</a></li>
+      <li><a href="#tareas">12 · Tareas para casa</a></li>
+    </ul>
+  </details>
+
+  <!-- SECTION: Histograma -->
+  <section class="section" id="histograma">
+    <div class="section-number">07</div>
+    <h2>Histograma — <code>plt.hist()</code></h2>
+    <p>Se usa para ver cómo se <strong>distribuyen</strong> los datos. Agrupa los valores en rangos y cuenta cuántos caen en cada uno.</p>
+
+    <div class="explainer">
+      <strong>🔍 ¿Qué pregunta responde un histograma?</strong>
+      <p>Preguntas como: ¿cuántos empleados ganan entre 2 y 3 millones? ¿La mayoría de las notas están entre 3.0 y 4.0? ¿Los rendimientos de una acción son normalmente positivos o negativos? El histograma <strong>agrupa</strong> los datos en rangos (bins) y te muestra cuántos datos caen en cada rango.</p>
+    </div>
+
+    <h3>Ejemplo: distribución de salarios</h3>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>distribucion_salarios.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+
+salarios <span class="op">=</span> [<span class="nb">1200000</span>, <span class="nb">1500000</span>, <span class="nb">1800000</span>, <span class="nb">2000000</span>, <span class="nb">1300000</span>,
+           <span class="nb">1600000</span>, <span class="nb">1900000</span>, <span class="nb">2500000</span>, <span class="nb">1400000</span>, <span class="nb">1700000</span>,
+           <span class="nb">1350000</span>, <span class="nb">1650000</span>, <span class="nb">1850000</span>, <span class="nb">2200000</span>, <span class="nb">1550000</span>]
+
+plt.hist(salarios, bins<span class="op">=</span><span class="nb">5</span>, color<span class="op">=</span><span class="st">"teal"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)
+plt.title(<span class="st">"Distribución de salarios"</span>)
+plt.xlabel(<span class="st">"Salario (COP)"</span>)
+plt.ylabel(<span class="st">"Cantidad de personas"</span>)
+plt.show()</code></pre>
+    </div>
+
+    <div class="info">
+      <strong>📊 Diferencia clave</strong>
+      A diferencia de los otros gráficos, <code>plt.hist()</code> recibe <strong>una sola lista</strong>. Python calcula los rangos automáticamente.
+      <br><br>
+      <code>bins=5</code> divide los datos en <strong>5 rangos</strong> (barras). Más bins = más detalle, menos bins = más claro. Normalmente entre 5 y 15 está bien.
+    </div>
+
+    <h3>Comparar dos distribuciones</h3>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>comparar_rendimientos.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+
+ecopetrol <span class="op">=</span> [<span class="nb">2.1</span>, <span class="nb">3.5</span>, <span class="op">-</span><span class="nb">1.2</span>, <span class="nb">4.0</span>, <span class="nb">0.5</span>, <span class="nb">2.8</span>, <span class="op">-</span><span class="nb">0.3</span>, <span class="nb">1.5</span>, <span class="nb">3.2</span>, <span class="op">-</span><span class="nb">2.0</span>, <span class="nb">1.8</span>, <span class="nb">2.5</span>]
+bancolombia <span class="op">=</span> [<span class="nb">1.0</span>, <span class="op">-</span><span class="nb">0.5</span>, <span class="nb">0.8</span>, <span class="nb">1.5</span>, <span class="nb">2.0</span>, <span class="op">-</span><span class="nb">1.0</span>, <span class="nb">0.3</span>, <span class="nb">1.2</span>, <span class="nb">0.5</span>, <span class="op">-</span><span class="nb">0.2</span>, <span class="nb">1.8</span>, <span class="nb">0.7</span>]
+
+plt.hist(ecopetrol, bins<span class="op">=</span><span class="nb">6</span>, alpha<span class="op">=</span><span class="nb">0.6</span>, label<span class="op">=</span><span class="st">"Ecopetrol"</span>, color<span class="op">=</span><span class="st">"blue"</span>)
+plt.hist(bancolombia, bins<span class="op">=</span><span class="nb">6</span>, alpha<span class="op">=</span><span class="nb">0.6</span>, label<span class="op">=</span><span class="st">"Bancolombia"</span>, color<span class="op">=</span><span class="st">"green"</span>)
+plt.title(<span class="st">"Distribución de rendimientos mensuales (%)"</span>)
+plt.xlabel(<span class="st">"Rendimiento (%)"</span>)
+plt.ylabel(<span class="st">"Frecuencia"</span>)
+plt.legend()
+plt.show()</code></pre>
+    </div>
+
+    <div class="tip">
+      <strong>💡 alpha = transparencia</strong>
+      <code>alpha=0.6</code> hace cada histograma semi-transparente (0 = invisible, 1 = sólido). Sin alpha, el segundo histograma tapa al primero y no se ve la comparación.
+    </div>
+
+    <div class="exercise">
+      <span class="exercise-tag">Ejercicio 7</span>
+      <h4>Distribución de notas</h4>
+      <p>Cree una lista con <strong>20 notas</strong> (invéntelas entre 1.0 y 5.0). Grafique un histograma con <code>bins=5</code>. ¿En qué rango hay más notas?</p>
+    </div>
+  </section>
+
+  <!-- SECTION: NumPy + Matplotlib -->
+  <section class="section" id="numpy">
+    <div class="section-number">08</div>
+    <h2>NumPy + Matplotlib — la combinación poderosa</h2>
+    <p>Aquí es donde <strong>todo se conecta</strong>. NumPy calcula los datos y Matplotlib los grafica. Es la combinación que usan en la vida real.</p>
+
+    <div class="explainer">
+      <strong>🔍 ¿Por qué combinar NumPy con Matplotlib?</strong>
+      <p>Hasta ahora escribíamos los datos a mano. Pero en la vida real, primero hay que <strong>calcular</strong> (promedios, rendimientos, porcentajes) y luego <strong>graficar</strong> el resultado. NumPy hace los cálculos rápido y Matplotlib los muestra bonito. Es como tener una calculadora (NumPy) y un cuaderno de gráficos (Matplotlib).</p>
+    </div>
+
+    <h3>Rendimiento de acciones colombianas</h3>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>rendimiento_acciones.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+acciones <span class="op">=</span> [<span class="st">"Ecopetrol"</span>, <span class="st">"Bancolombia"</span>, <span class="st">"Nutresa"</span>, <span class="st">"ISA"</span>, <span class="st">"Avianca"</span>]
+compra <span class="op">=</span> np.array([<span class="nb">2500</span>, <span class="nb">30000</span>, <span class="nb">25000</span>, <span class="nb">18000</span>, <span class="nb">4500</span>])
+actual <span class="op">=</span> np.array([<span class="nb">2850</span>, <span class="nb">32000</span>, <span class="nb">24000</span>, <span class="nb">19500</span>, <span class="nb">3800</span>])
+
+ganancia <span class="op">=</span> actual <span class="op">-</span> compra
+rendimiento <span class="op">=</span> (ganancia <span class="op">/</span> compra) <span class="op">*</span> <span class="nb">100</span>
+
+<span class="cm"># Asignamos un color a cada acción manualmente</span>
+<span class="cm"># Verde = ganó, Rojo = perdió (miramos si ganancia es positiva o negativa)</span>
+colores <span class="op">=</span> [<span class="st">"green"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>]
+
+plt.figure(figsize<span class="op">=</span>(<span class="nb">10</span>, <span class="nb">6</span>))
+plt.bar(acciones, rendimiento, color<span class="op">=</span>colores)
+plt.title(<span class="st">"Rendimiento por acción (%)"</span>)
+plt.xlabel(<span class="st">"Acción"</span>)
+plt.ylabel(<span class="st">"Rendimiento (%)"</span>)
+plt.grid(<span class="kw">True</span>, axis<span class="op">=</span><span class="st">"y"</span>)
+plt.tight_layout()
+plt.show()</code></pre>
+    </div>
+
+    <div class="tip">
+      <strong>💡 ¿Cómo saber qué color ponerle a cada barra?</strong>
+      Imprime la variable <code>ganancia</code> con <code>print(ganancia)</code>. Los valores positivos ganaron (verde) y los negativos perdieron (rojo). Luego escribes la lista de colores a mano, uno por cada acción.
+    </div>
+
+    <h3>Precio del dólar con línea de media</h3>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>dolar_con_media.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+dias <span class="op">=</span> <span class="fn">list</span>(<span class="fn">range</span>(<span class="nb">1</span>, <span class="nb">11</span>))
+dolar <span class="op">=</span> np.array([<span class="nb">4200</span>, <span class="nb">4180</span>, <span class="nb">4250</span>, <span class="nb">4300</span>, <span class="nb">4150</span>, <span class="nb">4220</span>, <span class="nb">4280</span>, <span class="nb">4190</span>, <span class="nb">4310</span>, <span class="nb">4175</span>])
+
+media <span class="op">=</span> np.mean(dolar)
+
+plt.figure(figsize<span class="op">=</span>(<span class="nb">10</span>, <span class="nb">5</span>))
+plt.plot(dias, dolar, marker<span class="op">=</span><span class="st">"o"</span>, color<span class="op">=</span><span class="st">"#2B6CB0"</span>, label<span class="op">=</span><span class="st">"Precio diario"</span>)
+plt.axhline(y<span class="op">=</span>media, color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="kw">f</span><span class="st">"Media: $</span>{media<span class="op">:</span><span class="st">,.0f}</span><span class="st">"</span>)
+plt.title(<span class="st">"Precio del dólar — 10 días"</span>)
+plt.xlabel(<span class="st">"Día"</span>)
+plt.ylabel(<span class="st">"Precio (COP)"</span>)
+plt.legend()
+plt.grid(<span class="kw">True</span>)
+plt.show()</code></pre>
+    </div>
+
+    <table class="summary-table">
+      <tr><th>Función</th><th>Qué hace</th></tr>
+      <tr><td><code>plt.axhline(y=valor)</code></td><td>Dibuja una línea <strong>horizontal</strong> en el valor indicado</td></tr>
+      <tr><td><code>linestyle="--"</code></td><td>Hace la línea punteada</td></tr>
+      <tr><td><code>np.mean(datos)</code></td><td>Calcula el promedio con NumPy</td></tr>
+    </table>
+
+    <p>Muy útil para mostrar la <strong>media, una meta, un límite</strong> sobre los datos reales.</p>
+
+    <h3>Torta desde datos calculados</h3>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>gastos_empresa.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+rubros <span class="op">=</span> [<span class="st">"Nómina"</span>, <span class="st">"Arriendo"</span>, <span class="st">"Insumos"</span>, <span class="st">"Marketing"</span>, <span class="st">"Otros"</span>]
+gastos <span class="op">=</span> np.array([<span class="nb">15000000</span>, <span class="nb">5000000</span>, <span class="nb">3500000</span>, <span class="nb">2000000</span>, <span class="nb">1500000</span>])
+
+total <span class="op">=</span> np.sum(gastos)
+
+<span class="cm"># Imprimir el total</span>
+<span class="fn">print</span>(<span class="st">"Total gastos:"</span>, total)
+
+<span class="cm"># Graficar</span>
+plt.figure(figsize<span class="op">=</span>(<span class="nb">8</span>, <span class="nb">8</span>))
+plt.pie(gastos, labels<span class="op">=</span>rubros, autopct<span class="op">=</span><span class="st">"%1.1f%%"</span>,
+        colors<span class="op">=</span>[<span class="st">"#2B6CB0"</span>, <span class="st">"#38B2AC"</span>, <span class="st">"#4299E1"</span>, <span class="st">"#81E6D9"</span>, <span class="st">"#BEE3F8"</span>],
+        startangle<span class="op">=</span><span class="nb">90</span>)
+plt.title(<span class="kw">f</span><span class="st">"Composición de gastos — Total: $</span>{total<span class="op">:</span><span class="st">,.0f}</span><span class="st">"</span>)
+plt.show()</code></pre>
+    </div>
+  </section>
+
+  <!-- SECTION: Guardar -->
+  <section class="section" id="guardar">
+    <div class="section-number">09</div>
+    <h2>Guardar gráficos como imagen</h2>
+    <p>En vez de solo mostrar el gráfico, puedes <strong>guardarlo como archivo de imagen</strong>:</p>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>guardar_grafico.py</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code><span class="cm"># Guardar como imagen:</span>
+plt.savefig(<span class="st">"mi_grafico.png"</span>)
+
+<span class="cm"># Guardar Y mostrar (las dos cosas):</span>
+plt.savefig(<span class="st">"reporte_ventas.png"</span>)
+plt.show()</code></pre>
+    </div>
+
+    <div class="warning">
+      <strong>⚠️ Orden importante</strong>
+      <code>plt.savefig()</code> debe ir <strong>ANTES</strong> de <code>plt.show()</code>. Si va después, guarda una imagen en blanco porque <code>plt.show()</code> limpia el gráfico de la memoria.
+    </div>
+
+    <p>El archivo <code>.png</code> se guarda en la <strong>misma carpeta</strong> donde está tu archivo <code>.py</code>.</p>
+
+    <div class="truco">
+      <strong>🎯 Truco: guardar en alta calidad</strong>
+      Para reportes profesionales, usa <code>plt.savefig("reporte.png", dpi=300)</code>. El parámetro <code>dpi=300</code> genera una imagen en alta resolución, perfecta para imprimir o incluir en un documento Word o PDF.
+    </div>
+
+    <h3>Formatos disponibles</h3>
+    <ul>
+      <li><code>"grafico.png"</code> — imagen normal, la más común</li>
+      <li><code>"grafico.jpg"</code> — imagen más ligera pero con menos calidad</li>
+      <li><code>"grafico.svg"</code> — vectorial, se puede ampliar sin perder calidad</li>
+      <li><code>"grafico.pdf"</code> — ideal para incluir directamente en documentos</li>
+    </ul>
+  </section>
+
+  <!-- SECTION: Errores comunes -->
+  <section class="section" id="errores">
+    <div class="section-number">09½</div>
+    <h2>Errores comunes y cómo solucionarlos</h2>
+    <p>Estos son los errores que más cometen los estudiantes. Si algo no funciona, revisa esta lista primero:</p>
+
+    <div class="truco">
+      <strong>❌ "No module named matplotlib"</strong>
+      No instalaste matplotlib. Abre la terminal y escribe: <code>python -m pip install matplotlib</code>
+    </div>
+
+    <div class="truco">
+      <strong>❌ El gráfico no aparece</strong>
+      Olvidaste <code>plt.show()</code> al final. Sin esa línea, Python crea el gráfico en memoria pero no lo muestra.
+    </div>
+
+    <div class="truco">
+      <strong>❌ "x and y must have same first dimension"</strong>
+      Tus listas tienen diferente cantidad de elementos. Si X tiene 5 elementos, Y también debe tener 5. Usa <code>print(len(x), len(y))</code> para verificar.
+    </div>
+
+    <div class="truco">
+      <strong>❌ La imagen guardada sale en blanco</strong>
+      Pusiste <code>plt.savefig()</code> después de <code>plt.show()</code>. Siempre guarda <strong>primero</strong>, muestra <strong>después</strong>.
+    </div>
+
+    <div class="truco">
+      <strong>❌ Los nombres del eje X se amontonan</strong>
+      Usa <code>plt.xticks(rotation=45)</code> para rotarlos, o <code>plt.barh()</code> para barras horizontales. Y siempre agrega <code>plt.tight_layout()</code> antes de <code>plt.show()</code>.
+    </div>
+
+    <div class="truco">
+      <strong>❌ VS Code se queda "pegado" y no responde</strong>
+      Probablemente la ventana del gráfico está abierta atrás. Ciérrala y el programa terminará. Si sigue pegado, presiona <code>Ctrl + C</code> en la terminal.
+    </div>
+  </section>
+
+  <!-- SECTION: Resumen -->
+  <section class="section" id="resumen">
+    <div class="section-number">10</div>
+    <h2>Resumen rápido — ¿Qué gráfico uso?</h2>
+
+    <table class="summary-table">
+      <tr><th>¿Qué quiero ver?</th><th>¿Qué uso?</th><th>Ejemplo</th></tr>
+      <tr><td>Cómo cambia algo en el <strong>tiempo</strong></td><td><code>plt.plot()</code></td><td>Precio del dólar por día</td></tr>
+      <tr><td><strong>Comparar</strong> categorías</td><td><code>plt.bar()</code></td><td>Ventas por sucursal</td></tr>
+      <tr><td><strong>Proporción</strong> del total</td><td><code>plt.pie()</code></td><td>Distribución del portafolio</td></tr>
+      <tr><td><strong>Relación</strong> entre dos variables</td><td><code>plt.scatter()</code></td><td>Riesgo vs rendimiento</td></tr>
+      <tr><td><strong>Distribución</strong> de datos</td><td><code>plt.hist()</code></td><td>Rangos de salarios</td></tr>
+    </table>
+
+    <h3>Funciones que SIEMPRE hay que agregar</h3>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>funciones imprescindibles</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code>plt.title(<span class="st">"..."</span>)     <span class="cm"># título del gráfico</span>
+plt.xlabel(<span class="st">"..."</span>)    <span class="cm"># nombre eje X</span>
+plt.ylabel(<span class="st">"..."</span>)    <span class="cm"># nombre eje Y</span>
+plt.legend()          <span class="cm"># leyenda (si hay varias series)</span>
+plt.grid(<span class="kw">True</span>)       <span class="cm"># cuadrícula de fondo</span>
+plt.show()            <span class="cm"># ¡mostrarlo!</span></code></pre>
+    </div>
+  </section>
+
+  <!-- SECTION: Reto -->
+  <section class="section" id="reto">
+    <div class="section-number">11</div>
+    <h2>Reto integrador — FinanzasApp S.A.</h2>
+    <p>Vas a crear un <strong>reporte visual completo</strong> de la empresa FinanzasApp S.A. Son 3 gráficos separados con los mismos datos base.</p>
+
+    <h3>Los datos de la empresa</h3>
+    <div class="code-wrap">
+      <div class="code-header">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>datos base — copia esto primero</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+      </div>
+      <pre><code><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># Datos de FinanzasApp S.A. (en millones COP)</span>
+meses <span class="op">=</span> [<span class="st">"Ene"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Abr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>]
+ingresos <span class="op">=</span> np.array([<span class="nb">85</span>, <span class="nb">92</span>, <span class="nb">78</span>, <span class="nb">105</span>, <span class="nb">95</span>, <span class="nb">110</span>])
+gastos <span class="op">=</span> np.array([<span class="nb">70</span>, <span class="nb">75</span>, <span class="nb">80</span>, <span class="nb">82</span>, <span class="nb">78</span>, <span class="nb">85</span>])
+
+<span class="cm"># Cálculos</span>
+utilidad <span class="op">=</span> ingresos <span class="op">-</span> gastos
+margen <span class="op">=</span> (utilidad <span class="op">/</span> ingresos) <span class="op">*</span> <span class="nb">100</span></code></pre>
+    </div>
+
+    <div class="exercise">
+      <span class="exercise-tag">Reto A</span>
+      <h4>Gráfico de línea: Ingresos vs Gastos</h4>
+      <p>Dos líneas (ingresos y gastos) con marcadores, leyenda, título y cuadrícula.</p>
+    </div>
+
+    <div class="exercise">
+      <span class="exercise-tag">Reto B</span>
+      <h4>Gráfico de barras: Utilidad mensual</h4>
+      <p>Barras con la utilidad de cada mes. Primero imprima <code>print(utilidad)</code> para ver los valores, luego asigne manualmente <strong>verde</strong> a los meses con utilidad positiva y <strong>rojo</strong> a los negativos en una lista de colores.</p>
+    </div>
+
+    <div class="exercise">
+      <span class="exercise-tag">Reto C</span>
+      <h4>Gráfico de torta: Distribución de gastos</h4>
+      <p>Distribución del gasto por área:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <span>datos del reto C</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+        </div>
+        <pre><code>areas <span class="op">=</span> [<span class="st">"Nómina"</span>, <span class="st">"Oficina"</span>, <span class="st">"Marketing"</span>, <span class="st">"Tecnología"</span>, <span class="st">"Otros"</span>]
+montos <span class="op">=</span> [<span class="nb">180</span>, <span class="nb">80</span>, <span class="nb">45</span>, <span class="nb">50</span>, <span class="nb">35</span>]</code></pre>
+      </div>
+      <p>Con porcentajes visibles y colores personalizados.</p>
+    </div>
+  </section>
+
+  <!-- SECTION: Tareas -->
+  <section class="section" id="tareas">
+    <div class="section-number">12</div>
+    <h2>Tareas para practicar en casa</h2>
+
+    <div class="exercise">
+      <span class="exercise-tag">Tarea 1</span>
+      <h4>Línea con media</h4>
+      <p>Cree un gráfico de <strong>línea</strong> con el precio de un producto durante 12 meses (invente los datos). Agregue una línea horizontal con la media usando <code>plt.axhline()</code> y <code>np.mean()</code>.</p>
+    </div>
+
+    <div class="exercise">
+      <span class="exercise-tag">Tarea 2</span>
+      <h4>Barras con colores diferentes</h4>
+      <p>Cree un gráfico de <strong>barras</strong> con las ventas de 6 vendedores. Asigne manualmente color verde a los que vendieron más de 50 millones y rojo a los que vendieron menos (mire los datos, decida el color de cada uno y escríbalos en una lista).</p>
+    </div>
+
+    <div class="exercise">
+      <span class="exercise-tag">Tarea 3</span>
+      <h4>Torta de tiempo semanal</h4>
+      <p>Cree un gráfico de <strong>torta</strong> con la distribución de su tiempo semanal (estudio, trabajo, descanso, transporte, etc.). Con porcentajes visibles.</p>
+    </div>
+
+    <div class="exercise">
+      <span class="exercise-tag">Tarea 4</span>
+      <h4>Dispersión publicidad vs ventas</h4>
+      <p>Cree un gráfico de <strong>dispersión</strong> con la relación entre inversión en publicidad y ventas de 10 productos (invente los datos). ¿Hay relación positiva?</p>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="page-nav">
+    <a href="sesion11-parte1.html">← Volver a Parte 1</a>
+  </nav>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p><strong>Programación para Financieros · Universidad de Caldas</strong></p>
+    <p><strong>Prof. Marlon Darío Nieves Padilla</strong></p>
+  </footer>
+</div>
+
+<script>
+function copyCode(btn) {
+  var pre = btn.closest('.code-wrap').querySelector('pre code');
+  var text = pre.textContent;
+  try {
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = '✓ Copiado';
+      setTimeout(function() { btn.textContent = 'Copiar'; }, 2000);
+    }).catch(function() {
+      selectText(pre);
+    });
+  } catch(e) {
+    selectText(pre);
+  }
+}
+function selectText(el) {
+  var range = document.createRange();
+  range.selectNodeContents(el);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+document.querySelectorAll('.toc-list a').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
