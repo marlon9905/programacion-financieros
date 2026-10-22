@@ -1,14 +1,12 @@
-<title>Introducción a Power BI</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Dashboard Financiero en Power BI</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <style>
-
 :root {
   --bg: #F3F8FF;
   --bg-surface: #FFFFFF;
-  --bg-code: #EEF3FF;
   --fg: #1E3A5F;
   --fg-muted: #4A6A8A;
-  --fg-code: #2B4A70;
   --accent: #4A90D9;
   --accent-dark: #2E6DB8;
   --accent-light: #E8F0FF;
@@ -16,7 +14,6 @@
   --lavender-light: #F0EDFF;
   --pink: #FFF0F8;
   --pink-solid: #E07BAC;
-  --purple-light: #EDEAFF;
   --border: #C8D8EC;
   --shadow: 0 2px 12px rgba(160,180,220,0.08);
   --radius: 14px;
@@ -28,34 +25,23 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: light } }
 :root[data-theme="dark"] { color-scheme: light }
 
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-display);
-  line-height: 1.7;
-  padding-inline: 20px;
-  padding-block: 0;
-}
-
+body { background: var(--bg); color: var(--fg); font-family: var(--font-display); line-height: 1.7; padding-inline: 20px; }
 .page { max-width: var(--max-w); margin: 0 auto; padding-block: 40px 80px; }
 
-/* Hero */
 .hero { text-align: center; padding: 48px 0 40px; border-bottom: 2px solid var(--border); margin-bottom: 48px; }
 .hero-badge { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 5px 16px; border-radius: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
 .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.15; margin: 0 0 12px; color: #1E3A5F; text-wrap: balance; letter-spacing: -0.02em; }
 .hero h1 span { background: linear-gradient(135deg, var(--accent-dark), var(--lavender)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero p { font-size: 1.05rem; color: var(--fg-muted); margin: 0; max-width: 560px; margin-inline: auto; }
 
-/* TOC */
 .toc { position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 40px; box-shadow: var(--shadow); z-index: 10; }
 .toc summary { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); cursor: pointer; list-style: none; }
 .toc summary::-webkit-details-marker { display: none; }
 .toc summary::before { content: "☰ "; }
-.toc-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 4px 16px; margin-top: 12px; padding: 0; list-style: none; }
+.toc-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 16px; margin-top: 12px; padding: 0; list-style: none; }
 .toc-list a { display: block; font-size: 0.88rem; color: var(--fg-muted); text-decoration: none; padding: 4px 0; transition: color 0.15s; }
 .toc-list a:hover { color: var(--accent); }
 
-/* Section */
 .section { margin-bottom: 56px; }
 .section-number { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7B68EE; background: var(--lavender-light); display: inline-block; padding: 2px 12px; border-radius: 10px; margin-bottom: 6px; }
 .section h2 { font-size: 1.6rem; font-weight: 800; line-height: 1.2; margin: 0 0 8px; color: #1E3A5F; text-wrap: balance; }
@@ -66,31 +52,18 @@ body {
 .section ul, .section ol { padding-left: 24px; }
 .section li { margin-bottom: 4px; }
 
-/* Explainer box */
 .explainer { background: linear-gradient(135deg, #F0EDFF 0%, #E8F0FF 100%); border: 2px solid #BFD4FF; border-radius: var(--radius); padding: 20px 24px; margin: 20px 0; font-size: 0.92rem; }
 .explainer strong { color: #7B4FBF; display: block; margin-bottom: 6px; font-size: 0.95rem; }
 
-/* Truco */
 .truco { background: linear-gradient(135deg, #FFF0F8 0%, #F0EDFF 100%); border: 2px dashed #E07BAC; border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; font-size: 0.92rem; }
 .truco strong { color: #C04070; display: block; margin-bottom: 4px; }
 
-/* Callouts */
 .tip, .warning, .info { border-radius: var(--radius); padding: 16px 20px; margin: 20px 0; font-size: 0.92rem; }
 .tip { background: var(--lavender-light); border-left: 4px solid var(--lavender); }
 .warning { background: var(--pink); border-left: 4px solid var(--pink-solid); }
 .info { background: var(--accent-light); border-left: 4px solid var(--accent); }
 .tip strong, .warning strong, .info strong { display: block; margin-bottom: 4px; }
 
-/* Comparison cards */
-.compare-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
-.compare-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 20px; text-align: center; transition: border-color 0.15s, box-shadow 0.15s; }
-.compare-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(176,123,172,0.15); }
-.compare-card .icon { font-size: 2.4rem; margin-bottom: 10px; display: block; }
-.compare-card .label { font-weight: 800; font-size: 1rem; margin-bottom: 4px; color: var(--fg); }
-.compare-card .price { font-size: 0.82rem; font-weight: 700; color: #2E8B57; margin-bottom: 8px; }
-.compare-card .desc { font-size: 0.85rem; color: var(--fg-muted); line-height: 1.5; }
-
-/* Visual steps (numbered circles) */
 .steps { counter-reset: step-counter; margin: 24px 0; }
 .step-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px; counter-increment: step-counter; }
 .step-item::before { content: counter(step-counter); flex-shrink: 0; width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent-dark), var(--lavender)); color: #fff; font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-top: 2px; }
@@ -98,570 +71,565 @@ body {
 .step-content strong { display: block; font-size: 1rem; margin-bottom: 2px; color: var(--fg); }
 .step-content p { margin: 0; font-size: 0.92rem; color: var(--fg-muted); }
 
-/* Interface area labels */
-.interface-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 20px 0; }
-.iface-item { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; display: flex; gap: 14px; align-items: flex-start; }
-.iface-item .iface-icon { font-size: 1.6rem; flex-shrink: 0; }
-.iface-item .iface-label { font-weight: 700; color: var(--accent-dark); font-size: 0.95rem; margin-bottom: 2px; }
-.iface-item .iface-desc { font-size: 0.88rem; color: var(--fg-muted); }
+.screenshot-placeholder { background: linear-gradient(135deg, #E8F0FF, #F0EDFF); border: 2px dashed var(--border); border-radius: var(--radius); padding: 32px 24px; text-align: center; margin: 20px 0; color: var(--fg-muted); font-size: 0.9rem; }
+.screenshot-placeholder .icon { font-size: 2rem; display: block; margin-bottom: 8px; }
 
-/* Chart type cards */
-.chart-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin: 20px 0; }
-.chart-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 16px; text-align: center; transition: border-color 0.15s, box-shadow 0.15s; }
-.chart-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(176,123,172,0.15); }
-.chart-card .icon { font-size: 2rem; margin-bottom: 8px; display: block; }
-.chart-card .label { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
-.chart-card .use { font-size: 0.78rem; color: var(--fg-muted); }
+.field-path { background: var(--accent-light); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-dark); display: flex; align-items: center; gap: 8px; }
+.field-path .arrow { color: var(--lavender); font-weight: 800; }
 
-/* Summary table */
+.result-box { background: var(--bg-surface); border: 2px solid #2E8B57; border-radius: var(--radius); padding: 16px 20px; margin: 16px 0; }
+.result-box strong { color: #2E8B57; display: block; margin-bottom: 4px; }
+.result-box p { margin: 0; font-size: 0.92rem; }
+
 .summary-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; overflow-x: auto; display: block; }
 .summary-table th { text-align: left; font-weight: 700; padding: 10px 14px; background: var(--accent-light); color: var(--accent-dark); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 2px solid var(--accent); white-space: nowrap; }
 .summary-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
 .summary-table tr:nth-child(even) td { background: var(--accent-light); }
 
-/* Exercise */
 .exercise { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; box-shadow: var(--shadow); }
 .exercise-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-dark); background: var(--accent-light); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 6px; margin-bottom: 10px; }
 .exercise h4 { font-size: 1rem; font-weight: 700; margin: 0 0 8px; }
-.exercise p, .exercise ol { font-size: 0.92rem; }
 
-/* Navigation */
-.page-nav { display: flex; justify-content: center; gap: 16px; margin: 48px 0 0; padding: 32px 0; border-top: 2px solid var(--border); }
-.page-nav a { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: #fff; background: linear-gradient(135deg, var(--accent-dark), var(--lavender)); padding: 14px 28px; border-radius: 12px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 16px rgba(74,144,217,0.25); }
+.page-nav { display: flex; justify-content: center; gap: 16px; margin: 48px 0 0; padding: 32px 0; border-top: 2px solid var(--border); flex-wrap: wrap; }
+.page-nav a { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: #fff; background: linear-gradient(135deg, var(--accent-dark), var(--lavender)); padding: 14px 24px; border-radius: 12px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 16px rgba(74,144,217,0.25); }
 .page-nav a:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(74,144,217,0.35); }
+.page-nav a.secondary { background: var(--bg-surface); color: var(--accent-dark); border: 2px solid var(--border); box-shadow: none; }
+.page-nav a.secondary:hover { border-color: var(--accent); }
 
-/* Footer */
 .footer { text-align: center; padding: 40px 0 0; border-top: 2px solid var(--border); margin-top: 20px; color: var(--fg-muted); font-size: 0.85rem; }
 .footer strong { color: var(--accent); }
 
-/* Inline code */
-code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accent-light); color: var(--accent); padding: 2px 7px; border-radius: 5px; }
+code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accent-light); color: var(--accent-dark); padding: 2px 7px; border-radius: 5px; }
 
 @media (max-width: 600px) {
   .toc-list { grid-template-columns: 1fr; }
-  .chart-grid { grid-template-columns: repeat(2, 1fr); }
-  .compare-grid { grid-template-columns: 1fr; }
   .page-nav { flex-direction: column; align-items: center; }
 }
 </style>
 
 <div class="page">
 
-  <!-- Hero -->
   <header class="hero">
-    <div class="hero-badge"> · Introducción</div>
-    <h1>Dashboards con <span>Power BI</span></h1>
-    <p>Tu primera herramienta profesional para visualizar y analizar datos financieros — sin escribir código.</p>
+    <div class="hero-badge">Sesión 12 · Práctica guiada</div>
+    <h1>Tu primer <span>Dashboard</span> en Power BI</h1>
+    <p>Construye paso a paso un reporte financiero profesional usando los datos de ejemplo de Power BI — sin código, solo arrastrando.</p>
   </header>
 
-  <!-- TOC -->
   <details class="toc" open>
-    <summary>Contenido de esta clase</summary>
+    <summary>Pasos de esta guía</summary>
     <ul class="toc-list">
-      <li><a href="#que-es">01 · ¿Qué es Power BI?</a></li>
-      <li><a href="#versiones">02 · Desktop vs Service vs App</a></li>
-      <li><a href="#instalacion">03 · Instalación</a></li>
-      <li><a href="#interfaz">04 · La interfaz</a></li>
-      <li><a href="#cargar">05 · Cargar datos de Excel</a></li>
-      <li><a href="#primer-grafico">06 · Tu primer gráfico</a></li>
-      <li><a href="#tipos">07 · Tipos de visualización</a></li>
-      <li><a href="#filtros">08 · Filtros y segmentadores</a></li>
-      <li><a href="#tarjetas">09 · Tarjetas KPI</a></li>
-      <li><a href="#dashboard">10 · Tu primer dashboard</a></li>
+      <li><a href="#datos">01 · Cargar los datos Financial Sample</a></li>
+      <li><a href="#conocer">02 · Conocer los datos</a></li>
+      <li><a href="#barras">03 · Gráfico de barras: Ventas por país</a></li>
+      <li><a href="#torta">04 · Gráfico de torta: Ganancia por producto</a></li>
+      <li><a href="#magia">05 · El filtro cruzado (la magia)</a></li>
+      <li><a href="#tarjetas">06 · Tarjetas KPI</a></li>
+      <li><a href="#linea">07 · Gráfico de línea: Ventas en el tiempo</a></li>
+      <li><a href="#segmentador">08 · Segmentador por producto</a></li>
+      <li><a href="#titulo">09 · Título y organización</a></li>
+      <li><a href="#estilo">10 · Estilo profesional</a></li>
+      <li><a href="#guardar">11 · Guardar y exportar</a></li>
     </ul>
   </details>
 
-  <!-- SECTION 01: Qué es Power BI -->
-  <section class="section" id="que-es">
-    <div class="section-number">01</div>
-    <h2>¿Qué es Power BI?</h2>
-    <p>Power BI es una herramienta de <strong>Microsoft</strong> para crear <strong>dashboards interactivos</strong> — paneles visuales donde puedes ver gráficos, indicadores y tablas que se actualizan con tus datos.</p>
-
-    <div class="explainer">
-      <strong> ¿Qué es un dashboard?</strong>
-      <p>Imagina el tablero de un carro: en un solo vistazo ves la velocidad, la gasolina, la temperatura. Un <strong>dashboard financiero</strong> es lo mismo pero con datos de negocio: ventas totales, gastos por categoría, tendencia del dólar, todo en una sola pantalla.</p>
-    </div>
-
-    <h3>¿Por qué Power BI y no Excel?</h3>
-    <p>Excel es excelente para <strong>organizar datos y hacer cálculos</strong>. Pero cuando necesitas <strong>visualizar</strong> esos datos de forma profesional e interactiva, Power BI es la herramienta correcta:</p>
-    <ul>
-      <li><strong>Interactividad:</strong> haces clic en un gráfico y los demás se filtran automáticamente</li>
-      <li><strong>Diseño profesional:</strong> los gráficos se ven mucho mejor que en Excel</li>
-      <li><strong>Actualización:</strong> cambias el Excel y el dashboard se actualiza solo</li>
-      <li><strong>Compartir:</strong> puedes publicar tu dashboard para que otros lo vean</li>
-    </ul>
-
-    <div class="info">
-      <strong> Dato para tu hoja de vida</strong>
-      Power BI es una de las herramientas más pedidas en ofertas laborales de finanzas, contabilidad y administración en Colombia. Saber usarlo te diferencia de otros candidatos.
-    </div>
-  </section>
-
-  <!-- SECTION 02: Versiones -->
-  <section class="section" id="versiones">
-    <div class="section-number">02</div>
-    <h2>Power BI Desktop vs Service vs App</h2>
-    <p>Power BI tiene tres versiones. Nosotros vamos a usar <strong>Desktop</strong>, que es gratis:</p>
-
-    <div class="compare-grid">
-      <div class="compare-card" style="border-color: var(--accent); border-width: 2px;">
-        <span class="icon">💻</span>
-        <div class="label">Power BI Desktop</div>
-        <div class="price">GRATIS</div>
-        <div class="desc">Se instala en tu computador. Aquí <strong>creas</strong> los dashboards. Es donde vamos a trabajar en clase.</div>
-      </div>
-      <div class="compare-card">
-        <span class="icon">☁️</span>
-        <div class="label">Power BI Service</div>
-        <div class="price"> Requiere licencia</div>
-        <div class="desc">Versión web (app.powerbi.com). Sirve para <strong>publicar y compartir</strong> dashboards con tu equipo de trabajo.</div>
-      </div>
-      <div class="compare-card">
-        <span class="icon">📱</span>
-        <div class="label">Power BI Mobile</div>
-        <div class="price">GRATIS</div>
-        <div class="desc">App para celular. Sirve para <strong>ver</strong> dashboards publicados desde el teléfono. No se crean aquí.</div>
-      </div>
-    </div>
-
-    <div class="tip">
-      <strong> Resumen</strong>
-      Desktop = donde <strong>creas</strong>. Service = donde <strong>compartes</strong>. Mobile = donde <strong>consultas</strong>. Para esta clase solo necesitas Desktop.
-    </div>
-  </section>
-
-  <!-- SECTION 03: Instalación -->
-  <section class="section" id="instalacion">
-    <div class="section-number">03</div>
-    <h2>Instalación de Power BI Desktop</h2>
-
-    <div class="warning">
-      <strong> Requisito</strong>
-      Power BI Desktop solo funciona en <strong>Windows</strong> (Windows 10 o superior). No está disponible para Mac ni Linux.
-    </div>
+  <!-- PASO 01 -->
+  <section class="section" id="datos">
+    <div class="section-number">Paso 01</div>
+    <h2>Cargar los datos Financial Sample</h2>
+    <p>Power BI trae datos de ejemplo listos para practicar. No necesitas descargar ni buscar nada — los datos están <strong>dentro del programa</strong>.</p>
 
     <div class="steps">
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Ir a la página de descarga</strong>
-          <p>Entra a: <code>microsoft.com/power-bi/desktop</code> → clic en <strong>"Descargar gratis"</strong></p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Ejecutar el instalador</strong>
-          <p>Abre el archivo descargado (.exe) y sigue las instrucciones. Acepta los términos y dale <strong>Siguiente</strong> a todo.</p>
-        </div>
-      </div>
       <div class="step-item">
         <div class="step-content">
           <strong>Abrir Power BI Desktop</strong>
-          <p>Búscalo en el menú Inicio. La primera vez te pide iniciar sesión con una cuenta Microsoft — puedes darle <strong>"Cerrar"</strong> o <strong>"Omitir"</strong>, no es obligatorio para trabajar localmente.</p>
+          <p>Búscalo en el menú Inicio de Windows. Si te pide cuenta Microsoft, dale <strong>Cerrar</strong> o <strong>Omitir</strong>.</p>
         </div>
       </div>
       <div class="step-item">
         <div class="step-content">
-          <strong>¡Listo!</strong>
-          <p>Ya puedes empezar a crear dashboards. El archivo se guarda con extensión <code>.pbix</code></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="truco">
-      <strong> Alternativa: Microsoft Store</strong>
-      También puedes buscarlo directamente en la <strong>Microsoft Store</strong> de Windows: busca "Power BI Desktop" e instálalo desde ahí. Es más fácil y se actualiza solo.
-    </div>
-  </section>
-
-  <!-- SECTION 04: Interfaz -->
-  <section class="section" id="interfaz">
-    <div class="section-number">04</div>
-    <h2>La interfaz de Power BI</h2>
-    <p>Cuando abres Power BI Desktop, verás una pantalla con varias zonas. Estas son las más importantes:</p>
-
-    <div class="interface-grid">
-      <div class="iface-item">
-        <div class="iface-icon">🎨</div>
-        <div>
-          <div class="iface-label">Lienzo (centro)</div>
-          <div class="iface-desc">Es el área blanca grande donde colocas tus gráficos. Piensa en él como una hoja en blanco donde armas tu dashboard.</div>
-        </div>
-      </div>
-      <div class="iface-item">
-        <div class="iface-icon">📊</div>
-        <div>
-          <div class="iface-label">Panel de Visualizaciones (derecha)</div>
-          <div class="iface-desc">Aquí eliges el tipo de gráfico: barras, línea, torta, tarjeta, mapa, etc. Solo haces clic en el ícono del gráfico que quieres.</div>
-        </div>
-      </div>
-      <div class="iface-item">
-        <div class="iface-icon">📋</div>
-        <div>
-          <div class="iface-label">Panel de Campos (derecha, abajo)</div>
-          <div class="iface-desc">Muestra las columnas de tu Excel. Desde aquí <strong>arrastras</strong> los campos hacia los gráficos.</div>
-        </div>
-      </div>
-      <div class="iface-item">
-        <div class="iface-icon">🔧</div>
-        <div>
-          <div class="iface-label">Cinta de opciones (arriba)</div>
-          <div class="iface-desc">Menú superior con botones como "Obtener datos", "Publicar", y opciones de formato.</div>
-        </div>
-      </div>
-      <div class="iface-item">
-        <div class="iface-icon">📑</div>
-        <div>
-          <div class="iface-label">Pestañas de página (abajo)</div>
-          <div class="iface-desc">Tu dashboard puede tener varias páginas, como las hojas de Excel. Cada pestaña es una página del reporte.</div>
-        </div>
-      </div>
-      <div class="iface-item">
-        <div class="iface-icon">👁️</div>
-        <div>
-          <div class="iface-label">Vistas (izquierda)</div>
-          <div class="iface-desc">Tres íconos: <strong>Informe</strong> (donde armas el dashboard), <strong>Tabla</strong> (ver los datos en filas), <strong>Modelo</strong> (relaciones entre tablas).</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="explainer">
-      <strong> La idea clave</strong>
-      <p>En Power BI todo funciona con <strong>arrastrar y soltar</strong> (drag & drop). Arrastras un campo del panel de Campos hacia el gráfico, y Power BI hace el resto. No escribes código, no escribes fórmulas — solo arrastras.</p>
-    </div>
-  </section>
-
-  <!-- SECTION 05: Cargar datos -->
-  <section class="section" id="cargar">
-    <div class="section-number">05</div>
-    <h2>Cargar datos desde Excel</h2>
-    <p>Lo primero que necesitas es <strong>conectar tu fuente de datos</strong>. Power BI puede leer Excel, CSV, bases de datos, páginas web y más. Nosotros vamos a usar un archivo Excel.</p>
-
-    <h3>Paso a paso</h3>
-    <div class="steps">
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Clic en "Obtener datos"</strong>
-          <p>Está en la pestaña <strong>Inicio</strong> de la cinta superior, a la izquierda. Selecciona <strong>"Libro de Excel"</strong>.</p>
+          <strong>En la pantalla de inicio, buscar "Probar un conjunto de datos de ejemplo"</strong>
+          <p>Apenas abres Power BI, en la pantalla de bienvenida verás un enlace que dice <strong>"Probar un conjunto de datos de ejemplo"</strong> (o en inglés: <em>"Try a sample dataset"</em>). Haz clic ahí.</p>
         </div>
       </div>
       <div class="step-item">
         <div class="step-content">
-          <strong>Seleccionar el archivo</strong>
-          <p>Navega hasta tu archivo Excel y dale <strong>Abrir</strong>.</p>
+          <strong>Seleccionar Financial Sample</strong>
+          <p>Power BI te ofrece varios conjuntos de datos. Elige <strong>"Financial Sample"</strong>. Los datos se cargan automáticamente junto con un reporte de ejemplo.</p>
         </div>
       </div>
       <div class="step-item">
         <div class="step-content">
-          <strong>Elegir la hoja</strong>
-          <p>Aparece una ventana con las hojas del Excel. Marca la que contiene tus datos (generalmente "Hoja1") y dale <strong>"Cargar"</strong>.</p>
+          <strong>Empezar con un lienzo en blanco</strong>
+          <p>El reporte de ejemplo viene con gráficos ya armados. Para practicar desde cero, haz clic derecho en la pestaña de la página (abajo) → <strong>"Agregar página"</strong>. Trabaja en esa página nueva y vacía.</p>
         </div>
       </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Verificar en el panel de Campos</strong>
-          <p>A la derecha deberías ver el nombre de tu tabla y debajo las columnas (Mes, Precio_Dolar, etc.).</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="warning">
-      <strong> Error común</strong>
-      Si no aparecen tus columnas, probablemente el Excel <strong>no tiene encabezados</strong> en la primera fila. Power BI espera que la primera fila tenga los nombres de las columnas (Mes, Precio, Ventas, etc.), no datos.
-    </div>
-
-    <div class="truco">
-      <strong> Truco: "Transformar datos"</strong>
-      En vez de "Cargar", puedes darle <strong>"Transformar datos"</strong>. Esto abre el Editor de Power Query donde puedes limpiar los datos antes de usarlos: cambiar nombres de columnas, eliminar filas vacías, cambiar tipos de datos. No lo usaremos hoy, pero es muy útil.
-    </div>
-
-    <h3>El Excel que vamos a usar</h3>
-    <p>Para esta clase, vamos a trabajar con el archivo <code>Datos_Financieros.xlsx</code> que tiene esta estructura:</p>
-
-    <table class="summary-table">
-      <tr><th>Mes</th><th>Ingresos</th><th>Gastos</th><th>Utilidad</th><th>Categoría</th></tr>
-      <tr><td>Enero</td><td>15,000,000</td><td>10,500,000</td><td>4,500,000</td><td>Ventas</td></tr>
-      <tr><td>Febrero</td><td>18,200,000</td><td>12,100,000</td><td>6,100,000</td><td>Servicios</td></tr>
-      <tr><td>Marzo</td><td>14,800,000</td><td>11,200,000</td><td>3,600,000</td><td>Ventas</td></tr>
-      <tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-    </table>
-
-    <div class="info">
-      <strong> ¿No tienes el Excel?</strong>
-      Puedes crear uno rápido: abre Excel, pon esos encabezados en la primera fila, llena 12 filas (una por mes) con datos inventados, y guárdalo. Lo importante es que tenga <strong>encabezados claros</strong> y <strong>datos numéricos</strong>.
-    </div>
-  </section>
-
-  <!-- SECTION 06: Primer gráfico -->
-  <section class="section" id="primer-grafico">
-    <div class="section-number">06</div>
-    <h2>Tu primer gráfico en Power BI</h2>
-    <p>Ya con los datos cargados, hacer un gráfico toma <strong>3 clics</strong>:</p>
-
-    <div class="steps">
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Elegir el tipo de gráfico</strong>
-          <p>En el panel de Visualizaciones (derecha), haz clic en el ícono de <strong>Gráfico de barras agrupadas</strong> (el primero). Aparece un gráfico vacío en el lienzo.</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Arrastrar el campo X</strong>
-          <p>Del panel de Campos, arrastra <strong>"Mes"</strong> al área que dice <strong>"Eje X"</strong> (o "Eje" dependiendo del gráfico).</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Arrastrar el campo Y</strong>
-          <p>Arrastra <strong>"Ingresos"</strong> al área que dice <strong>"Eje Y"</strong> (o "Valores").</p>
-        </div>
-      </div>
-    </div>
-
-    <p>¡Listo! Ya tienes un gráfico de barras mostrando los ingresos por mes.</p>
-
-    <div class="explainer">
-      <strong> Compara con Python</strong>
-      <p>En Python escribíamos <code>plt.bar(meses, ingresos)</code> y luego <code>plt.title()</code>, <code>plt.xlabel()</code>, <code>plt.show()</code>... En Power BI hicimos lo mismo con 3 arrastres. El resultado es similar, pero Power BI es <strong>interactivo</strong> — puedes hacer clic en las barras y explorar los datos.</p>
-    </div>
-
-    <h3>Cambiar el tipo de gráfico</h3>
-    <p>¿Quieres verlo como línea en vez de barras? Solo haz clic en el gráfico y luego clic en otro ícono del panel de Visualizaciones. El gráfico cambia <strong>al instante</strong> sin perder los datos.</p>
-
-    <h3>Mover y redimensionar</h3>
-    <ul>
-      <li><strong>Mover:</strong> haz clic en el gráfico y arrástralo a otra posición en el lienzo</li>
-      <li><strong>Redimensionar:</strong> arrastra las esquinas o bordes del gráfico</li>
-      <li><strong>Eliminar:</strong> selecciona el gráfico y presiona <code>Suprimir</code> (Delete)</li>
-    </ul>
-
-    <div class="truco">
-      <strong> Truco: alinear gráficos</strong>
-      Para que tu dashboard se vea profesional, alinea los gráficos. Ve a <strong>Formato → Alinear</strong> en la cinta superior para alinear varios gráficos seleccionados.
-    </div>
-  </section>
-
-  <!-- SECTION 07: Tipos de visualización -->
-  <section class="section" id="tipos">
-    <div class="section-number">07</div>
-    <h2>Tipos de visualización</h2>
-    <p>Power BI tiene más de 30 tipos de gráficos. Estos son los más útiles para finanzas:</p>
-
-    <div class="chart-grid">
-      <div class="chart-card">
-        <span class="icon">📊</span>
-        <div class="label">Barras</div>
-        <div class="use">Comparar montos entre categorías</div>
-      </div>
-      <div class="chart-card">
-        <span class="icon">📈</span>
-        <div class="label">Línea</div>
-        <div class="use">Tendencias en el tiempo</div>
-      </div>
-      <div class="chart-card">
-        <span class="icon">🥧</span>
-        <div class="label">Torta / Dona</div>
-        <div class="use">Proporciones de un total</div>
-      </div>
-      <div class="chart-card">
-        <span class="icon">🔢</span>
-        <div class="label">Tarjeta</div>
-        <div class="use">Un número destacado (total, promedio)</div>
-      </div>
-      <div class="chart-card">
-        <span class="icon">📋</span>
-        <div class="label">Tabla</div>
-        <div class="use">Datos en filas y columnas</div>
-      </div>
-      <div class="chart-card">
-        <span class="icon">🌡️</span>
-        <div class="label">Medidor</div>
-        <div class="use">Progreso hacia una meta</div>
-      </div>
-    </div>
-
-    <h3>¿Cuándo usar cada uno?</h3>
-    <table class="summary-table">
-      <tr><th>Pregunta que quieres responder</th><th>Gráfico ideal</th></tr>
-      <tr><td>¿Cuánto vendió cada sucursal?</td><td>Barras</td></tr>
-      <tr><td>¿Cómo han cambiado las ventas mes a mes?</td><td>Línea</td></tr>
-      <tr><td>¿Qué porcentaje del gasto es arriendo?</td><td>Torta / Dona</td></tr>
-      <tr><td>¿Cuál es el total de ventas del año?</td><td>Tarjeta</td></tr>
-      <tr><td>¿Cuánto falta para la meta de ventas?</td><td>Medidor</td></tr>
-      <tr><td>Necesito ver los datos detallados</td><td>Tabla</td></tr>
-    </table>
-  </section>
-
-  <!-- SECTION 08: Filtros -->
-  <section class="section" id="filtros">
-    <div class="section-number">08</div>
-    <h2>Filtros y segmentadores</h2>
-    <p>La magia de Power BI está en la <strong>interactividad</strong>. Hay dos formas de filtrar:</p>
-
-    <h3>1. Filtro cruzado (automático)</h3>
-    <p>Cuando haces <strong>clic en una barra</strong> de un gráfico, todos los demás gráficos se filtran automáticamente. Por ejemplo: si haces clic en "Marzo" en el gráfico de barras, la torta y la tarjeta solo muestran datos de marzo.</p>
-
-    <div class="info">
-      <strong> Esto es lo que hace especial a Power BI</strong>
-      En Excel, cada gráfico es independiente. En Power BI, todos los gráficos <strong>están conectados</strong>. Esto te permite explorar los datos haciendo clic, sin modificar nada.
-    </div>
-
-    <h3>2. Segmentador de datos (Slicer)</h3>
-    <p>Es un filtro visual que pones en el dashboard para que el usuario elija qué ver:</p>
-
-    <div class="steps">
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Agregar un segmentador</strong>
-          <p>En Visualizaciones, busca el ícono de <strong>Segmentación de datos</strong> (parece un embudo con una lista).</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Arrastrar un campo</strong>
-          <p>Arrastra <strong>"Categoría"</strong> (o "Mes") al segmentador. Aparecen botones o una lista con las opciones.</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Usar el filtro</strong>
-          <p>Haz clic en una categoría y todos los gráficos del dashboard se filtran. Clic en otra para cambiar. Ctrl+clic para seleccionar varias.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="truco">
-      <strong> Truco: estilo del segmentador</strong>
-      Selecciona el segmentador → en el panel de Formato (ícono del rodillo de pintura) puedes cambiar el estilo: <strong>Lista</strong> (vertical), <strong>Mosaico</strong> (botones horizontales), o <strong>Desplegable</strong> (dropdown). Para meses, el mosaico se ve muy bien.
-    </div>
-  </section>
-
-  <!-- SECTION 09: Tarjetas -->
-  <section class="section" id="tarjetas">
-    <div class="section-number">09</div>
-    <h2>Tarjetas KPI</h2>
-    <p>Las tarjetas muestran <strong>un número grande y destacado</strong>. Son perfectas para los indicadores principales de tu dashboard: ventas totales, utilidad del mes, número de clientes.</p>
-
-    <div class="steps">
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Seleccionar "Tarjeta"</strong>
-          <p>En Visualizaciones, busca el ícono de <strong>Tarjeta</strong> (parece un número "123").</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Arrastrar un campo numérico</strong>
-          <p>Arrastra <strong>"Ingresos"</strong> al área de Campos de la tarjeta. Power BI automáticamente calcula la <strong>suma</strong> y la muestra en grande.</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Cambiar el cálculo</strong>
-          <p>¿Quieres el promedio en vez de la suma? Haz clic en la flecha junto al nombre del campo → cambia de "Suma" a <strong>"Promedio"</strong>, "Máximo", "Mínimo", o "Recuento".</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="explainer">
-      <strong>🔍 ¿Qué es un KPI?</strong>
-      <p>KPI = <strong>Key Performance Indicator</strong> (Indicador Clave de Rendimiento). Son los números más importantes de un negocio. Ejemplo: "Ventas totales: $180M", "Utilidad: $42M", "Gastos promedio: $11M". Las tarjetas son la forma estándar de mostrar KPIs en cualquier dashboard.</p>
     </div>
 
     <div class="tip">
-      <strong> Consejo de diseño</strong>
-      Pon las tarjetas en la <strong>parte superior</strong> del dashboard, en fila. Así el usuario ve los números clave primero, y los gráficos detallados abajo. Es el diseño estándar en la industria.
+      <strong>Si no ves la opción de ejemplo en la pantalla de inicio</strong>
+      Si ya pasaste la pantalla de bienvenida, ve a <strong>Archivo → Abrir informe → Informes de ejemplo</strong> y selecciona Financial Sample. También puedes cerrar Power BI y volverlo a abrir para ver la pantalla de inicio.
+    </div>
+
+    <div class="result-box">
+      <strong>Resultado esperado</strong>
+      <p>En el panel de <strong>Campos</strong> (derecha) deberías ver la tabla "financials" con columnas como: Country, Product, Sales, Profit, Date, Units Sold, etc. Ya tienes los datos cargados sin haber buscado ningún archivo.</p>
     </div>
   </section>
 
-  <!-- SECTION 10: Dashboard completo -->
-  <section class="section" id="dashboard">
-    <div class="section-number">10</div>
-    <h2>Tu primer dashboard completo</h2>
-    <p>Ahora vamos a armar un dashboard profesional combinando todo lo que aprendimos. El objetivo es crear algo como esto:</p>
+  <!-- PASO 02 -->
+  <section class="section" id="conocer">
+    <div class="section-number">Paso 02</div>
+    <h2>Conocer los datos</h2>
+    <p>Antes de hacer gráficos, entendamos qué tenemos. Los datos de Financial Sample simulan las ventas de una empresa en 5 países, con 6 productos diferentes.</p>
+
+    <table class="summary-table">
+      <tr><th>Campo</th><th>Qué contiene</th><th>Ejemplo</th></tr>
+      <tr><td><strong>Country</strong></td><td>País de la venta</td><td>Germany, France, Canada, Mexico, USA</td></tr>
+      <tr><td><strong>Product</strong></td><td>Producto vendido</td><td>Paseo, VTT, Amarilla, Velo, Montana, Carretera</td></tr>
+      <tr><td><strong>Segment</strong></td><td>Tipo de cliente</td><td>Government, Midmarket, Enterprise, Small Business, Channel Partners</td></tr>
+      <tr><td><strong>Units Sold</strong></td><td>Unidades vendidas</td><td>1,513</td></tr>
+      <tr><td><strong>Sale Price</strong></td><td>Precio de venta unitario</td><td>350</td></tr>
+      <tr><td><strong>Gross Sales</strong></td><td>Ventas brutas</td><td>529,550</td></tr>
+      <tr><td><strong>Sales</strong></td><td>Ventas netas</td><td>529,550</td></tr>
+      <tr><td><strong>COGS</strong></td><td>Costo de los bienes vendidos</td><td>393,380</td></tr>
+      <tr><td><strong>Profit</strong></td><td>Ganancia (Sales - COGS)</td><td>136,170</td></tr>
+      <tr><td><strong>Date</strong></td><td>Fecha de la transacción</td><td>1 de diciembre de 2014</td></tr>
+    </table>
 
     <div class="explainer">
-      <strong>📐 Estructura del dashboard</strong>
-      <p><strong>Fila superior:</strong> 3 tarjetas KPI (Total Ingresos, Total Gastos, Utilidad Total)</p>
-      <p><strong>Fila del medio:</strong> Gráfico de barras (Ingresos por mes) + Gráfico de torta (Gastos por categoría)</p>
-      <p><strong>Fila inferior:</strong> Gráfico de línea (Tendencia de utilidad) + Segmentador (por categoría)</p>
+      <strong>¿Qué es COGS?</strong>
+      <p>COGS = <strong>Cost of Goods Sold</strong> (Costo de los Bienes Vendidos). Es lo que le costó a la empresa producir o comprar lo que vendió. La ganancia (Profit) es la diferencia: <code>Profit = Sales - COGS</code></p>
     </div>
+  </section>
 
-    <h3>Paso a paso</h3>
+  <!-- PASO 03 -->
+  <section class="section" id="barras">
+    <div class="section-number">Paso 03</div>
+    <h2>Gráfico de barras: Ventas por país</h2>
+    <p>Nuestro primer gráfico responde: <strong>¿Cuánto vendió cada país?</strong></p>
+
     <div class="steps">
       <div class="step-item">
         <div class="step-content">
-          <strong>Agregar las 3 tarjetas arriba</strong>
-          <p>Crea 3 tarjetas: una con la suma de Ingresos, otra con la suma de Gastos, otra con la suma de Utilidad. Ponlas en fila en la parte superior.</p>
+          <strong>Seleccionar el tipo de gráfico</strong>
+          <p>En el panel de <strong>Visualizaciones</strong> (derecha), haz clic en el ícono de <strong>Gráfico de barras agrupadas</strong>. Es el primer ícono, parece barras verticales. Aparece un cuadro vacío en el lienzo.</p>
         </div>
       </div>
       <div class="step-item">
         <div class="step-content">
-          <strong>Agregar gráfico de barras</strong>
-          <p>Eje X = Mes, Eje Y = Ingresos. Ponlo en la mitad izquierda.</p>
+          <strong>Arrastrar Country al Eje X</strong>
+          <p>En el panel de <strong>Campos</strong> (derecha abajo), busca el campo <strong>Country</strong> dentro de la tabla "financials". Arrástralo al área que dice <strong>"Eje X"</strong>.</p>
         </div>
       </div>
       <div class="step-item">
         <div class="step-content">
-          <strong>Agregar gráfico de torta</strong>
-          <p>Leyenda = Categoría, Valores = Gastos. Ponlo en la mitad derecha.</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Agregar gráfico de línea</strong>
-          <p>Eje X = Mes, Eje Y = Utilidad. Ponlo abajo a la izquierda.</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Agregar segmentador</strong>
-          <p>Campo = Categoría. Estilo = Mosaico. Ponlo abajo a la derecha.</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-content">
-          <strong>Ponerle título</strong>
-          <p>Inserta un cuadro de texto (Insertar → Cuadro de texto) con el título: <strong>"Dashboard Financiero 2026"</strong>. Ponlo arriba de las tarjetas.</p>
+          <strong>Arrastrar Gross Sales al Eje Y</strong>
+          <p>Busca el campo <strong>Gross Sales</strong> y arrástralo al área <strong>"Eje Y"</strong>.</p>
         </div>
       </div>
     </div>
 
-    <h3>Darle estilo profesional</h3>
-    <ul>
-      <li><strong>Fondo del lienzo:</strong> Ve a Formato → Fondo de página → Color gris claro (#F2F2F2)</li>
-      <li><strong>Alinear gráficos:</strong> Selecciona varios con Ctrl+clic → Formato → Alinear → Distribuir horizontalmente</li>
-      <li><strong>Tema:</strong> Ve a Vista → Temas → elige uno profesional</li>
-      <li><strong>Bordes redondeados:</strong> En el formato de cada gráfico, activa el borde y ponle radio</li>
-    </ul>
+    <div class="field-path">
+      financials <span class="arrow">→</span> Country <span class="arrow">→</span> Eje X &nbsp;&nbsp;|&nbsp;&nbsp; financials <span class="arrow">→</span> Gross Sales <span class="arrow">→</span> Eje Y
+    </div>
+
+    <div class="result-box">
+      <strong>Resultado esperado</strong>
+      <p>Un gráfico de barras mostrando las ventas brutas de cada país. USA debería tener la barra más alta, seguido de Canada, France, Germany y Mexico.</p>
+    </div>
 
     <div class="truco">
-      <strong> Truco final: prueba la interactividad</strong>
-      Haz clic en una barra del gráfico de barras. ¿Ves cómo la torta, la línea y las tarjetas se actualizan? Eso es el <strong>filtro cruzado</strong>. Haz clic en el segmentador para filtrar por categoría. Este es el poder de Power BI.
-    </div>
-
-    <h3>Guardar tu trabajo</h3>
-    <ul>
-      <li><strong>Guardar:</strong> Ctrl + S → elige ubicación → se guarda como <code>.pbix</code></li>
-      <li><strong>Exportar a PDF:</strong> Archivo → Exportar → PDF (genera una imagen estática del dashboard)</li>
-    </ul>
-
-    <div class="exercise">
-      <span class="exercise-tag">Actividad de clase</span>
-      <h4>Arma tu propio dashboard</h4>
-      <p>Con el Excel proporcionado, crea un dashboard que tenga <strong>mínimo</strong>:</p>
-      <ol>
-        <li>2 tarjetas KPI (elige qué números destacar)</li>
-        <li>1 gráfico de barras</li>
-        <li>1 gráfico de torta o dona</li>
-        <li>1 segmentador de datos</li>
-        <li>Un título</li>
-      </ol>
-      <p><strong>Puntos extra:</strong> agrega un gráfico de línea y usa un tema de colores.</p>
+      <strong>Redimensionar el gráfico</strong>
+      Arrastra las esquinas del gráfico para hacerlo más grande. Ocupa aproximadamente la <strong>mitad izquierda</strong> del lienzo, en la zona del medio.
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- PASO 04 -->
+  <section class="section" id="torta">
+    <div class="section-number">Paso 04</div>
+    <h2>Gráfico de torta: Ganancia por producto</h2>
+    <p>Este gráfico responde: <strong>¿Qué producto genera más ganancia?</strong></p>
+
+    <div class="warning">
+      <strong>Importante: haz clic en un espacio vacío primero</strong>
+      Antes de crear un nuevo gráfico, siempre haz clic en un <strong>espacio vacío del lienzo</strong>. Si no lo haces, vas a modificar el gráfico anterior en vez de crear uno nuevo.
+    </div>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Seleccionar gráfico de torta</strong>
+          <p>En Visualizaciones, busca el ícono de <strong>Gráfico circular</strong> (torta). Haz clic.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Arrastrar Product a Leyenda</strong>
+          <p>Arrastra el campo <strong>Product</strong> al área <strong>"Leyenda"</strong>.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Arrastrar Profit a Valores</strong>
+          <p>Arrastra el campo <strong>Profit</strong> al área <strong>"Valores"</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-path">
+      financials <span class="arrow">→</span> Product <span class="arrow">→</span> Leyenda &nbsp;&nbsp;|&nbsp;&nbsp; financials <span class="arrow">→</span> Profit <span class="arrow">→</span> Valores
+    </div>
+
+    <div class="result-box">
+      <strong>Resultado esperado</strong>
+      <p>Una torta con colores mostrando la proporción de ganancia de cada producto. Ponlo en la <strong>mitad derecha</strong> del lienzo, al lado del gráfico de barras.</p>
+    </div>
+  </section>
+
+  <!-- PASO 05 -->
+  <section class="section" id="magia">
+    <div class="section-number">Paso 05</div>
+    <h2>El filtro cruzado: la magia de Power BI</h2>
+    <p>Ahora viene lo más impresionante. Ya tienes dos gráficos — vamos a ver cómo se conectan.</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Haz clic en la barra de "France"</strong>
+          <p>En el gráfico de barras, haz clic en la barra de France.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Mira la torta</strong>
+          <p>¿Ves cómo la torta <strong>se filtró automáticamente</strong>? Ahora solo muestra las ganancias por producto EN France.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Haz clic en otro país</strong>
+          <p>Prueba con USA, con Germany... la torta cambia cada vez.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Ahora al revés</strong>
+          <p>Haz clic en una porción de la torta (por ejemplo "Paseo"). Las barras se resaltan mostrando cuánto vendió cada país de ese producto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="explainer">
+      <strong>¿Por qué esto es importante?</strong>
+      <p>En Excel, cada gráfico es independiente. Si quieres ver "las ganancias de France por producto", tienes que filtrar la tabla manualmente y hacer otro gráfico. En Power BI, <strong>todos los gráficos están conectados</strong> y se filtran con un clic. Esto se llama <strong>filtro cruzado</strong> y es lo que hace a Power BI tan poderoso para análisis financiero.</p>
+    </div>
+
+    <div class="tip">
+      <strong>Para quitar el filtro</strong>
+      Haz clic de nuevo en la misma barra o porción, o haz clic en un espacio vacío del gráfico. Todo vuelve a la vista completa.
+    </div>
+  </section>
+
+  <!-- PASO 06 -->
+  <section class="section" id="tarjetas">
+    <div class="section-number">Paso 06</div>
+    <h2>Tarjetas KPI: los números clave</h2>
+    <p>Las tarjetas muestran un número grande y destacado. Vamos a crear dos: <strong>Ventas Totales</strong> y <strong>Ganancias Totales</strong>.</p>
+
+    <h3>Tarjeta 1: Ventas Totales</h3>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Clic en espacio vacío del lienzo</strong>
+          <p>Asegúrate de no tener ningún gráfico seleccionado.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Seleccionar Tarjeta</strong>
+          <p>En Visualizaciones, busca el ícono de <strong>Tarjeta</strong> (parece el número "123").</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Arrastrar Sales a Campos</strong>
+          <p>Arrastra el campo <strong>Sales</strong> al área de <strong>"Campos"</strong> de la tarjeta.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-path">
+      financials <span class="arrow">→</span> Sales <span class="arrow">→</span> Campos de la tarjeta
+    </div>
+
+    <div class="result-box">
+      <strong>Resultado esperado</strong>
+      <p>Aparece un número grande: <strong>$127.93M</strong> (o similar). Esas son las ventas totales. Mueve esta tarjeta a la <strong>parte superior izquierda</strong> del lienzo.</p>
+    </div>
+
+    <h3>Tarjeta 2: Ganancias Totales</h3>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Repetir el proceso</strong>
+          <p>Clic en espacio vacío → Tarjeta → arrastra <strong>Profit</strong> a Campos.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Ubicar al lado de la primera</strong>
+          <p>Muévela junto a la tarjeta de Sales, en la <strong>parte superior derecha</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-path">
+      financials <span class="arrow">→</span> Profit <span class="arrow">→</span> Campos de la tarjeta
+    </div>
+
+    <div class="result-box">
+      <strong>Resultado esperado</strong>
+      <p>Aparece: <strong>$16.89M</strong> (o similar). Esas son las ganancias totales.</p>
+    </div>
+
+    <div class="info">
+      <strong>Las tarjetas también se filtran</strong>
+      Haz clic en una barra de país y mira cómo las tarjetas cambian. Ahora muestran las ventas y ganancias <strong>solo de ese país</strong>. Todo está conectado.
+    </div>
+  </section>
+
+  <!-- PASO 07 -->
+  <section class="section" id="linea">
+    <div class="section-number">Paso 07</div>
+    <h2>Gráfico de línea: Ventas en el tiempo</h2>
+    <p>Este gráfico responde: <strong>¿Cómo se comportaron las ventas mes a mes?</strong></p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Clic en espacio vacío del lienzo</strong>
+          <p>Siempre antes de crear un gráfico nuevo.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Seleccionar gráfico de línea</strong>
+          <p>En Visualizaciones, busca el ícono de <strong>Gráfico de líneas</strong>.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Arrastrar Date al Eje X</strong>
+          <p>Arrastra el campo <strong>Date</strong> al <strong>"Eje X"</strong>. Power BI automáticamente crea una jerarquía: Año → Trimestre → Mes.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Arrastrar Units Sold al Eje Y</strong>
+          <p>Arrastra el campo <strong>Units Sold</strong> al <strong>"Eje Y"</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-path">
+      financials <span class="arrow">→</span> Date <span class="arrow">→</span> Eje X &nbsp;&nbsp;|&nbsp;&nbsp; financials <span class="arrow">→</span> Units Sold <span class="arrow">→</span> Eje Y
+    </div>
+
+    <div class="result-box">
+      <strong>Resultado esperado</strong>
+      <p>Una línea mostrando las unidades vendidas a lo largo del tiempo. Ubícalo en la <strong>parte inferior izquierda</strong>.</p>
+    </div>
+
+    <div class="truco">
+      <strong>Expandir la jerarquía de fechas</strong>
+      Power BI muestra primero solo los años. Para ver por meses, busca las flechas en la esquina superior del gráfico de línea:
+      <ul style="margin-top:8px;">
+        <li>La <strong>flecha doble hacia abajo (↓↓)</strong> baja un nivel en toda la jerarquía (de Año a Trimestre, de Trimestre a Mes)</li>
+        <li>Haz clic en esa flecha hasta llegar al nivel de <strong>Mes</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PASO 08 -->
+  <section class="section" id="segmentador">
+    <div class="section-number">Paso 08</div>
+    <h2>Segmentador: filtrar por producto</h2>
+    <p>El segmentador es un filtro visual que permite al usuario elegir qué datos ver.</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Clic en espacio vacío</strong>
+          <p>Deselecciona cualquier gráfico.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Seleccionar Segmentación de datos</strong>
+          <p>En Visualizaciones, busca el ícono de <strong>Segmentación de datos</strong> (parece un embudo con una lista). Puede que tengas que hacer scroll en los íconos.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Arrastrar Product al campo</strong>
+          <p>Arrastra <strong>Product</strong> al área del segmentador.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Probar el filtro</strong>
+          <p>Haz clic en <strong>"Paseo"</strong>. ¡Todos los gráficos y tarjetas se filtran mostrando solo datos de Paseo!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-path">
+      financials <span class="arrow">→</span> Product <span class="arrow">→</span> Campo del segmentador
+    </div>
+
+    <div class="result-box">
+      <strong>Resultado esperado</strong>
+      <p>Una lista con los 6 productos: Amarilla, Carretera, Montana, Paseo, Velo, VTT. Al hacer clic en cualquiera, todo el dashboard se filtra. Ubícalo en la <strong>parte inferior derecha</strong>.</p>
+    </div>
+
+    <div class="tip">
+      <strong>Seleccionar varios productos</strong>
+      Mantén presionado <strong>Ctrl</strong> y haz clic en varios productos para filtrar por más de uno a la vez.
+    </div>
+  </section>
+
+  <!-- PASO 09 -->
+  <section class="section" id="titulo">
+    <div class="section-number">Paso 09</div>
+    <h2>Título y organización</h2>
+    <p>Vamos a darle forma profesional al dashboard.</p>
+
+    <h3>Agregar título</h3>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Insertar cuadro de texto</strong>
+          <p>Ve a la pestaña <strong>Insertar</strong> (en la cinta superior) → clic en <strong>Cuadro de texto</strong>.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Escribir el título</strong>
+          <p>Escribe: <strong>Reporte de Situación Financiera</strong>. Selecciona el texto, ponlo en <strong>negrita</strong> y sube el tamaño a <strong>20 o 24</strong>.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Ubicarlo arriba</strong>
+          <p>Mueve el cuadro de texto a la <strong>parte superior</strong> del lienzo, arriba de las tarjetas.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Organizar los elementos</h3>
+    <p>Tu dashboard debería tener esta estructura:</p>
+
+    <div class="explainer">
+      <strong>Distribución del dashboard</strong>
+      <p><strong>Arriba:</strong> Título "Reporte de Situación Financiera"</p>
+      <p><strong>Debajo del título:</strong> Tarjeta Sales ($127.93M) &nbsp;|&nbsp; Tarjeta Profit ($16.89M)</p>
+      <p><strong>Fila del medio:</strong> Gráfico de barras (Ventas por país) &nbsp;|&nbsp; Gráfico de torta (Ganancia por producto)</p>
+      <p><strong>Fila inferior:</strong> Gráfico de línea (Ventas en el tiempo) &nbsp;|&nbsp; Segmentador (Producto)</p>
+    </div>
+
+    <div class="truco">
+      <strong>Alinear gráficos</strong>
+      Selecciona varios gráficos con <strong>Ctrl + clic</strong>, luego ve a <strong>Formato → Alinear</strong> en la cinta superior. Usa "Distribuir horizontalmente" para que queden parejos.
+    </div>
+  </section>
+
+  <!-- PASO 10 -->
+  <section class="section" id="estilo">
+    <div class="section-number">Paso 10</div>
+    <h2>Estilo profesional</h2>
+    <p>Unos ajustes para que se vea como un dashboard de verdad:</p>
+
+    <h3>Cambiar el fondo del lienzo</h3>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Clic en espacio vacío del lienzo</strong>
+          <p>No selecciones ningún gráfico.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Ir a Formato</strong>
+          <p>En el panel derecho, busca el ícono del <strong>rodillo de pintura</strong> (Formato). Busca <strong>"Fondo de lienzo"</strong> o <strong>"Fondo de página"</strong>.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Elegir un gris claro</strong>
+          <p>Cambia el color a un gris muy claro: <code>#F2F2F2</code>. Esto hace que los gráficos blancos resalten sobre el fondo.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Aplicar un tema</h3>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Ir a Vista → Temas</strong>
+          <p>En la cinta superior, pestaña <strong>Vista</strong> → <strong>Temas</strong>. Elige uno que te guste. Los temas cambian los colores de todos los gráficos a la vez.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 11 -->
+  <section class="section" id="guardar">
+    <div class="section-number">Paso 11</div>
+    <h2>Guardar y exportar</h2>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Guardar el archivo</strong>
+          <p>Presiona <strong>Ctrl + S</strong>. Elige una ubicación y un nombre: <code>Dashboard_Financiero.pbix</code>. El formato <code>.pbix</code> es el archivo nativo de Power BI.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-content">
+          <strong>Exportar a PDF (opcional)</strong>
+          <p>Ve a <strong>Archivo → Exportar → PDF</strong>. Genera una imagen estática de tu dashboard. Útil para enviar por correo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <strong>Recuerda</strong>
+      El archivo <code>.pbix</code> guarda todo: los datos, los gráficos, los filtros y el diseño. Puedes abrirlo la próxima clase y seguir editando.
+    </div>
+  </section>
+
+  <!-- EJERCICIO FINAL -->
+  <section class="section">
+    <div class="exercise">
+      <span class="exercise-tag">Actividad</span>
+      <h4>Personaliza tu dashboard</h4>
+      <p>Ya tienes el dashboard base con 6 elementos. Ahora agrega <strong>mínimo 2 cosas más</strong> de esta lista:</p>
+      <ol>
+        <li>Una tarjeta con el <strong>total de Units Sold</strong></li>
+        <li>Un segundo segmentador por <strong>Country</strong></li>
+        <li>Un gráfico de barras con <strong>Segment</strong> en el Eje X y <strong>Sales</strong> en el Eje Y</li>
+        <li>Un gráfico de <strong>dona</strong> (en vez de torta) con los mismos campos</li>
+        <li>Cambiar el <strong>tema de colores</strong> del dashboard</li>
+      </ol>
+      <p><strong>Guarda tu archivo .pbix</strong> — lo usaremos la próxima clase.</p>
+    </div>
+  </section>
+
+  <!-- NAV -->
+  <nav class="page-nav">
+    <a class="secondary" href="powerbi-intro.html">← Guía introductoria</a>
+  </nav>
+
   <footer class="footer">
     <p><strong>Programación para Financieros</strong> · Universidad de Caldas, La Dorada</p>
     <p>Prof. Marlon Darío Nieves Padilla</p>
@@ -677,3 +645,5 @@ document.querySelectorAll('.toc-list a').forEach(function(a) {
   });
 });
 </script>
+
+</body></html>
