@@ -149,7 +149,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
 
   <!-- Hero -->
   <header class="hero">
-    <div class="hero-badge">Sesión 12 · Introducción</div>
+    <div class="hero-badge"> · Introducción</div>
     <h1>Dashboards con <span>Power BI</span></h1>
     <p>Tu primera herramienta profesional para visualizar y analizar datos financieros — sin escribir código.</p>
   </header>
@@ -213,19 +213,19 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
       <div class="compare-card">
         <span class="icon">☁️</span>
         <div class="label">Power BI Service</div>
-        <div class="price">💰 Requiere licencia</div>
+        <div class="price"> Requiere licencia</div>
         <div class="desc">Versión web (app.powerbi.com). Sirve para <strong>publicar y compartir</strong> dashboards con tu equipo de trabajo.</div>
       </div>
       <div class="compare-card">
         <span class="icon">📱</span>
         <div class="label">Power BI Mobile</div>
-        <div class="price">✅ GRATIS</div>
+        <div class="price">GRATIS</div>
         <div class="desc">App para celular. Sirve para <strong>ver</strong> dashboards publicados desde el teléfono. No se crean aquí.</div>
       </div>
     </div>
 
     <div class="tip">
-      <strong>💡 Resumen</strong>
+      <strong> Resumen</strong>
       Desktop = donde <strong>creas</strong>. Service = donde <strong>compartes</strong>. Mobile = donde <strong>consultas</strong>. Para esta clase solo necesitas Desktop.
     </div>
   </section>
@@ -236,7 +236,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     <h2>Instalación de Power BI Desktop</h2>
 
     <div class="warning">
-      <strong>⚠️ Requisito</strong>
+      <strong> Requisito</strong>
       Power BI Desktop solo funciona en <strong>Windows</strong> (Windows 10 o superior). No está disponible para Mac ni Linux.
     </div>
 
@@ -268,7 +268,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </div>
 
     <div class="truco">
-      <strong>🎯 Alternativa: Microsoft Store</strong>
+      <strong> Alternativa: Microsoft Store</strong>
       También puedes buscarlo directamente en la <strong>Microsoft Store</strong> de Windows: busca "Power BI Desktop" e instálalo desde ahí. Es más fácil y se actualiza solo.
     </div>
   </section>
@@ -325,7 +325,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </div>
 
     <div class="explainer">
-      <strong>🔍 La idea clave</strong>
+      <strong> La idea clave</strong>
       <p>En Power BI todo funciona con <strong>arrastrar y soltar</strong> (drag & drop). Arrastras un campo del panel de Campos hacia el gráfico, y Power BI hace el resto. No escribes código, no escribes fórmulas — solo arrastras.</p>
     </div>
   </section>
@@ -365,12 +365,12 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </div>
 
     <div class="warning">
-      <strong>⚠️ Error común</strong>
+      <strong> Error común</strong>
       Si no aparecen tus columnas, probablemente el Excel <strong>no tiene encabezados</strong> en la primera fila. Power BI espera que la primera fila tenga los nombres de las columnas (Mes, Precio, Ventas, etc.), no datos.
     </div>
 
     <div class="truco">
-      <strong>🎯 Truco: "Transformar datos"</strong>
+      <strong> Truco: "Transformar datos"</strong>
       En vez de "Cargar", puedes darle <strong>"Transformar datos"</strong>. Esto abre el Editor de Power Query donde puedes limpiar los datos antes de usarlos: cambiar nombres de columnas, eliminar filas vacías, cambiar tipos de datos. No lo usaremos hoy, pero es muy útil.
     </div>
 
@@ -386,7 +386,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </table>
 
     <div class="info">
-      <strong>📁 ¿No tienes el Excel?</strong>
+      <strong> ¿No tienes el Excel?</strong>
       Puedes crear uno rápido: abre Excel, pon esos encabezados en la primera fila, llena 12 filas (una por mes) con datos inventados, y guárdalo. Lo importante es que tenga <strong>encabezados claros</strong> y <strong>datos numéricos</strong>.
     </div>
   </section>
@@ -421,7 +421,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     <p>¡Listo! Ya tienes un gráfico de barras mostrando los ingresos por mes.</p>
 
     <div class="explainer">
-      <strong>🔍 Compara con Python</strong>
+      <strong> Compara con Python</strong>
       <p>En Python escribíamos <code>plt.bar(meses, ingresos)</code> y luego <code>plt.title()</code>, <code>plt.xlabel()</code>, <code>plt.show()</code>... En Power BI hicimos lo mismo con 3 arrastres. El resultado es similar, pero Power BI es <strong>interactivo</strong> — puedes hacer clic en las barras y explorar los datos.</p>
     </div>
 
@@ -436,7 +436,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </ul>
 
     <div class="truco">
-      <strong>🎯 Truco: alinear gráficos</strong>
+      <strong> Truco: alinear gráficos</strong>
       Para que tu dashboard se vea profesional, alinea los gráficos. Ve a <strong>Formato → Alinear</strong> en la cinta superior para alinear varios gráficos seleccionados.
     </div>
   </section>
@@ -502,7 +502,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     <p>Cuando haces <strong>clic en una barra</strong> de un gráfico, todos los demás gráficos se filtran automáticamente. Por ejemplo: si haces clic en "Marzo" en el gráfico de barras, la torta y la tarjeta solo muestran datos de marzo.</p>
 
     <div class="info">
-      <strong>🔗 Esto es lo que hace especial a Power BI</strong>
+      <strong> Esto es lo que hace especial a Power BI</strong>
       En Excel, cada gráfico es independiente. En Power BI, todos los gráficos <strong>están conectados</strong>. Esto te permite explorar los datos haciendo clic, sin modificar nada.
     </div>
 
@@ -531,7 +531,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </div>
 
     <div class="truco">
-      <strong>🎯 Truco: estilo del segmentador</strong>
+      <strong> Truco: estilo del segmentador</strong>
       Selecciona el segmentador → en el panel de Formato (ícono del rodillo de pintura) puedes cambiar el estilo: <strong>Lista</strong> (vertical), <strong>Mosaico</strong> (botones horizontales), o <strong>Desplegable</strong> (dropdown). Para meses, el mosaico se ve muy bien.
     </div>
   </section>
@@ -569,7 +569,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </div>
 
     <div class="tip">
-      <strong>💡 Consejo de diseño</strong>
+      <strong> Consejo de diseño</strong>
       Pon las tarjetas en la <strong>parte superior</strong> del dashboard, en fila. Así el usuario ve los números clave primero, y los gráficos detallados abajo. Es el diseño estándar en la industria.
     </div>
   </section>
@@ -636,7 +636,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--accen
     </ul>
 
     <div class="truco">
-      <strong>🎯 Truco final: prueba la interactividad</strong>
+      <strong> Truco final: prueba la interactividad</strong>
       Haz clic en una barra del gráfico de barras. ¿Ves cómo la torta, la línea y las tarjetas se actualizan? Eso es el <strong>filtro cruzado</strong>. Haz clic en el segmentador para filtrar por categoría. Este es el poder de Power BI.
     </div>
 
