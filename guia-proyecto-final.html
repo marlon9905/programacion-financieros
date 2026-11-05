@@ -342,11 +342,15 @@ footer {
   <h2>Leer el archivo Excel en Python</h2>
   <p>Lo primero que necesitan es cargar el dataset en Python. Hay dos formas de hacerlo:</p>
 
+  <div class="warn">
+    <strong>Antes de empezar:</strong> Descarguen el archivo <code>dataset_cartera_creditos.xlsx</code> y péguenlo en la misma carpeta donde van a crear su archivo <code>.py</code>. Si no están en la misma carpeta, Python no va a encontrar el archivo y les va a salir error.
+  </div>
+
   <div class="substep">
     <div class="substep-num">A</div>
     <div class="substep-content">
       <strong>Forma simple (archivo al lado del script)</strong>
-      <p>Si ponen el archivo <code>dataset_cartera_creditos.xlsx</code> en la misma carpeta donde está su archivo <code>.py</code>, solo escriben el nombre:</p>
+      <p>Si el archivo <code>dataset_cartera_creditos.xlsx</code> está en la <strong>misma carpeta</strong> que su archivo <code>.py</code>, solo escriben el nombre:</p>
     </div>
   </div>
 
@@ -356,7 +360,7 @@ datos = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Creditos")
 print(datos)</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
 
   <div class="tip">
-    <strong>Tip:</strong> Esta es la forma más fácil. Asegúrense de que el Excel esté en la misma carpeta que su script .py
+    <strong>Tip:</strong> Esta es la forma más fácil. Solo funciona si el Excel y el .py están juntos en la misma carpeta.
   </div>
 
   <div class="substep">
