@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Proyecto Final — Cartera de Créditos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --bg: #f8fafc;
+  --fg: #1e293b;
+  --muted: #64748b;
+  --accent: #6366f1;
+  --accent-light: #e0e7ff;
+  --accent-dark: #4f46e5;
+  --code-bg: #1e1e2e;
+  --code-fg: #cdd6f4;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --tip-bg: #f0fdf4;
+  --tip-border: #86efac;
+  --tip-accent: #16a34a;
+  --warn-bg: #fefce8;
+  --warn-border: #fde047;
+  --warn-accent: #ca8a04;
+  --tag-bg: #e0e7ff;
+  --tag-fg: #4338ca;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.7;
+  padding: 0 16px;
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+/* ===== HERO ===== */
+.hero {
+  text-align: center;
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--card-border);
+  margin-bottom: 2.5rem;
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+.hero h1 .highlight {
+  color: var(--accent);
+}
+.hero p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ===== TOC ===== */
+.toc {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow);
+}
+.toc-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem 1.5rem;
+}
+.toc-grid a {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+  transition: color 0.15s;
+}
+.toc-grid a:hover {
+  color: var(--accent);
+}
+
+/* ===== PASOS ===== */
+.step {
+  margin-bottom: 3rem;
+}
+.step-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+.step h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+.step p {
+  font-size: 0.93rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ===== SUBSTEPS ===== */
+.substep {
+  display: flex;
+  gap: 1rem;
+  margin: 1.25rem 0;
+  align-items: flex-start;
+}
+.substep-num {
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+.substep-content {
+  flex: 1;
+  min-width: 0;
+}
+.substep-content strong {
+  display: block;
+  font-size: 0.93rem;
+  margin-bottom: 0.2rem;
+}
+.substep-content p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ===== CODE ===== */
+pre {
+  background: var(--code-bg);
+  color: var(--code-fg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 0.75rem 0 1rem;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85em;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.6);
+  border: 1px solid rgba(255,255,255,.15);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.copy-btn:hover {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+  box-shadow: var(--shadow);
+}
+.card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.card p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== TIPS & WARNINGS ===== */
+.tip {
+  background: var(--tip-bg);
+  border-left: 4px solid var(--tip-border);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+}
+.tip strong { color: var(--tip-accent); }
+.warn {
+  background: var(--warn-bg);
+  border-left: 4px solid var(--warn-border);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+}
+.warn strong { color: var(--warn-accent); }
+
+/* ===== TABLES ===== */
+.table-wrap { overflow-x: auto; margin: 0.75rem 0; border-radius: 10px; box-shadow: var(--shadow); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: var(--card-bg);
+}
+th {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--card-border);
+}
+tr:last-child td { border-bottom: none; }
+td strong { font-weight: 600; }
+
+/* ===== LISTS ===== */
+ol, ul { padding-left: 1.35rem; }
+li {
+  font-size: 0.93rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--card-border);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .toc-grid { grid-template-columns: 1fr; }
+  .toc { padding: 1.25rem; }
+  pre { padding: 1rem; font-size: 0.78rem; }
+  th, td { padding: 0.45rem 0.6rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-tag">Proyecto Final</span>
+  <h1>Guía del <span class="highlight">Proyecto Final</span></h1>
+  <p>Análisis de Cartera de Créditos — Cooperativa Financiera del Oriente de Caldas. Ejemplos de código y estructura para completar tu proyecto.</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">≡ Pasos de esta guía</div>
+  <div class="toc-grid">
+    <a href="#paso1">01 · Leer el archivo Excel</a>
+    <a href="#paso2">02 · Las 5 hojas del dataset</a>
+    <a href="#paso3">03 · Conocer las columnas</a>
+    <a href="#paso4">04 · Ideas para los gráficos</a>
+    <a href="#paso5">05 · Estructura del script .py</a>
+    <a href="#paso6">06 · Dashboard en Julius AI</a>
+    <a href="#paso7">07 · Modelo predictivo</a>
+    <a href="#sustentacion">08 · Sustentación</a>
+  </div>
+</div>
+
+<!-- ===== PASO 1 ===== -->
+<div class="step" id="paso1">
+  <div class="step-label">Paso 01</div>
+  <h2>Leer el archivo Excel en Python</h2>
+  <p>Lo primero que necesitan es cargar el dataset en Python. Hay dos formas de hacerlo:</p>
+
+  <div class="substep">
+    <div class="substep-num">A</div>
+    <div class="substep-content">
+      <strong>Forma simple (archivo al lado del script)</strong>
+      <p>Si ponen el archivo <code>dataset_cartera_creditos.xlsx</code> en la misma carpeta donde está su archivo <code>.py</code>, solo escriben el nombre:</p>
+    </div>
+  </div>
+
+<pre><code>import pandas as pd
+
+datos = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+print(datos)</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <div class="tip">
+    <strong>Tip:</strong> Esta es la forma más fácil. Asegúrense de que el Excel esté en la misma carpeta que su script .py
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">B</div>
+    <div class="substep-content">
+      <strong>Con ruta completa (si la forma simple no funciona)</strong>
+      <p>Si les sale error con la forma simple, pueden usar la ruta completa del archivo. Así se hace con la ruta completa:</p>
+    </div>
+  </div>
+
+<pre><code>import pandas as pd
+
+datos = pd.read_excel(r"C:\programacion finanzas\CLASE\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+print(datos)</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <div class="warn">
+    <strong>Importante:</strong> Pongan la <code>r</code> antes de las comillas (<code>r"..."</code>) para que Python no confunda las barras <code>\</code> con caracteres especiales. Y cambien la ruta por la carpeta donde ustedes tengan el archivo.
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">?</div>
+    <div class="substep-content">
+      <strong>¿Cómo sé cuál es mi ruta?</strong>
+      <p>En el Explorador de archivos de Windows, hagan clic en la barra de dirección de la carpeta donde tienen el Excel. Eso les muestra la ruta completa. La copian y la pegan en el código.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PASO 2 ===== -->
+<div class="step" id="paso2">
+  <div class="step-label">Paso 02</div>
+  <h2>El archivo tiene 5 hojas</h2>
+  <p>El dataset no es solo una tabla. Tiene 5 hojas con información relacionada:</p>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Hoja</th><th>Qué contiene</th><th>Cómo leerla</th></tr>
+    <tr><td><strong>Creditos</strong></td><td>600 créditos (la tabla principal)</td><td><code>sheet_name="Creditos"</code></td></tr>
+    <tr><td><strong>Asesores</strong></td><td>8 asesores con sucursal y experiencia</td><td><code>sheet_name="Asesores"</code></td></tr>
+    <tr><td><strong>Sucursales</strong></td><td>4 sucursales con ubicación</td><td><code>sheet_name="Sucursales"</code></td></tr>
+    <tr><td><strong>Tipos_Credito</strong></td><td>5 tipos con montos y tasas</td><td><code>sheet_name="Tipos_Credito"</code></td></tr>
+    <tr><td><strong>Calificaciones_Riesgo</strong></td><td>Escala A-E de riesgo</td><td><code>sheet_name="Calificaciones_Riesgo"</code></td></tr>
+  </table>
+  </div>
+
+<pre><code># Leer una hoja específica
+asesores = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Asesores")
+print(asesores)
+
+# Ver cuántas filas y columnas tiene la tabla principal
+datos = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+print(datos.shape)       # (600, 19) = 600 filas, 19 columnas
+print(datos.columns.tolist())  # nombres de las columnas</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+</div>
+
+<!-- ===== PASO 3 ===== -->
+<div class="step" id="paso3">
+  <div class="step-label">Paso 03</div>
+  <h2>Conocer las columnas</h2>
+  <p>La hoja <strong>Creditos</strong> tiene 19 columnas. Estas son las más importantes para los gráficos:</p>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Columna</th><th>Qué es</th><th>Útil para</th></tr>
+    <tr><td><code>Tipo_Credito</code></td><td>Consumo, Microcrédito, Vivienda, Comercial, Libre Inversión</td><td>Gráfico de barras</td></tr>
+    <tr><td><code>Estado</code></td><td>Al día, Mora 30/60/90, Castigado</td><td>Gráfico de torta</td></tr>
+    <tr><td><code>Monto_Desembolsado</code></td><td>Cuánto dinero se prestó</td><td>Histograma, barras</td></tr>
+    <tr><td><code>Sucursal</code></td><td>La Dorada Centro, Norte, Victoria, Samaná</td><td>Barras horizontales</td></tr>
+    <tr><td><code>Fecha_Desembolso</code></td><td>Cuándo se prestó</td><td>Gráfico de líneas</td></tr>
+    <tr><td><code>En_Mora</code></td><td>Sí o No</td><td>Modelo predictivo</td></tr>
+    <tr><td><code>Asesor</code></td><td>Nombre del asesor del crédito</td><td>Dashboard</td></tr>
+    <tr><td><code>Calificacion_Riesgo</code></td><td>A, B, C, D o E</td><td>Dashboard</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ===== PASO 4 ===== -->
+<div class="step" id="paso4">
+  <div class="step-label">Paso 04</div>
+  <h2>Ideas para los gráficos (sin resolver)</h2>
+  <p>Aquí les doy la idea y la función de matplotlib que necesitan. <strong>Ustedes arman el código completo.</strong></p>
+
+  <div class="card">
+    <h3>Gráfico de barras</h3>
+    <p>Contar cuántos créditos hay por tipo y graficarlos:</p>
+<pre><code># Contar por categoría
+conteo = datos["Tipo_Credito"].value_counts()
+
+# Graficar barras
+plt.bar(conteo.index, conteo.values)
+plt.title("Tu título aquí")
+plt.xlabel("...")
+plt.ylabel("...")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+  </div>
+
+  <div class="card">
+    <h3>Gráfico de torta / pie</h3>
+    <p>Mostrar la distribución porcentual por estado:</p>
+<pre><code># Contar por estado
+estados = datos["Estado"].value_counts()
+
+# Graficar torta
+plt.pie(estados.values, labels=estados.index, autopct="%1.1f%%")
+plt.title("Tu título aquí")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+  </div>
+
+  <div class="card">
+    <h3>Gráfico de barras horizontales</h3>
+    <p>Sumar montos por sucursal:</p>
+<pre><code># Agrupar y sumar
+por_sucursal = datos.groupby("Sucursal")["Monto_Desembolsado"].sum()
+
+# Barras horizontales
+plt.barh(por_sucursal.index, por_sucursal.values)
+plt.title("Tu título aquí")
+plt.xlabel("...")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+  </div>
+
+  <div class="card">
+    <h3>Histograma</h3>
+    <p>Ver cómo se distribuyen los montos desembolsados:</p>
+<pre><code># Histograma de montos
+plt.hist(datos["Monto_Desembolsado"], bins=20)
+plt.title("Tu título aquí")
+plt.xlabel("...")
+plt.ylabel("...")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+  </div>
+
+  <div class="tip">
+    <strong>Recuerden:</strong> Cada gráfico necesita <code>plt.figure(figsize=(8, 5))</code> antes de graficar, colores profesionales (no los de defecto), y los nombres del grupo en el título. Guarden cada gráfico con <code>plt.savefig("grafico1.png")</code>.
+  </div>
+</div>
+
+<!-- ===== PASO 5 ===== -->
+<div class="step" id="paso5">
+  <div class="step-label">Paso 05</div>
+  <h2>Estructura de su script .py</h2>
+  <p>Su archivo de Python debe tener esta estructura general:</p>
+
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Leer el dataset
+datos = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+
+# 2. Gráfico 1 - Barras por tipo
+plt.figure(figsize=(8, 5))
+# ... tu código del gráfico ...
+plt.savefig("grafico1.png")
+plt.show()
+
+# 3. Gráfico 2 - Torta por estado
+plt.figure(figsize=(8, 5))
+# ... tu código del gráfico ...
+plt.savefig("grafico2.png")
+plt.show()
+
+# 4. Gráfico 3 - (el que elijan)
+# ...
+
+# 5. Gráfico 4 - (el que elijan)
+# ...</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+</div>
+
+<!-- ===== PASO 6 ===== -->
+<div class="step" id="paso6">
+  <div class="step-label">Paso 06</div>
+  <h2>Dashboard en Julius AI</h2>
+  <p>Para el dashboard en Julius AI, recuerden la técnica de prompts:</p>
+
+  <div class="card">
+    <h3>Estructura del prompt: Rol + Contexto + Tarea + Formato</h3>
+    <ul>
+      <li><strong>Rol:</strong> "Actúa como un analista de riesgos financieros"</li>
+      <li><strong>Contexto:</strong> Describir el dataset (600 créditos, cooperativa, columnas principales)</li>
+      <li><strong>Tarea:</strong> Qué visualizaciones quieren (barras, torta, indicadores, tabla)</li>
+      <li><strong>Formato:</strong> "Usa colores profesionales y títulos en español"</li>
+    </ul>
+  </div>
+
+  <div class="warn">
+    <strong>No olviden:</strong> Suban el archivo <code>dataset_cartera_creditos.xlsx</code> a Julius AI antes de escribir el prompt.
+  </div>
+</div>
+
+<!-- ===== PASO 7 ===== -->
+<div class="step" id="paso7">
+  <div class="step-label">Paso 07</div>
+  <h2>Modelo predictivo en Julius AI</h2>
+  <p>En la misma sesión de Julius, pidan un modelo que prediga la columna <code>En_Mora</code> (Sí/No). Deben elegir al menos 3 variables de entrada.</p>
+
+  <h3 style="margin-top:1.25rem">¿Cómo interpretar el resultado?</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Accuracy</th><th>Significado</th><th>Qué reportar</th></tr>
+    <tr><td><strong>70% o más</strong></td><td>Buen modelo</td><td>Funciona. Reportar qué variable pesa más.</td></tr>
+    <tr><td><strong>55% a 70%</strong></td><td>Modelo regular</td><td>Capacidad limitada. Sugerir qué datos faltan.</td></tr>
+    <tr><td><strong>50% o menos</strong></td><td>No predice</td><td>Como lanzar una moneda. Proponer qué agregarían.</td></tr>
+  </table>
+  </div>
+
+  <div class="tip">
+    <strong>Lo importante no es el número:</strong> Se evalúa que sepan interpretarlo y explicar qué significa para la cooperativa.
+  </div>
+</div>
+
+<!-- ===== SUSTENTACIÓN ===== -->
+<div class="step" id="sustentacion">
+  <div class="step-label">Paso 08</div>
+  <h2>Sustentación (12 de noviembre)</h2>
+  <p>Cada grupo tiene máximo <strong>5 minutos</strong> para presentar:</p>
+
+  <div class="substep">
+    <div class="substep-num">1</div>
+    <div class="substep-content">
+      <strong>Mostrar el código de Python y los gráficos generados</strong>
+    </div>
+  </div>
+  <div class="substep">
+    <div class="substep-num">2</div>
+    <div class="substep-content">
+      <strong>Mostrar el dashboard de Julius AI (pantalla o capturas)</strong>
+    </div>
+  </div>
+  <div class="substep">
+    <div class="substep-num">3</div>
+    <div class="substep-content">
+      <strong>Explicar el resultado del modelo predictivo</strong>
+    </div>
+  </div>
+  <div class="substep">
+    <div class="substep-num">4</div>
+    <div class="substep-content">
+      <strong>Conclusión: ¿Qué encontraron? ¿Qué le recomendarían a la cooperativa?</strong>
+    </div>
+  </div>
+</div>
+
+</div><!-- .container -->
+
+<footer>
+  Programación para Financieros · Prof. Marlon Darío Nieves Padilla · Universidad de Caldas · 2026
+</footer>
+
+<script>
+function copyCode(btn) {
+  var pre = btn.closest('pre');
+  var code = pre.querySelector('code').textContent;
+  try {
+    navigator.clipboard.writeText(code).then(function() {
+      btn.textContent = '✓ Copiado';
+      setTimeout(function() { btn.textContent = 'Copiar'; }, 1500);
+    }).catch(function() {
+      var range = document.createRange();
+      range.selectNodeContents(pre.querySelector('code'));
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+  } catch(e) {
+    var range = document.createRange();
+    range.selectNodeContents(pre.querySelector('code'));
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+}
+</script>
+
+</body>
+</html>
