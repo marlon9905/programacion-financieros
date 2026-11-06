@@ -340,13 +340,11 @@ footer {
     <a href="#paso4">04 · Leer el Excel en Python</a>
     <a href="#paso5">05 · Conocer las columnas</a>
     <a href="#paso6">06 · Gráfico de barras</a>
-    <a href="#paso7">07 · Gráfico de torta</a>
-    <a href="#paso8">08 · Gráfico de barras horizontales</a>
-    <a href="#paso9">09 · Histograma</a>
-    <a href="#errores">10 · Errores comunes y soluciones</a>
-    <a href="#julius">11 · Dashboard en Julius AI</a>
-    <a href="#modelo">12 · Modelo predictivo</a>
-    <a href="#sustentacion">13 · Sustentación</a>
+    <a href="#tuyos">07 · Los demás gráficos (te tocan a ti)</a>
+    <a href="#errores">08 · Errores comunes y soluciones</a>
+    <a href="#julius">09 · Dashboard en Julius AI</a>
+    <a href="#modelo">10 · Modelo predictivo</a>
+    <a href="#sustentacion">11 · Sustentación</a>
   </div>
 </div>
 
@@ -642,96 +640,29 @@ print("Gráfico guardado como grafico_barras.png")</code><button class="copy-btn
   </div>
 </div>
 
-<!-- ===== PASO 7 ===== -->
-<div class="step" id="paso7">
+<!-- ===== LOS OTROS 3 GRÁFICOS ===== -->
+<div class="step" id="tuyos">
   <div class="step-label">Paso 07</div>
-  <h2>Gráfico 2: Torta (pie)</h2>
-  <p>Crea un archivo nuevo: <strong>Guardar como: <code>grafico_torta.py</code></strong></p>
-
-<pre><code>import pandas as pd
-import matplotlib.pyplot as plt
-
-# Leer los datos
-datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
-
-# Contar créditos por estado
-estados = datos["Estado_Credito"].value_counts()
-
-# Crear el gráfico de torta
-plt.figure(figsize=(6, 6))
-plt.pie(estados.values, labels=estados.index, autopct="%1.1f%%")
-plt.title("Distribución por estado del crédito")
-plt.tight_layout()
-plt.savefig("grafico_torta.png")
-plt.show()
-
-print("Gráfico guardado como grafico_torta.png")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-
-  <div class="tip">
-    <strong>¿Qué es <code>autopct="%1.1f%%"</code>?</strong> Le dice a Python que muestre el porcentaje en cada pedazo de la torta con un decimal. Ejemplo: 35.2%.
-  </div>
-</div>
-
-<!-- ===== PASO 8 ===== -->
-<div class="step" id="paso8">
-  <div class="step-label">Paso 08</div>
-  <h2>Gráfico 3: Barras horizontales</h2>
-  <p>Crea un archivo nuevo: <strong>Guardar como: <code>grafico_barras_h.py</code></strong></p>
-
-<pre><code>import pandas as pd
-import matplotlib.pyplot as plt
-
-# Leer los datos
-datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
-
-# Agrupar por sucursal y sumar los montos
-# Es como una tabla dinámica en Excel: agrupar por sucursal, sumar monto
-por_sucursal = datos.groupby("Sucursal")["Monto_Desembolsado"].sum()
-
-# Crear el gráfico de barras horizontales
-plt.figure(figsize=(8, 5))
-plt.barh(por_sucursal.index, por_sucursal.values, color="#a78bfa")
-plt.title("Monto total desembolsado por sucursal")
-plt.xlabel("Monto ($)")
-plt.tight_layout()
-plt.savefig("grafico_barras_h.png")
-plt.show()
-
-print("Gráfico guardado como grafico_barras_h.png")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-
-  <div class="tip">
-    <strong>Diferencia entre <code>plt.bar()</code> y <code>plt.barh()</code>:</strong> <code>bar</code> hace barras verticales (paradas), <code>barh</code> hace barras horizontales (acostadas). La <strong>h</strong> es de "horizontal".
-  </div>
-</div>
-
-<!-- ===== PASO 9 ===== -->
-<div class="step" id="paso9">
-  <div class="step-label">Paso 09</div>
-  <h2>Gráfico 4: Histograma</h2>
-  <p>Crea un archivo nuevo: <strong>Guardar como: <code>histograma.py</code></strong></p>
-
-<pre><code>import pandas as pd
-import matplotlib.pyplot as plt
-
-# Leer los datos
-datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
-
-# Crear el histograma
-plt.figure(figsize=(8, 5))
-plt.hist(datos["Monto_Desembolsado"], bins=20, color="#818cf8", edgecolor="white")
-plt.title("Distribución de montos desembolsados")
-plt.xlabel("Monto ($)")
-plt.ylabel("Frecuencia")
-plt.tight_layout()
-plt.savefig("grafico_histograma.png")
-plt.show()
-
-print("Gráfico guardado como grafico_histograma.png")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+  <h2>Los otros 3 gráficos — te tocan a ti 💪</h2>
+  <p>Ya tienes el ejemplo del gráfico de barras funcionando. Ahora tu grupo debe crear <strong>mínimo 3 gráficos más</strong>, cada uno en su propio archivo <code>.py</code>.</p>
 
   <div class="card">
-    <h3>¿Qué diferencia hay entre barras e histograma?</h3>
-    <p><strong>Barras</strong> (<code>plt.bar</code>) cuenta categorías: cuántos créditos de Consumo, cuántos de Vivienda, etc.</p>
-    <p><strong>Histograma</strong> (<code>plt.hist</code>) divide números en rangos: cuántos créditos están entre $0-$5M, cuántos entre $5M-$10M, etc. El <code>bins=20</code> dice en cuántos rangos dividir.</p>
+    <h3>Tipos de gráfico que puedes usar</h3>
+    <table>
+      <tr><th>Tipo</th><th>Función</th><th>¿Para qué sirve?</th></tr>
+      <tr><td>Torta (pie)</td><td><code>plt.pie(valores, labels=nombres, autopct="%1.1f%%")</code></td><td>Mostrar proporciones — ej: % de créditos por estado</td></tr>
+      <tr><td>Barras horizontales</td><td><code>plt.barh(nombres, valores)</code></td><td>Comparar categorías — ej: monto por sucursal</td></tr>
+      <tr><td>Histograma</td><td><code>plt.hist(datos["columna"], bins=20)</code></td><td>Ver distribución de números — ej: rangos de montos</td></tr>
+      <tr><td>Líneas</td><td><code>plt.plot(x, y)</code></td><td>Tendencias en el tiempo — ej: créditos por mes</td></tr>
+    </table>
+  </div>
+
+  <div class="tip">
+    <strong>Pista:</strong> Cada archivo nuevo sigue la misma estructura del gráfico de barras: importar pandas y matplotlib, leer el Excel, preparar los datos, crear el gráfico, guardar y mostrar. Cambia la función (<code>plt.pie</code>, <code>plt.barh</code>, <code>plt.hist</code>) y la columna que usas.
+  </div>
+
+  <div class="warn">
+    <strong>Columnas útiles para explorar:</strong> <code>Estado_Credito</code>, <code>Sucursal</code>, <code>Monto_Desembolsado</code>, <code>Calificacion_Riesgo</code>, <code>Plazo_Meses</code>, <code>Tasa_Interes</code>. Revisa la tabla del Paso 05 para los nombres exactos.
   </div>
 </div>
 
@@ -739,7 +670,7 @@ print("Gráfico guardado como grafico_histograma.png")</code><button class="copy
 
 <!-- ===== ERRORES ===== -->
 <div class="step" id="errores">
-  <div class="step-label">Paso 10</div>
+  <div class="step-label">Paso 08</div>
   <h2>Errores comunes y soluciones</h2>
 
   <div class="table-wrap">
@@ -798,7 +729,7 @@ print("Gráfico guardado como grafico_histograma.png")</code><button class="copy
 
 <!-- ===== JULIUS ===== -->
 <div class="step" id="julius">
-  <div class="step-label">Paso 11</div>
+  <div class="step-label">Paso 09</div>
   <h2>Dashboard en Julius AI</h2>
 
   <div class="substep">
@@ -833,7 +764,7 @@ print("Gráfico guardado como grafico_histograma.png")</code><button class="copy
 
 <!-- ===== MODELO ===== -->
 <div class="step" id="modelo">
-  <div class="step-label">Paso 12</div>
+  <div class="step-label">Paso 10</div>
   <h2>Modelo predictivo en Julius AI</h2>
   <p>En la misma sesión de Julius, pide un modelo que prediga la columna <code>En_Mora</code> (Sí/No).</p>
 
@@ -859,7 +790,7 @@ print("Gráfico guardado como grafico_histograma.png")</code><button class="copy
 
 <!-- ===== SUSTENTACIÓN ===== -->
 <div class="step" id="sustentacion">
-  <div class="step-label">Paso 13</div>
+  <div class="step-label">Paso 11</div>
   <h2>Sustentación — 12 de noviembre</h2>
   <p>Cada grupo tiene máximo <strong>5 minutos</strong> para presentar. Deben mostrar:</p>
 
