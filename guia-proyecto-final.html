@@ -26,6 +26,9 @@
   --warn-bg: #fefce8;
   --warn-border: #fde047;
   --warn-accent: #ca8a04;
+  --error-bg: #fef2f2;
+  --error-border: #fca5a5;
+  --error-accent: #dc2626;
   --tag-bg: #e0e7ff;
   --tag-fg: #4338ca;
   --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
@@ -45,7 +48,7 @@ body {
   padding: 2rem 0 4rem;
 }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero {
   text-align: center;
   padding: 3rem 0 2.5rem;
@@ -71,9 +74,7 @@ body {
   line-height: 1.2;
   margin-bottom: 0.75rem;
 }
-.hero h1 .highlight {
-  color: var(--accent);
-}
+.hero h1 .highlight { color: var(--accent); }
 .hero p {
   color: var(--muted);
   font-size: 0.95rem;
@@ -82,7 +83,7 @@ body {
   line-height: 1.6;
 }
 
-/* ===== TOC ===== */
+/* TOC */
 .toc {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -101,7 +102,7 @@ body {
 }
 .toc-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 0.5rem 1.5rem;
 }
 .toc-grid a {
@@ -111,11 +112,9 @@ body {
   padding: 0.2rem 0;
   transition: color 0.15s;
 }
-.toc-grid a:hover {
-  color: var(--accent);
-}
+.toc-grid a:hover { color: var(--accent); }
 
-/* ===== PASOS ===== */
+/* STEPS */
 .step {
   margin-bottom: 3rem;
 }
@@ -133,12 +132,12 @@ body {
   letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
 }
-.step p {
+.step p, .step li {
   font-size: 0.93rem;
   margin-bottom: 0.75rem;
 }
 
-/* ===== SUBSTEPS ===== */
+/* SUBSTEPS */
 .substep {
   display: flex;
   gap: 1rem;
@@ -174,7 +173,7 @@ body {
   margin: 0;
 }
 
-/* ===== CODE ===== */
+/* CODE */
 pre {
   background: var(--code-bg);
   color: var(--code-fg);
@@ -202,7 +201,6 @@ pre code {
   padding: 0;
   font-size: inherit;
 }
-
 .copy-btn {
   position: absolute;
   top: 0.6rem;
@@ -222,7 +220,7 @@ pre code {
   color: #fff;
 }
 
-/* ===== CARDS ===== */
+/* CARDS */
 .card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -236,12 +234,9 @@ pre code {
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-.card p {
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
+.card p { font-size: 0.9rem; margin-bottom: 0.5rem; }
 
-/* ===== TIPS & WARNINGS ===== */
+/* TIPS, WARNINGS, ERRORS */
 .tip {
   background: var(--tip-bg);
   border-left: 4px solid var(--tip-border);
@@ -260,8 +255,17 @@ pre code {
   font-size: 0.88rem;
 }
 .warn strong { color: var(--warn-accent); }
+.error {
+  background: var(--error-bg);
+  border-left: 4px solid var(--error-border);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+}
+.error strong { color: var(--error-accent); }
 
-/* ===== TABLES ===== */
+/* TABLES */
 .table-wrap { overflow-x: auto; margin: 0.75rem 0; border-radius: 10px; box-shadow: var(--shadow); }
 table {
   width: 100%;
@@ -283,15 +287,20 @@ td {
 }
 tr:last-child td { border-bottom: none; }
 td strong { font-weight: 600; }
+td code { font-size: 0.8em; }
 
-/* ===== LISTS ===== */
+/* LISTS */
 ol, ul { padding-left: 1.35rem; }
-li {
-  font-size: 0.93rem;
-  margin-bottom: 0.4rem;
+li { font-size: 0.93rem; margin-bottom: 0.4rem; }
+
+/* DIVIDER */
+hr.divider {
+  border: none;
+  border-top: 2px solid var(--card-border);
+  margin: 3rem 0;
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 footer {
   margin-top: 3rem;
   padding: 1.5rem 0;
@@ -301,7 +310,6 @@ footer {
   font-size: 0.8rem;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
   .toc-grid { grid-template-columns: 1fr; }
   .toc { padding: 1.25rem; }
@@ -317,116 +325,256 @@ footer {
 <!-- HERO -->
 <div class="hero">
   <span class="hero-tag">Proyecto Final</span>
-  <h1>Guía del <span class="highlight">Proyecto Final</span></h1>
-  <p>Análisis de Cartera de Créditos — Cooperativa Financiera del Oriente de Caldas. Ejemplos de código y estructura para completar tu proyecto.</p>
+  <h1>Guía <span class="highlight">Paso a Paso</span></h1>
+  <p>Análisis de Cartera de Créditos — Cooperativa Financiera del Oriente de Caldas. Desde cero hasta los gráficos.</p>
 </div>
 
 <!-- TOC -->
 <div class="toc">
-  <div class="toc-title">≡ Pasos de esta guía</div>
+  <div class="toc-title">≡ Contenido</div>
   <div class="toc-grid">
-    <a href="#paso1">01 · Leer el archivo Excel</a>
-    <a href="#paso2">02 · Las 5 hojas del dataset</a>
-    <a href="#paso3">03 · Conocer las columnas</a>
-    <a href="#paso4">04 · Ideas para los gráficos</a>
-    <a href="#paso5">05 · Estructura del script .py</a>
-    <a href="#paso6">06 · Dashboard en Julius AI</a>
-    <a href="#paso7">07 · Modelo predictivo</a>
-    <a href="#sustentacion">08 · Sustentación</a>
+    <a href="#paso0">00 · Preparar tu computador</a>
+    <a href="#paso1">01 · Crear la carpeta del proyecto</a>
+    <a href="#paso2">02 · Instalar las librerías</a>
+    <a href="#paso3">03 · Crear tu primer archivo .py</a>
+    <a href="#paso4">04 · Leer el Excel en Python</a>
+    <a href="#paso5">05 · Conocer las columnas</a>
+    <a href="#paso6">06 · Gráfico de barras</a>
+    <a href="#paso7">07 · Gráfico de torta</a>
+    <a href="#paso8">08 · Gráfico de barras horizontales</a>
+    <a href="#paso9">09 · Histograma</a>
+    <a href="#errores">10 · Errores comunes y soluciones</a>
+    <a href="#julius">11 · Dashboard en Julius AI</a>
+    <a href="#modelo">12 · Modelo predictivo</a>
+    <a href="#sustentacion">13 · Sustentación</a>
+  </div>
+</div>
+
+<!-- ===== PASO 0 ===== -->
+<div class="step" id="paso0">
+  <div class="step-label">Paso 00</div>
+  <h2>Preparar tu computador</h2>
+  <p>Antes de empezar, necesitas tener instalados estos dos programas:</p>
+
+  <div class="substep">
+    <div class="substep-num">1</div>
+    <div class="substep-content">
+      <strong>Python</strong>
+      <p>Si no lo tienes, descárgalo de <strong>python.org</strong>. Cuando lo instales, marca la casilla que dice <strong>"Add Python to PATH"</strong> — esto es importante.</p>
+    </div>
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">2</div>
+    <div class="substep-content">
+      <strong>Visual Studio Code (VS Code)</strong>
+      <p>Si no lo tienes, descárgalo de <strong>code.visualstudio.com</strong>. Es el editor donde vas a escribir tu código.</p>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>¿Ya los tienes instalados?</strong> Perfecto, salta al Paso 01.
   </div>
 </div>
 
 <!-- ===== PASO 1 ===== -->
 <div class="step" id="paso1">
   <div class="step-label">Paso 01</div>
-  <h2>Leer el archivo Excel en Python</h2>
-  <p>Lo primero que necesitan es cargar el dataset en Python. Hay dos formas de hacerlo:</p>
-
-  <div class="warn">
-    <strong>Antes de empezar:</strong> Descarguen el archivo <code>dataset_cartera_creditos.xlsx</code> y péguenlo en la misma carpeta donde van a crear su archivo <code>.py</code>. Si no están en la misma carpeta, Python no va a encontrar el archivo y les va a salir error.
-  </div>
+  <h2>Crear la carpeta del proyecto</h2>
+  <p>Necesitas una carpeta donde guardar todo: el Excel, tus archivos .py y los gráficos que se generen.</p>
 
   <div class="substep">
-    <div class="substep-num">A</div>
+    <div class="substep-num">1</div>
     <div class="substep-content">
-      <strong>Forma simple (archivo al lado del script)</strong>
-      <p>Si el archivo <code>dataset_cartera_creditos.xlsx</code> está en la <strong>misma carpeta</strong> que su archivo <code>.py</code>, solo escriben el nombre:</p>
+      <strong>Abre el Explorador de archivos</strong>
+      <p>Ve a tu disco C: (o donde prefieras).</p>
     </div>
   </div>
 
-<pre><code>import pandas as pd
+  <div class="substep">
+    <div class="substep-num">2</div>
+    <div class="substep-content">
+      <strong>Crea una carpeta nueva</strong>
+      <p>Clic derecho → Nuevo → Carpeta. Ponle un nombre simple, por ejemplo: <code>PROYECTO-FINAL-FINANZAS</code></p>
+    </div>
+  </div>
 
-datos = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Creditos")
-print(datos)</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+  <div class="substep">
+    <div class="substep-num">3</div>
+    <div class="substep-content">
+      <strong>Pega el archivo Excel ahí</strong>
+      <p>Copia el archivo <code>dataset_cartera_creditos.xlsx</code> (el que te envió el profesor) y pégalo dentro de esa carpeta.</p>
+    </div>
+  </div>
+
+  <div class="warn">
+    <strong>Importante:</strong> Verifica que el nombre del archivo sea exactamente <code>dataset_cartera_creditos.xlsx</code>. Si Windows le puso algo como <code>dataset_cartera_creditos (1).xlsx</code>, renómbralo al nombre original.
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">4</div>
+    <div class="substep-content">
+      <strong>Copia la ruta de tu carpeta</strong>
+      <p>Haz clic en la barra de dirección del Explorador de archivos (arriba, donde aparece la ruta). Se selecciona el texto. Cópialo (Ctrl+C). Lo vas a necesitar en el código. Ejemplo: <code>C:\PROYECTO-FINAL-FINANZAS</code></p>
+    </div>
+  </div>
 
   <div class="tip">
-    <strong>Tip:</strong> Esta es la forma más fácil. Solo funciona si el Excel y el .py están juntos en la misma carpeta.
-  </div>
-
-  <div class="substep">
-    <div class="substep-num">B</div>
-    <div class="substep-content">
-      <strong>Con ruta completa (si la forma simple no funciona)</strong>
-      <p>Si les sale error con la forma simple, pueden usar la ruta completa del archivo. Así se hace con la ruta completa:</p>
-    </div>
-  </div>
-
-<pre><code>import pandas as pd
-
-datos = pd.read_excel(r"C:\programacion finanzas\CLASE\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
-print(datos)</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-
-  <div class="warn">
-    <strong>Importante:</strong> Pongan la <code>r</code> antes de las comillas (<code>r"..."</code>) para que Python no confunda las barras <code>\</code> con caracteres especiales. Y cambien la ruta por la carpeta donde ustedes tengan el archivo.
-  </div>
-
-  <div class="substep">
-    <div class="substep-num">?</div>
-    <div class="substep-content">
-      <strong>¿Cómo sé cuál es mi ruta?</strong>
-      <p>En el Explorador de archivos de Windows, hagan clic en la barra de dirección de la carpeta donde tienen el Excel. Eso les muestra la ruta completa. La copian y la pegan en el código.</p>
-    </div>
+    <strong>Tu carpeta debe verse así:</strong><br>
+    📁 PROYECTO-FINAL-FINANZAS<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;📄 dataset_cartera_creditos.xlsx
   </div>
 </div>
 
 <!-- ===== PASO 2 ===== -->
 <div class="step" id="paso2">
   <div class="step-label">Paso 02</div>
-  <h2>El archivo tiene 5 hojas</h2>
-  <p>El dataset no es solo una tabla. Tiene 5 hojas con información relacionada:</p>
+  <h2>Instalar las librerías</h2>
+  <p>Python necesita 3 librerías que no vienen instaladas por defecto. Solo se instalan una vez.</p>
 
-  <div class="table-wrap">
-  <table>
-    <tr><th>Hoja</th><th>Qué contiene</th><th>Cómo leerla</th></tr>
-    <tr><td><strong>Creditos</strong></td><td>600 créditos (la tabla principal)</td><td><code>sheet_name="Creditos"</code></td></tr>
-    <tr><td><strong>Asesores</strong></td><td>8 asesores con sucursal y experiencia</td><td><code>sheet_name="Asesores"</code></td></tr>
-    <tr><td><strong>Sucursales</strong></td><td>4 sucursales con ubicación</td><td><code>sheet_name="Sucursales"</code></td></tr>
-    <tr><td><strong>Tipos_Credito</strong></td><td>5 tipos con montos y tasas</td><td><code>sheet_name="Tipos_Credito"</code></td></tr>
-    <tr><td><strong>Calificaciones_Riesgo</strong></td><td>Escala A-E de riesgo</td><td><code>sheet_name="Calificaciones_Riesgo"</code></td></tr>
-  </table>
+  <div class="substep">
+    <div class="substep-num">1</div>
+    <div class="substep-content">
+      <strong>Abre la terminal</strong>
+      <p>En VS Code: menú <strong>Terminal → Nuevo terminal</strong> (o Ctrl+Ñ). Aparece un panel abajo.</p>
+    </div>
   </div>
 
-<pre><code># Leer una hoja específica
-asesores = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Asesores")
-print(asesores)
+  <div class="substep">
+    <div class="substep-num">2</div>
+    <div class="substep-content">
+      <strong>Escribe estos 3 comandos, uno por uno:</strong>
+    </div>
+  </div>
 
-# Ver cuántas filas y columnas tiene la tabla principal
-datos = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Creditos")
-print(datos.shape)       # (600, 19) = 600 filas, 19 columnas
-print(datos.columns.tolist())  # nombres de las columnas</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+<pre><code>pip install pandas</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+<pre><code>pip install openpyxl</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+<pre><code>pip install matplotlib</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <p>Espera a que cada uno termine (dice "Successfully installed...") antes de escribir el siguiente.</p>
+
+  <div class="error">
+    <strong>¿Te sale error?</strong> Si dice <code>'pip' is not recognized</code>, intenta con <code>pip3 install pandas</code> en vez de <code>pip</code>. Si sigue fallando, es porque Python no se agregó al PATH — reinstala Python y marca la casilla "Add Python to PATH".
+  </div>
 </div>
 
 <!-- ===== PASO 3 ===== -->
 <div class="step" id="paso3">
   <div class="step-label">Paso 03</div>
-  <h2>Conocer las columnas</h2>
-  <p>La hoja <strong>Creditos</strong> tiene 19 columnas. Estas son las más importantes para los gráficos:</p>
+  <h2>Crear tu primer archivo .py</h2>
+
+  <div class="substep">
+    <div class="substep-num">1</div>
+    <div class="substep-content">
+      <strong>Abre VS Code</strong>
+      <p>Menú <strong>Archivo → Abrir carpeta</strong> y selecciona tu carpeta (ej: <code>C:\PROYECTO-FINAL-FINANZAS</code>).</p>
+    </div>
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">2</div>
+    <div class="substep-content">
+      <strong>Crea un archivo nuevo</strong>
+      <p>Menú <strong>Archivo → Nuevo archivo</strong> (o Ctrl+N).</p>
+    </div>
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">3</div>
+    <div class="substep-content">
+      <strong>Guárdalo con extensión .py</strong>
+      <p><strong>Ctrl+S</strong> → ponle nombre <code>leer_datos.py</code> → Guardar. El <code>.py</code> al final es lo que le dice a VS Code que es un archivo de Python.</p>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Tu carpeta ahora se ve así:</strong><br>
+    📁 PROYECTO-FINAL-FINANZAS<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;📄 dataset_cartera_creditos.xlsx<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;📄 leer_datos.py
+  </div>
+</div>
+
+<!-- ===== PASO 4 ===== -->
+<div class="step" id="paso4">
+  <div class="step-label">Paso 04</div>
+  <h2>Leer el Excel en Python</h2>
+  <p>Escribe este código en tu archivo <code>leer_datos.py</code>:</p>
+
+<pre><code>import pandas as pd
+
+# Leer la hoja "Creditos" del Excel
+datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+
+# Mostrar las primeras 5 filas
+print("--- CRÉDITOS ---")
+print(datos.head())
+
+# Ver cuántas filas y columnas tiene
+print(f"\nFilas: {datos.shape[0]}, Columnas: {datos.shape[1]}")
+
+# Ver los nombres de las columnas
+print(f"\nColumnas: {list(datos.columns)}")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <div class="warn">
+    <strong>¡Cambia la ruta!</strong> Donde dice <code>r"C:\PROYECTO-FINAL-FINANZAS\..."</code> pon la ruta de TU carpeta. Copia la ruta desde el Explorador de archivos y pégala ahí.<br><br>
+    La <code>r</code> antes de las comillas es obligatoria — le dice a Python que las barras <code>\</code> son parte de la ruta de Windows, no caracteres especiales.
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">▶</div>
+    <div class="substep-content">
+      <strong>Ejecuta el código</strong>
+      <p>Clic en el botón ▶ (arriba a la derecha en VS Code) o presiona <strong>Ctrl+Alt+N</strong>. Deberías ver las primeras 5 filas de la tabla en la terminal de abajo.</p>
+    </div>
+  </div>
+
+  <div class="error">
+    <strong>¿Te sale <code>FileNotFoundError</code>?</strong> La ruta está mal. Revisa: ¿la ruta es exactamente la de tu carpeta? ¿El nombre del archivo Excel está bien escrito? ¿Tiene la <code>r</code> antes de las comillas?
+  </div>
+
+  <h3 style="margin-top: 1.5rem;">Leer otras hojas del Excel</h3>
+  <p>El archivo tiene 5 hojas. Para leer otra hoja, solo cambia el <code>sheet_name</code>:</p>
+
+<pre><code># Leer la hoja de Asesores
+asesores = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Asesores")
+print("--- ASESORES ---")
+print(asesores.head())
+
+# Leer la hoja de Sucursales
+sucursales = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Sucursales")
+print("--- SUCURSALES ---")
+print(sucursales.head())</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <div class="warn">
+    <strong>OJO con los paréntesis:</strong> Es <code>datos.head()</code> con paréntesis al final, no <code>datos.head</code> sin paréntesis. Sin los paréntesis no muestra los datos, muestra algo raro.
+  </div>
 
   <div class="table-wrap">
   <table>
-    <tr><th>Columna</th><th>Qué es</th><th>Útil para</th></tr>
+    <tr><th>Hoja</th><th>Qué contiene</th><th>sheet_name</th></tr>
+    <tr><td><strong>Creditos</strong></td><td>600 créditos (la tabla principal)</td><td><code>"Creditos"</code></td></tr>
+    <tr><td><strong>Asesores</strong></td><td>8 asesores con sucursal y experiencia</td><td><code>"Asesores"</code></td></tr>
+    <tr><td><strong>Sucursales</strong></td><td>4 sucursales con ubicación</td><td><code>"Sucursales"</code></td></tr>
+    <tr><td><strong>Tipos_Credito</strong></td><td>5 tipos de crédito con montos y tasas</td><td><code>"Tipos_Credito"</code></td></tr>
+    <tr><td><strong>Calificaciones_Riesgo</strong></td><td>Escala A-E de riesgo crediticio</td><td><code>"Calificaciones_Riesgo"</code></td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ===== PASO 5 ===== -->
+<div class="step" id="paso5">
+  <div class="step-label">Paso 05</div>
+  <h2>Conocer las columnas</h2>
+  <p>La hoja <strong>Creditos</strong> tiene 19 columnas. Estas son las que van a usar para los gráficos:</p>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Columna (nombre exacto)</th><th>Qué es</th><th>Sirve para</th></tr>
     <tr><td><code>Tipo_Credito</code></td><td>Consumo, Microcrédito, Vivienda, Comercial, Libre Inversión</td><td>Gráfico de barras</td></tr>
-    <tr><td><code>Estado</code></td><td>Al día, Mora 30/60/90, Castigado</td><td>Gráfico de torta</td></tr>
+    <tr><td><code>Estado_Credito</code></td><td>Al día, Mora 30, Mora 60, Mora 90, Castigado</td><td>Gráfico de torta</td></tr>
     <tr><td><code>Monto_Desembolsado</code></td><td>Cuánto dinero se prestó</td><td>Histograma, barras</td></tr>
     <tr><td><code>Sucursal</code></td><td>La Dorada Centro, Norte, Victoria, Samaná</td><td>Barras horizontales</td></tr>
     <tr><td><code>Fecha_Desembolso</code></td><td>Cuándo se prestó</td><td>Gráfico de líneas</td></tr>
@@ -435,130 +583,272 @@ print(datos.columns.tolist())  # nombres de las columnas</code><button class="co
     <tr><td><code>Calificacion_Riesgo</code></td><td>A, B, C, D o E</td><td>Dashboard</td></tr>
   </table>
   </div>
-</div>
 
-<!-- ===== PASO 4 ===== -->
-<div class="step" id="paso4">
-  <div class="step-label">Paso 04</div>
-  <h2>Ideas para los gráficos (sin resolver)</h2>
-  <p>Aquí les doy la idea y la función de matplotlib que necesitan. <strong>Ustedes arman el código completo.</strong></p>
-
-  <div class="card">
-    <h3>Gráfico de barras</h3>
-    <p>Contar cuántos créditos hay por tipo y graficarlos:</p>
-<pre><code># Contar por categoría
-conteo = datos["Tipo_Credito"].value_counts()
-
-# Graficar barras
-plt.bar(conteo.index, conteo.values)
-plt.title("Tu título aquí")
-plt.xlabel("...")
-plt.ylabel("...")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-  </div>
-
-  <div class="card">
-    <h3>Gráfico de torta / pie</h3>
-    <p>Mostrar la distribución porcentual por estado:</p>
-<pre><code># Contar por estado
-estados = datos["Estado"].value_counts()
-
-# Graficar torta
-plt.pie(estados.values, labels=estados.index, autopct="%1.1f%%")
-plt.title("Tu título aquí")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-  </div>
-
-  <div class="card">
-    <h3>Gráfico de barras horizontales</h3>
-    <p>Sumar montos por sucursal:</p>
-<pre><code># Agrupar y sumar
-por_sucursal = datos.groupby("Sucursal")["Monto_Desembolsado"].sum()
-
-# Barras horizontales
-plt.barh(por_sucursal.index, por_sucursal.values)
-plt.title("Tu título aquí")
-plt.xlabel("...")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-  </div>
-
-  <div class="card">
-    <h3>Histograma</h3>
-    <p>Ver cómo se distribuyen los montos desembolsados:</p>
-<pre><code># Histograma de montos
-plt.hist(datos["Monto_Desembolsado"], bins=20)
-plt.title("Tu título aquí")
-plt.xlabel("...")
-plt.ylabel("...")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-  </div>
-
-  <div class="tip">
-    <strong>Recuerden:</strong> Cada gráfico necesita <code>plt.figure(figsize=(8, 5))</code> antes de graficar, colores profesionales (no los de defecto), y los nombres del grupo en el título. Guarden cada gráfico con <code>plt.savefig("grafico1.png")</code>.
+  <div class="error">
+    <strong>Los nombres son exactos.</strong> Si escribes <code>Tipo_credito</code> (con c minúscula) en vez de <code>Tipo_Credito</code> (con C mayúscula), Python te va a dar error <code>KeyError</code>. Copia los nombres de la tabla de arriba.<br><br>
+    <strong>No confundas hojas con columnas:</strong> <code>"Asesores"</code> es una HOJA del Excel (va en <code>sheet_name</code>). <code>"Asesor"</code> es una COLUMNA de la hoja Creditos (va entre corchetes: <code>datos["Asesor"]</code>).
   </div>
 </div>
 
-<!-- ===== PASO 5 ===== -->
-<div class="step" id="paso5">
-  <div class="step-label">Paso 05</div>
-  <h2>Estructura de su script .py</h2>
-  <p>Su archivo de Python debe tener esta estructura general:</p>
-
-<pre><code>import pandas as pd
-import matplotlib.pyplot as plt
-
-# 1. Leer el dataset
-datos = pd.read_excel("dataset_cartera_creditos.xlsx", sheet_name="Creditos")
-
-# 2. Gráfico 1 - Barras por tipo
-plt.figure(figsize=(8, 5))
-# ... tu código del gráfico ...
-plt.savefig("grafico1.png")
-plt.show()
-
-# 3. Gráfico 2 - Torta por estado
-plt.figure(figsize=(8, 5))
-# ... tu código del gráfico ...
-plt.savefig("grafico2.png")
-plt.show()
-
-# 4. Gráfico 3 - (el que elijan)
-# ...
-
-# 5. Gráfico 4 - (el que elijan)
-# ...</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
-</div>
+<hr class="divider">
 
 <!-- ===== PASO 6 ===== -->
 <div class="step" id="paso6">
   <div class="step-label">Paso 06</div>
-  <h2>Dashboard en Julius AI</h2>
-  <p>Para el dashboard en Julius AI, recuerden la técnica de prompts:</p>
+  <h2>Gráfico 1: Barras verticales</h2>
+  <p>Crea un archivo nuevo: <strong>Archivo → Nuevo archivo → Guardar como: <code>grafico_barras.py</code></strong></p>
+
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# Leer los datos
+datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+
+# Contar cuántos créditos hay de cada tipo
+conteo = datos["Tipo_Credito"].value_counts()
+print(conteo)
+
+# Crear el gráfico
+plt.figure(figsize=(8, 5))
+plt.bar(conteo.index, conteo.values, color="#6366f1")
+plt.title("Cantidad de créditos por tipo")
+plt.xlabel("Tipo de crédito")
+plt.ylabel("Cantidad")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("grafico_barras.png")
+plt.show()
+
+print("Gráfico guardado como grafico_barras.png")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
 
   <div class="card">
-    <h3>Estructura del prompt: Rol + Contexto + Tarea + Formato</h3>
-    <ul>
-      <li><strong>Rol:</strong> "Actúa como un analista de riesgos financieros"</li>
-      <li><strong>Contexto:</strong> Describir el dataset (600 créditos, cooperativa, columnas principales)</li>
-      <li><strong>Tarea:</strong> Qué visualizaciones quieren (barras, torta, indicadores, tabla)</li>
-      <li><strong>Formato:</strong> "Usa colores profesionales y títulos en español"</li>
-    </ul>
-  </div>
-
-  <div class="warn">
-    <strong>No olviden:</strong> Suban el archivo <code>dataset_cartera_creditos.xlsx</code> a Julius AI antes de escribir el prompt.
+    <h3>¿Qué hace cada línea?</h3>
+    <table>
+      <tr><th>Línea</th><th>Qué hace</th></tr>
+      <tr><td><code>import pandas as pd</code></td><td>Carga la librería para leer Excel</td></tr>
+      <tr><td><code>import matplotlib.pyplot as plt</code></td><td>Carga la librería para hacer gráficos</td></tr>
+      <tr><td><code>pd.read_excel(...)</code></td><td>Lee el archivo Excel</td></tr>
+      <tr><td><code>.value_counts()</code></td><td>Cuenta cuántos hay de cada categoría</td></tr>
+      <tr><td><code>plt.figure(figsize=(8, 5))</code></td><td>Crea un lienzo de 8×5 para el gráfico</td></tr>
+      <tr><td><code>plt.bar(...)</code></td><td>Dibuja las barras verticales</td></tr>
+      <tr><td><code>plt.title(...)</code></td><td>Pone el título del gráfico</td></tr>
+      <tr><td><code>plt.xlabel(...)</code></td><td>Nombre del eje X (horizontal)</td></tr>
+      <tr><td><code>plt.ylabel(...)</code></td><td>Nombre del eje Y (vertical)</td></tr>
+      <tr><td><code>plt.xticks(rotation=45)</code></td><td>Rota los textos del eje X para que no se monten</td></tr>
+      <tr><td><code>plt.tight_layout()</code></td><td>Ajusta márgenes para que no se corte nada</td></tr>
+      <tr><td><code>plt.savefig(...)</code></td><td>Guarda el gráfico como imagen PNG</td></tr>
+      <tr><td><code>plt.show()</code></td><td>Muestra el gráfico en pantalla</td></tr>
+    </table>
   </div>
 </div>
 
 <!-- ===== PASO 7 ===== -->
 <div class="step" id="paso7">
   <div class="step-label">Paso 07</div>
-  <h2>Modelo predictivo en Julius AI</h2>
-  <p>En la misma sesión de Julius, pidan un modelo que prediga la columna <code>En_Mora</code> (Sí/No). Deben elegir al menos 3 variables de entrada.</p>
+  <h2>Gráfico 2: Torta (pie)</h2>
+  <p>Crea un archivo nuevo: <strong>Guardar como: <code>grafico_torta.py</code></strong></p>
 
-  <h3 style="margin-top:1.25rem">¿Cómo interpretar el resultado?</h3>
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# Leer los datos
+datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+
+# Contar créditos por estado
+estados = datos["Estado_Credito"].value_counts()
+
+# Crear el gráfico de torta
+plt.figure(figsize=(6, 6))
+plt.pie(estados.values, labels=estados.index, autopct="%1.1f%%")
+plt.title("Distribución por estado del crédito")
+plt.tight_layout()
+plt.savefig("grafico_torta.png")
+plt.show()
+
+print("Gráfico guardado como grafico_torta.png")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <div class="tip">
+    <strong>¿Qué es <code>autopct="%1.1f%%"</code>?</strong> Le dice a Python que muestre el porcentaje en cada pedazo de la torta con un decimal. Ejemplo: 35.2%.
+  </div>
+</div>
+
+<!-- ===== PASO 8 ===== -->
+<div class="step" id="paso8">
+  <div class="step-label">Paso 08</div>
+  <h2>Gráfico 3: Barras horizontales</h2>
+  <p>Crea un archivo nuevo: <strong>Guardar como: <code>grafico_barras_h.py</code></strong></p>
+
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# Leer los datos
+datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+
+# Agrupar por sucursal y sumar los montos
+# Es como una tabla dinámica en Excel: agrupar por sucursal, sumar monto
+por_sucursal = datos.groupby("Sucursal")["Monto_Desembolsado"].sum()
+
+# Crear el gráfico de barras horizontales
+plt.figure(figsize=(8, 5))
+plt.barh(por_sucursal.index, por_sucursal.values, color="#a78bfa")
+plt.title("Monto total desembolsado por sucursal")
+plt.xlabel("Monto ($)")
+plt.tight_layout()
+plt.savefig("grafico_barras_h.png")
+plt.show()
+
+print("Gráfico guardado como grafico_barras_h.png")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <div class="tip">
+    <strong>Diferencia entre <code>plt.bar()</code> y <code>plt.barh()</code>:</strong> <code>bar</code> hace barras verticales (paradas), <code>barh</code> hace barras horizontales (acostadas). La <strong>h</strong> es de "horizontal".
+  </div>
+</div>
+
+<!-- ===== PASO 9 ===== -->
+<div class="step" id="paso9">
+  <div class="step-label">Paso 09</div>
+  <h2>Gráfico 4: Histograma</h2>
+  <p>Crea un archivo nuevo: <strong>Guardar como: <code>histograma.py</code></strong></p>
+
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# Leer los datos
+datos = pd.read_excel(r"C:\PROYECTO-FINAL-FINANZAS\dataset_cartera_creditos.xlsx", sheet_name="Creditos")
+
+# Crear el histograma
+plt.figure(figsize=(8, 5))
+plt.hist(datos["Monto_Desembolsado"], bins=20, color="#818cf8", edgecolor="white")
+plt.title("Distribución de montos desembolsados")
+plt.xlabel("Monto ($)")
+plt.ylabel("Frecuencia")
+plt.tight_layout()
+plt.savefig("grafico_histograma.png")
+plt.show()
+
+print("Gráfico guardado como grafico_histograma.png")</code><button class="copy-btn" onclick="copyCode(this)">Copiar</button></pre>
+
+  <div class="card">
+    <h3>¿Qué diferencia hay entre barras e histograma?</h3>
+    <p><strong>Barras</strong> (<code>plt.bar</code>) cuenta categorías: cuántos créditos de Consumo, cuántos de Vivienda, etc.</p>
+    <p><strong>Histograma</strong> (<code>plt.hist</code>) divide números en rangos: cuántos créditos están entre $0-$5M, cuántos entre $5M-$10M, etc. El <code>bins=20</code> dice en cuántos rangos dividir.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== ERRORES ===== -->
+<div class="step" id="errores">
+  <div class="step-label">Paso 10</div>
+  <h2>Errores comunes y soluciones</h2>
+
   <div class="table-wrap">
   <table>
-    <tr><th>Accuracy</th><th>Significado</th><th>Qué reportar</th></tr>
-    <tr><td><strong>70% o más</strong></td><td>Buen modelo</td><td>Funciona. Reportar qué variable pesa más.</td></tr>
-    <tr><td><strong>55% a 70%</strong></td><td>Modelo regular</td><td>Capacidad limitada. Sugerir qué datos faltan.</td></tr>
-    <tr><td><strong>50% o menos</strong></td><td>No predice</td><td>Como lanzar una moneda. Proponer qué agregarían.</td></tr>
+    <tr><th>Error</th><th>Causa</th><th>Solución</th></tr>
+    <tr>
+      <td><code>FileNotFoundError</code></td>
+      <td>La ruta del Excel está mal</td>
+      <td>Copia la ruta desde el Explorador de archivos. Verifica que tenga la <code>r</code> al inicio: <code>r"C:\..."</code>. Verifica que el nombre del archivo sea exacto.</td>
+    </tr>
+    <tr>
+      <td><code>ModuleNotFoundError: No module named 'pandas'</code></td>
+      <td>No instalaste pandas</td>
+      <td>En la terminal: <code>pip install pandas</code></td>
+    </tr>
+    <tr>
+      <td><code>ModuleNotFoundError: No module named 'openpyxl'</code></td>
+      <td>Falta openpyxl (pandas lo necesita para leer .xlsx)</td>
+      <td>En la terminal: <code>pip install openpyxl</code></td>
+    </tr>
+    <tr>
+      <td><code>ModuleNotFoundError: No module named 'matplotlib'</code></td>
+      <td>No instalaste matplotlib</td>
+      <td>En la terminal: <code>pip install matplotlib</code></td>
+    </tr>
+    <tr>
+      <td><code>KeyError: 'Tipo_credito'</code></td>
+      <td>El nombre de la columna está mal escrito</td>
+      <td>Los nombres son exactos con mayúsculas: <code>Tipo_Credito</code>, no <code>Tipo_credito</code> ni <code>tipo_credito</code>. Copia los nombres de la tabla del Paso 05.</td>
+    </tr>
+    <tr>
+      <td><code>KeyError: 'Asesores'</code></td>
+      <td>Estás confundiendo una hoja con una columna</td>
+      <td><code>"Asesores"</code> es una HOJA (va en <code>sheet_name</code>). La columna del asesor se llama <code>"Asesor"</code> (sin la s): <code>datos["Asesor"]</code></td>
+    </tr>
+    <tr>
+      <td>El gráfico no aparece</td>
+      <td>Falta <code>plt.show()</code></td>
+      <td>Agrega <code>plt.show()</code> al final del código del gráfico</td>
+    </tr>
+    <tr>
+      <td>Muestra algo raro en vez de la tabla</td>
+      <td>Escribiste <code>datos.head</code> sin paréntesis</td>
+      <td>Es <code>datos.head()</code> con paréntesis al final</td>
+    </tr>
+    <tr>
+      <td><code>SyntaxError</code></td>
+      <td>Falta cerrar comillas, paréntesis o hay un error de escritura</td>
+      <td>Revisa que cada comilla <code>"</code> y cada paréntesis <code>(</code> tenga su pareja que lo cierra</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ===== JULIUS ===== -->
+<div class="step" id="julius">
+  <div class="step-label">Paso 11</div>
+  <h2>Dashboard en Julius AI</h2>
+
+  <div class="substep">
+    <div class="substep-num">1</div>
+    <div class="substep-content">
+      <strong>Entra a julius.ai</strong>
+      <p>Crea una cuenta gratis si no la tienes.</p>
+    </div>
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">2</div>
+    <div class="substep-content">
+      <strong>Sube el archivo Excel</strong>
+      <p>Haz clic en el ícono de subir archivo y selecciona <code>dataset_cartera_creditos.xlsx</code>.</p>
+    </div>
+  </div>
+
+  <div class="substep">
+    <div class="substep-num">3</div>
+    <div class="substep-content">
+      <strong>Escribe un prompt completo</strong>
+      <p>Usa la estructura: Rol + Contexto + Tarea + Formato:</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ejemplo de prompt para el dashboard</h3>
+    <p style="font-size: 0.85rem; color: var(--muted); font-style: italic;">"Actúa como un analista de riesgos financieros. Te adjunto un dataset de 600 créditos de una cooperativa financiera con columnas como Tipo_Credito, Estado_Credito, Monto_Desembolsado, Sucursal, En_Mora, Calificacion_Riesgo, entre otras. Crea un dashboard profesional con: un resumen de indicadores clave (total créditos, monto total, porcentaje en mora), gráficos de distribución por tipo de crédito y por estado, comparación de montos por sucursal, y una tabla resumen. Usa colores profesionales y títulos en español."</p>
+  </div>
+</div>
+
+<!-- ===== MODELO ===== -->
+<div class="step" id="modelo">
+  <div class="step-label">Paso 12</div>
+  <h2>Modelo predictivo en Julius AI</h2>
+  <p>En la misma sesión de Julius, pide un modelo que prediga la columna <code>En_Mora</code> (Sí/No).</p>
+
+  <div class="card">
+    <h3>Ejemplo de prompt para el modelo</h3>
+    <p style="font-size: 0.85rem; color: var(--muted); font-style: italic;">"Con el mismo dataset, crea un modelo predictivo que prediga la columna En_Mora (si un crédito va a caer en mora o no). Usa como variables de entrada: Monto_Desembolsado, Plazo_Meses, Tasa_Interes, Tipo_Credito, Sucursal y Calificacion_Riesgo. Muestra la precisión del modelo (accuracy), las variables más importantes, y una explicación de los resultados."</p>
+  </div>
+
+  <h3 style="margin-top: 1.25rem;">¿Cómo interpretar el resultado?</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Accuracy</th><th>Significado</th><th>Qué decir en la sustentación</th></tr>
+    <tr><td><strong>70% o más</strong></td><td>Buen modelo</td><td>Funciona. Reportar qué variable pesa más y por qué tiene sentido.</td></tr>
+    <tr><td><strong>55% a 70%</strong></td><td>Modelo regular</td><td>Capacidad limitada. Sugerir qué datos adicionales mejorarían la predicción.</td></tr>
+    <tr><td><strong>50% o menos</strong></td><td>No predice nada</td><td>Es como lanzar una moneda. Proponer qué información falta.</td></tr>
   </table>
   </div>
 
@@ -569,33 +859,48 @@ plt.show()
 
 <!-- ===== SUSTENTACIÓN ===== -->
 <div class="step" id="sustentacion">
-  <div class="step-label">Paso 08</div>
-  <h2>Sustentación (12 de noviembre)</h2>
-  <p>Cada grupo tiene máximo <strong>5 minutos</strong> para presentar:</p>
+  <div class="step-label">Paso 13</div>
+  <h2>Sustentación — 12 de noviembre</h2>
+  <p>Cada grupo tiene máximo <strong>5 minutos</strong> para presentar. Deben mostrar:</p>
 
   <div class="substep">
     <div class="substep-num">1</div>
     <div class="substep-content">
-      <strong>Mostrar el código de Python y los gráficos generados</strong>
+      <strong>El código de Python funcionando</strong>
+      <p>Abrir VS Code, ejecutar el script y mostrar los 4 gráficos.</p>
     </div>
   </div>
   <div class="substep">
     <div class="substep-num">2</div>
     <div class="substep-content">
-      <strong>Mostrar el dashboard de Julius AI (pantalla o capturas)</strong>
+      <strong>El dashboard de Julius AI</strong>
+      <p>Abrir julius.ai y mostrar el dashboard (o capturas de pantalla).</p>
     </div>
   </div>
   <div class="substep">
     <div class="substep-num">3</div>
     <div class="substep-content">
-      <strong>Explicar el resultado del modelo predictivo</strong>
+      <strong>El modelo predictivo</strong>
+      <p>Mostrar los resultados del modelo y explicar la precisión.</p>
     </div>
   </div>
   <div class="substep">
     <div class="substep-num">4</div>
     <div class="substep-content">
-      <strong>Conclusión: ¿Qué encontraron? ¿Qué le recomendarían a la cooperativa?</strong>
+      <strong>Conclusión</strong>
+      <p>¿Qué encontraron en los datos? ¿Qué le recomendarían a la cooperativa? No solo mostrar gráficos: explicar qué significan.</p>
     </div>
+  </div>
+
+  <div class="card">
+    <h3>Entregables</h3>
+    <table>
+      <tr><th>Qué</th><th>Formato</th></tr>
+      <tr><td><strong>Script de Python</strong></td><td>Archivos .py que lean el Excel y generen 4+ gráficos</td></tr>
+      <tr><td><strong>Dashboard Julius</strong></td><td>Dashboard interactivo o capturas de pantalla</td></tr>
+      <tr><td><strong>Modelo predictivo</strong></td><td>Resultado del modelo en Julius con métricas</td></tr>
+      <tr><td><strong>Sustentación oral</strong></td><td>5 minutos explicando hallazgos</td></tr>
+    </table>
   </div>
 </div>
 
