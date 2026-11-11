@@ -204,11 +204,76 @@ body {
   font-size: 0.9rem;
 }
 
+.info-box {
+  text-align: center;
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 2rem;
+}
+.info-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+.info-highlight {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-dark);
+  letter-spacing: -0.02em;
+}
+.info-sub {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-top: 0.15rem;
+}
+
+.tips-box {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.25rem;
+  box-shadow: var(--shadow);
+}
+.tips-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 0.75rem;
+}
+.tips-list {
+  list-style: none;
+  padding: 0;
+}
+.tips-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: 0.84rem;
+  color: var(--fg);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+.tips-list li:last-child { margin-bottom: 0; }
+.tips-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
 .footer {
   text-align: center;
-  margin-top: 2rem;
-  font-size: 0.78rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
   color: var(--muted);
+  line-height: 1.6;
 }
 </style>
 </head>
@@ -223,9 +288,26 @@ body {
 
   <div id="app"><div class="loading">Cargando franjas…</div></div>
 
+  <div class="info-box">
+    <div class="info-title">⏱ Tiempo por grupo</div>
+    <div class="info-highlight">23 minutos</div>
+    <div class="info-sub">Incluye presentación + preguntas del profesor</div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-title"> Recomendaciones para la sustentación</div>
+    <ul class="tips-list">
+      <li><strong>Todos los integrantes deben participar</strong> en la presentación</li>
+      <li>Preparen una <strong>demostración en vivo</strong> de su proyecto funcionando</li>
+      <li>Expliquen el <strong>problema que resuelve</strong> su dashboard y por qué es útil</li>
+      <li>Practiquen antes para <strong>respetar el tiempo</strong> asignado</li>
+      <li>Si usan diapositivas, sean <strong>breves y visuales</strong> (máx. 5-7 slides)</li>
+    </ul>
+  </div>
+
   <div class="footer">
-    Cada grupo tiene ~23 minutos para presentar.<br>
-    Universidad de Caldas · La Dorada
+    Universidad de Caldas · La Dorada<br>
+    Prof. Marlon Nieves · 2026-II
   </div>
 </div>
 
