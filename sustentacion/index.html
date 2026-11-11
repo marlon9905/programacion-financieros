@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sustentación Proyecto Final</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root {
+  --bg: #f8fafc;
+  --fg: #1e293b;
+  --muted: #64748b;
+  --accent: #6366f1;
+  --accent-light: #e0e7ff;
+  --accent-dark: #4f46e5;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --green-border: #86efac;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --red-border: #fca5a5;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 0 16px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 100px;
+  margin-bottom: 0.75rem;
+}
+.hero h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.4rem;
+}
+.hero p {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.bloque-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 1.5rem 0 0.6rem;
+}
+
+.slot {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s;
+  cursor: pointer;
+}
+.slot:hover:not(.taken) { border-color: var(--accent); }
+.slot.taken {
+  background: var(--red-light);
+  border-color: var(--red-border);
+  cursor: default;
+}
+.slot.mine {
+  background: var(--green-light);
+  border-color: var(--green-border);
+  cursor: default;
+}
+.slot-time {
+  font-size: 0.95rem;
+  font-weight: 700;
+  min-width: 120px;
+}
+.slot-info {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.slot-info.has-group {
+  color: var(--fg);
+  font-weight: 500;
+}
+.slot-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.badge-free { background: var(--accent-light); color: var(--accent-dark); }
+.badge-taken { background: var(--red-light); color: var(--red); }
+.badge-mine { background: var(--green-light); color: var(--green); }
+
+/* MODAL */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.15);
+}
+.modal h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+.modal .sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0 0 1.25rem;
+}
+.modal label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.modal input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  margin-bottom: 0.85rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.modal input:focus { border-color: var(--accent); }
+.modal-btns {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+.btn {
+  flex: 1;
+  padding: 0.65rem;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btn:hover { opacity: 0.85; }
+.btn-cancel { background: var(--border); color: var(--fg); }
+.btn-confirm { background: var(--accent); color: #fff; }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+.loading {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-tag">12 de noviembre · 2026</div>
+    <h1>Sustentación Proyecto Final</h1>
+    <p>Programación para Financieros — Prof. Marlon Nieves</p>
+  </div>
+
+  <div id="app"><div class="loading">Cargando franjas…</div></div>
+
+  <div class="footer">
+    Cada grupo tiene ~23 minutos para presentar.<br>
+    Universidad de Caldas · La Dorada
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modal-title">Reservar franja</h2>
+    <p class="sub" id="modal-sub"></p>
+    <label for="inp-names">Integrantes del grupo</label>
+    <input id="inp-names" type="text" placeholder="Ej: Juan Pérez, María López, Pedro García">
+    <div class="modal-btns">
+      <button class="btn btn-cancel" id="btn-cancel">Cancelar</button>
+      <button class="btn btn-confirm" id="btn-confirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var DB = "https://sustentacion-7030d-default-rtdb.firebaseio.com";
+
+var SLOTS = [
+  { id: "a", time: "6:30 — 6:53 PM", bloque: 1 },
+  { id: "b", time: "6:53 — 7:15 PM", bloque: 1 },
+  { id: "c", time: "7:15 — 7:38 PM", bloque: 1 },
+  { id: "d", time: "7:38 — 8:00 PM", bloque: 1 },
+  { id: "e", time: "8:00 — 8:23 PM", bloque: 2 },
+  { id: "f", time: "8:23 — 8:45 PM", bloque: 2 },
+  { id: "g", time: "8:45 — 9:08 PM", bloque: 2 },
+  { id: "h", time: "9:08 — 9:30 PM", bloque: 2 }
+];
+
+var slotData = {};
+var mySlot = null;
+var selectedSlotId = null;
+
+// Check localStorage for this user's pick
+try { mySlot = localStorage.getItem("mi_franja"); } catch(e) {}
+
+function fetchSlots() {
+  fetch(DB + "/franjas.json")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      slotData = data || {};
+      render();
+    })
+    .catch(function() { render(); });
+}
+
+function render() {
+  var app = document.getElementById("app");
+  var html = "";
+  var currentBloque = 0;
+
+  SLOTS.forEach(function(slot) {
+    if (slot.bloque !== currentBloque) {
+      currentBloque = slot.bloque;
+      html += '<div class="bloque-label">Bloque ' + currentBloque +
+        (currentBloque === 1 ? " — 6:30 a 8:00 PM" : " — 8:00 a 9:30 PM") + "</div>";
+    }
+
+    var data = slotData[slot.id];
+    var isTaken = data && data.group;
+    var isMine = mySlot === slot.id;
+    var cls = isMine ? "mine" : isTaken ? "taken" : "";
+    var info = isTaken ? data.group : "Disponible";
+    var infoCls = isTaken ? "has-group" : "";
+    var badge = "";
+    if (isMine) badge = '<span class="slot-badge badge-mine">Tu grupo</span>';
+    else if (isTaken) badge = '<span class="slot-badge badge-taken">Ocupada</span>';
+    else badge = '<span class="slot-badge badge-free">Libre</span>';
+
+    var clickAttr = (!isTaken && !isMine) ? ' onclick="openModal(\'' + slot.id + '\')"' : '';
+
+    html += '<div class="slot ' + cls + '"' + clickAttr + '>' +
+      '<div class="slot-time">' + slot.time + '</div>' +
+      '<div class="slot-info ' + infoCls + '">' + info + '</div>' +
+      badge + '</div>';
+  });
+
+  app.innerHTML = html;
+}
+
+function openModal(slotId) {
+  if (mySlot) {
+    alert("Ya tienes una franja reservada.");
+    return;
+  }
+  selectedSlotId = slotId;
+  var slot = SLOTS.find(function(s) { return s.id === slotId; });
+  document.getElementById("modal-title").textContent = "Reservar franja — " + slot.time;
+  document.getElementById("modal-sub").textContent = "Escribe los nombres de los integrantes de tu grupo.";
+  document.getElementById("inp-names").value = "";
+  document.getElementById("inp-names").style.borderColor = "";
+  document.getElementById("overlay").classList.add("open");
+  document.getElementById("inp-names").focus();
+}
+
+document.getElementById("btn-cancel").onclick = function() {
+  document.getElementById("overlay").classList.remove("open");
+  selectedSlotId = null;
+};
+
+document.getElementById("btn-confirm").onclick = function() {
+  var names = document.getElementById("inp-names").value.trim();
+  if (!names) {
+    document.getElementById("inp-names").style.borderColor = "var(--red)";
+    return;
+  }
+
+  var btn = document.getElementById("btn-confirm");
+  btn.disabled = true;
+  btn.textContent = "Guardando…";
+
+  // First check if slot is still free
+  fetch(DB + "/franjas/" + selectedSlotId + ".json")
+    .then(function(r) { return r.json(); })
+    .then(function(existing) {
+      if (existing && existing.group) {
+        // Already taken
+        alert("¡Esa franja ya fue tomada! Escoge otra.");
+        document.getElementById("overlay").classList.remove("open");
+        btn.disabled = false;
+        btn.textContent = "Confirmar";
+        fetchSlots();
+        return;
+      }
+
+      // Reserve it
+      return fetch(DB + "/franjas/" + selectedSlotId + ".json", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          group: names,
+          timestamp: new Date().toISOString()
+        })
+      }).then(function() {
+        mySlot = selectedSlotId;
+        try { localStorage.setItem("mi_franja", selectedSlotId); } catch(e) {}
+        document.getElementById("overlay").classList.remove("open");
+        btn.disabled = false;
+        btn.textContent = "Confirmar";
+        fetchSlots();
+      });
+    })
+    .catch(function() {
+      alert("Error de conexión. Intenta de nuevo.");
+      btn.disabled = false;
+      btn.textContent = "Confirmar";
+    });
+};
+
+// Close modal on overlay click
+document.getElementById("overlay").onclick = function(e) {
+  if (e.target === this) {
+    document.getElementById("overlay").classList.remove("open");
+    selectedSlotId = null;
+  }
+};
+
+// Initial load + auto-refresh every 5 seconds
+fetchSlots();
+setInterval(fetchSlots, 5000);
+</script>
+
+</body>
+</html>
