@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta de Notas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{
+  --bg:#f8fafc; --fg:#1e293b; --muted:#64748b; --accent:#6366f1;
+  --accent-light:#e0e7ff; --accent-dark:#4f46e5; --card:#ffffff; --border:#e2e8f0;
+  --green:#16a34a; --green-light:#f0fdf4; --green-border:#86efac;
+  --red:#dc2626; --red-light:#fef2f2; --red-border:#fca5a5;
+  --amber:#d97706;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,-apple-system,sans-serif;padding:0 16px;}
+.container{max-width:560px;margin:0 auto;padding:2.5rem 0;}
+.hero{text-align:center;margin-bottom:2rem;}
+.hero-tag{display:inline-block;background:var(--accent-light);color:var(--accent-dark);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .9rem;border-radius:100px;margin-bottom:.75rem;}
+.hero h1{font-size:1.7rem;font-weight:800;letter-spacing:-.03em;margin:0 0 .4rem;}
+.hero p{color:var(--muted);font-size:.9rem;}
+.search-box{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.5rem;box-shadow:var(--shadow);}
+.search-box label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.5rem;}
+.search-box input{width:100%;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:1rem;outline:none;transition:border-color .15s;}
+.search-box input:focus{border-color:var(--accent);}
+.btn{width:100%;margin-top:.9rem;padding:.85rem;border:none;border-radius:10px;background:var(--accent);color:#fff;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .15s;}
+.btn:hover{opacity:.9;}
+.hint{font-size:.78rem;color:var(--muted);margin-top:.75rem;text-align:center;}
+.err{display:none;margin-top:1rem;background:var(--red-light);border:1.5px solid var(--red-border);color:var(--red);padding:.8rem 1rem;border-radius:10px;font-size:.88rem;text-align:center;}
+.err.show{display:block;}
+
+/* Resultado / overlay */
+.screen{display:none;position:fixed;inset:0;z-index:50;align-items:center;justify-content:center;padding:1.25rem;}
+.screen.show{display:flex;}
+.panel{width:100%;max-width:460px;border-radius:18px;padding:2rem 1.6rem;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.18);animation:pop .3s ease;}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.panel .emoji{font-size:3.2rem;line-height:1;margin-bottom:.5rem;}
+.panel .name{font-size:.95rem;font-weight:600;opacity:.85;margin-bottom:.2rem;}
+
+/* Fase 1: broma reprobó */
+.fail{background:#1a1a1a;color:#fff;}
+.fail .big{font-size:2rem;font-weight:900;letter-spacing:-.02em;color:#ff5a5a;margin:.3rem 0;}
+.fail .sub{font-size:.95rem;color:#d4d4d4;margin:.6rem 0 1.4rem;line-height:1.5;}
+.fail .btn-rev{background:#fff;color:#1a1a1a;border:none;border-radius:10px;padding:.75rem 1.4rem;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;}
+
+/* Fase 2: real */
+.real{background:var(--card);}
+.real .joke{font-size:1rem;font-weight:800;color:var(--amber);margin-bottom:.8rem;}
+.real .grade{font-size:4rem;font-weight:900;letter-spacing:-.03em;line-height:1;margin:.3rem 0;}
+.real .estado{display:inline-block;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.3rem .9rem;border-radius:100px;margin-bottom:1rem;}
+.badge-ok{background:var(--green-light);color:var(--green);}
+.nota-box{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:1rem 1.1rem;font-size:.92rem;line-height:1.55;text-align:left;color:var(--fg);}
+.nota-box .nota-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.4rem;}
+.close{margin-top:1.2rem;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.7rem 1.4rem;font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer;width:100%;}
+.g-high{color:var(--green);}
+.footer{text-align:center;margin-top:2rem;font-size:.78rem;color:var(--muted);line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="hero-tag">Notas definitivas · 2026-II</div>
+    <h1>Consulta tu Nota</h1>
+    <p>Programación para Financieros — Prof. Marlon Nieves</p>
+  </div>
+
+  <div class="search-box">
+    <label for="q">Escribe tu código de estudiante</label>
+    <input id="q" type="text" inputmode="numeric" placeholder="Ej: 56655" autocomplete="off">
+    <button class="btn" id="btn">Consultar</button>
+    <div class="err" id="err"></div>
+    <div class="hint">Ingresa tu código para consltar tu nota.</div>
+  </div>
+
+  <div class="footer">Universidad de Caldas · La Dorada</div>
+</div>
+
+<!-- Fase 1: broma (2-3 pasos) -->
+<div class="screen" id="screen1">
+  <div class="panel fail">
+    <div class="emoji" id="f-emoji">😳</div>
+    <div class="name" id="n1"></div>
+    <div class="big" id="f-big">REPROBASTE</div>
+    <div class="sub" id="f-sub"></div>
+    <button class="btn-rev" id="reveal">Ver detalle →</button>
+  </div>
+</div>
+
+<!-- Fase 2: real -->
+<div class="screen" id="screen2">
+  <div class="panel real">
+    <div class="joke">😅 ¡ERA BROMA! Tranquilo(a)...</div>
+    <div class="name" id="n2"></div>
+    <div class="grade g-high" id="grade"></div>
+    <div class="estado badge-ok" id="estado">Aprobó</div>
+    <div class="nota-box">
+      <div class="nota-title">Mensaje del profesor</div>
+      <div id="nota"></div>
+    </div>
+    <button class="close" id="close">Consultar otra</button>
+  </div>
+</div>
+
+<script>
+var DATA = [{"codigo": "51593", "nombre": "Santiago Avila Murillo", "def": 4.8, "nota": "Santiago, un semestre sobresaliente. Tu parcial perfecto y el proyecto 'Mi Billetera Universitaria' demuestran que manejas tanto la lógica como su aplicación financiera. Tienes madera para liderar; sigue cultivando esa disciplina. Felicitaciones."}, {"codigo": "60596", "nombre": "Henyerber Javier Bohorquez Herrera", "def": 3.8, "nota": "Henyerber, aquí hay un mensaje doble. Tu proyecto de apps de pago fue de los mejores del curso: talento te sobra. Por eso duele más que en la sustentación final llegaras tarde y no expusieras. El conocimiento no basta si falta responsabilidad para mostrarlo. El próximo semestre, honra tu capacidad con compromiso."}, {"codigo": "60341", "nombre": "Maria Fernanda Centeno Perez", "def": 4.5, "nota": "María Fernanda, trabajo sólido y constante todo el semestre: buen parcial, buen proyecto de canasta familiar y cumplimiento en las entregas. Vas por muy buen camino; atrévete a profundizar aún más en el análisis. Felicitaciones."}, {"codigo": "39967", "nombre": "Victor Manuel Ditta Cortes", "def": 4.6, "nota": "Víctor, excelente cierre. Tu proyecto de transporte intermunicipal, con encuesta propia incluida, fue de los más completos. Esa iniciativa de ir más allá de lo pedido es justo lo que distingue a un buen profesional. Felicitaciones."}, {"codigo": "56655", "nombre": "Juan Camilo Leyton Forero", "def": 4.1, "nota": "Juan Camilo, buen desempeño general: parcial fuerte y buen proyecto del mercado del ganado. Te faltó cerrar parejo —una entrega pendiente y un final más flojo bajaron tu promedio—. Con constancia hasta el último día, el resultado es todavía mejor."}, {"codigo": "14459", "nombre": "Danny Alejandro Lopez Hernandez", "def": 4.0, "nota": "Danny, tu trabajo en los proyectos, como la canasta familiar, estuvo bien resuelto. Donde debes poner el foco es en los fundamentos: el parcial mostró vacíos que vale la pena reforzar. La práctica constante te dará la seguridad que te falta."}, {"codigo": "57230", "nombre": "Tania Lizeth Macias Rios", "def": 4.0, "nota": "Tania, buen proyecto y buena sustentación final. Lo que te frenó fue la parte teórica del parcial y un taller sin entregar. Eres capaz; solo necesitas más regularidad para que tu nota refleje lo que realmente sabes."}, {"codigo": "53848", "nombre": "Luz Milena Marin Dominguez", "def": 5.0, "nota": "Luz Milena, ¡felicitaciones por tu 5.0! Tu proyecto final fue impecable y cerraste el semestre en lo más alto. Mi único consejo: dale a la parte teórica la misma dedicación que a la práctica, para que tu base sea tan fuerte como tu ejecución. 👏"}, {"codigo": "57070", "nombre": "Diego Alejandro Moreno Pulido", "def": 3.9, "nota": "Diego, tu sustentación final (4.8) demuestra de lo que eres capaz cuando te enfocas. El contraste es el parcial, donde quedaste muy por debajo. No es falta de capacidad, es falta de estudio de los fundamentos: si los refuerzas, pasas de bueno a excelente."}, {"codigo": "57167", "nombre": "Jeison Stevan Nonato Vera", "def": 4.5, "nota": "Jeison Stevan, un semestre muy parejo y maduro: parcial, proyecto de CDTs y sustentación, todo en buen nivel. Esa constancia es una de tus mejores cualidades. Felicitaciones y a seguir creciendo."}, {"codigo": "60403", "nombre": "Julieth Alexa Osorio Castro", "def": 4.0, "nota": "Julieth, buen trabajo en equipo y buen proyecto sobre negocios en Colombia. Para subir de nivel, refuerza la parte teórica e individual: ahí tienes el mayor margen de mejora. Vas bien."}, {"codigo": "56799", "nombre": "Victor Manuel Ostos Rocero", "def": 3.4, "nota": "Víctor Manuel, seamos claros: el parcial quedó muy bajo y en la sustentación final no completaste la exposición. En tu proyecto se ve que puedes hacer buen trabajo, pero el talento sin responsabilidad no alcanza. El próximo semestre prepárate con tiempo y toma en serio cada entrega."}, {"codigo": "51598", "nombre": "Marlli Yuliet Piedrahita", "def": 4.8, "nota": "Marlli, un semestre de excelencia. Parcial perfecto y un proyecto muy completo: dominas la materia con claridad. Sigue cultivando esa disciplina, que te va a abrir muchas puertas. Felicitaciones."}, {"codigo": "56781", "nombre": "Alex Santiago Rueda Serna", "def": 3.4, "nota": "Alex, este resultado es un llamado de atención. El parcial fue el más bajo del curso y en el final no completaste la sustentación. En el trabajo grupal mostraste que puedes, pero necesitas comprometerte en serio: estudia los fundamentos y prepara tus presentaciones con anticipación."}, {"codigo": "57052", "nombre": "Maria Valentina Sandoval Perez", "def": 5.0, "nota": "Valentina, ¡felicitaciones por tu 5.0! Cerraste el semestre en lo más alto con un proyecto final excelente. Te dejo el mismo reto: fortalece la base teórica, para que tu nivel sea completo en todos los frentes. 👏"}, {"codigo": "61786", "nombre": "Grisel Andrea Santisteban Ceballos", "def": 3.9, "nota": "Andrea, quiero que leas esto con calma. De lo que más valoro en un estudiante son las ganas de aprender, y a ti se te notaron todo el semestre. Sé que por momentos se te hizo cuesta arriba y que sentiste que te faltaba, pero tu esfuerzo fue real y eso no se improvisa. La programación no se trata de entenderlo todo de una, sino de insistir: los que hoy van adelante también se estrellaron al principio. No te rindas, vas por buen camino; sigue con esa misma constancia y vas a ver el salto. Confío en que lo vas a lograr. 💪"}, {"codigo": "44300", "nombre": "Juliana Sierra Betancur", "def": 4.4, "nota": "Juliana, un semestre para felicitar. Fuiste parte de 'Mi Billetera Universitaria', uno de los proyectos más completos del curso, y tu sustentación final fue excelente. Lo único que te separó del grupo de cabeza fue el parcial; equilibra la teoría con tu gran ejecución práctica y estarás entre las mejores. Muy buen cierre, sigue así."}, {"codigo": "56563", "nombre": "Jennifer Andrea Silva Cubides", "def": 4.5, "nota": "Jennifer, un semestre muy sólido y parejo: buen parcial, buen proyecto del mercado del ganado y cumplimiento constante. Esa regularidad es una gran fortaleza profesional. Felicitaciones."}, {"codigo": "59301", "nombre": "Jennifer Andrea Torres Figueroa", "def": 4.0, "nota": "Jennifer Andrea, tu proyecto de apps de pago fue sencillamente excelente, de los mejores del curso, y tu parcial estuvo muy bien. Precisamente por eso es tan lamentable que llegaras tarde al final y no expusieras: dejaste ir una nota brillante por falta de puntualidad. Tienes todo para destacar; que no vuelva a pasar."}, {"codigo": "59605", "nombre": "Carlos Andres Torres Sanjuan", "def": 4.0, "nota": "Carlos, tu rendimiento en parcial y proyecto fue bueno y parejo. El punto débil fue claro: llegar tarde a la sustentación final y no exponer. La puntualidad y el cumplimiento son parte de tu nota y de tu vida profesional. Corrige eso y tu nivel sube solo."}, {"codigo": "59806", "nombre": "Kelly Jine Useche Alzate", "def": 4.0, "nota": "Kely, buen semestre. Tu proyecto sobre arrendamiento estuvo bien trabajado y mantuviste constancia en las entregas. Para el siguiente paso, refuerza la teoría y anímate a profundizar. Vas por buen camino."}, {"codigo": "57058", "nombre": "Karla Valentina Serrato Triana", "def": 3.6, "nota": "Karla, tu parcial y tu proyecto muestran que tienes buen nivel. Lo que te pasó factura fue la falta de constancia: talleres sin entregar y una sustentación final que no completaste. El conocimiento lo tienes; falta compromiso sostenido, y eso se corrige con disciplina."}, {"codigo": "56705", "nombre": "Jeison Andres Lozano Hernandez", "def": 3.8, "nota": "Jeison, tu sustentación final (4.8) fue muy buena y muestra tu potencial. El problema está en los fundamentos: el parcial quedó muy bajo. Dedícale tiempo serio a la teoría y a la práctica base; con eso, tu buen manejo práctico se reflejará en toda la materia."}];
+
+// Secuencia de la broma (se muestran 2 o 3 pasos antes de la nota real)
+var FAILS=[
+ {emoji:"😳",big:"REPROBASTE",sub:"Lo sentimos... no alcanzaste la nota mínima para aprobar la materia.",btn:"Ver detalle →"},
+ {emoji:"🤔",big:"Mmm, déjame revisar",sub:"Volví a mirar el sistema y... nada, la nota sigue como PERDIDA.",btn:"¿En serio? Revisar otra vez"},
+ {emoji:"😬",big:"Última revisión...",sub:"Confirmadísimo. Aquí dice bien claro: PERDIDA.",btn:"Mostrar mi nota real"}
+];
+
+var current=null, step=0, totalFails=2;
+
+function buscar(){
+  var q=document.getElementById("q").value;
+  var err=document.getElementById("err");
+  err.classList.remove("show");
+  var cod=(q||"").replace(/\D/g,"");
+  if(!cod){err.textContent="Ingresa tu código de estudiante (solo números).";err.classList.add("show");return;}
+  var found=DATA.find(function(d){return d.codigo===cod;});
+  if(!found){err.textContent="No encontramos ese código. Revisa que esté bien escrito.";err.classList.add("show");return;}
+  current=found;
+  step=0;
+  totalFails=2+Math.floor(Math.random()*2); // 2 o 3
+  document.getElementById("n1").textContent=found.nombre;
+  showFail(0);
+  document.getElementById("screen1").classList.add("show");
+}
+
+function showFail(i){
+  var f=FAILS[i];
+  document.getElementById("f-emoji").textContent=f.emoji;
+  document.getElementById("f-big").textContent=f.big;
+  document.getElementById("f-sub").textContent=f.sub;
+  document.getElementById("reveal").textContent=(i>=totalFails-1)?"Mostrar mi nota real":f.btn;
+}
+
+function siguiente(){
+  step++;
+  if(step<totalFails){showFail(step);}
+  else{revelar();}
+}
+
+function revelar(){
+  document.getElementById("screen1").classList.remove("show");
+  document.getElementById("n2").textContent=current.nombre;
+  document.getElementById("grade").textContent=current.def.toFixed(1);
+  document.getElementById("nota").textContent=current.nota;
+  document.getElementById("screen2").classList.add("show");
+}
+function cerrar(){
+  document.getElementById("screen2").classList.remove("show");
+  document.getElementById("q").value="";
+  document.getElementById("q").focus();
+}
+
+document.getElementById("btn").onclick=buscar;
+document.getElementById("q").addEventListener("keydown",function(e){if(e.key==="Enter")buscar();});
+document.getElementById("reveal").onclick=siguiente;
+document.getElementById("close").onclick=cerrar;
+</script>
+</body>
+</html>
